@@ -3,11 +3,14 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Déclenche le workflow sur les pushs dans la branche "main"
+      - main # Trigger the workflow on pushes to the "main" branch
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    permissions: # Add this block to set permissions
+      contents: write # Grant write access to contents
 
     steps:
     - name: Checkout code
