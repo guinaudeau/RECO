@@ -1,5 +1,5 @@
 <template>
-  <h1>Liste des séries</h1>
+  <h1>Liste des séries déploier</h1>
   <form @submit.prevent="afficherSelectionnes">
     <input type="checkbox" v-model="afficherSelectionnes" />
     <label>Afficher les séries sélectionnées</label>
