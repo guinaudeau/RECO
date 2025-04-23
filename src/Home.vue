@@ -6,7 +6,7 @@
     <button type="submit">Afficher</button>
   </form>
   <form @submit.prevent="searchQuery">
-    <input type="text" v-model="rechercher" placeholder="Rechercher une série" />
+    <input type="text" v-model="rechercher" autocomplete="on" placeholder="Rechercher une série" />
     <button type="submit">Rechercher</button>
 </form>
     <select v-model="selected">
