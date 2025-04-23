@@ -15,16 +15,22 @@
         <option>sénario</option>
         <option>C</option>
     </select>
-  <table>
-    <tbody>
-        <td data-titre="séris" v-for="serie in series.filter(serie => !serie.deleted)" :key="serie.id" class="checkbox-wrapper-50">
+    <table>
+      <tbody>
+        <tr v-for="(group, groupIndex) in groupedSeries" :key="groupIndex">
+          <td
+            v-for="serie in group"
+            :key="serie.id"
+            data-titre="séris"
+            class="checkbox-wrapper-50"
+          >
             <p>{{ serie['TV Serie Name'] }}</p>
-            <input type="checkbox" v-model="serie.checked" class="plus-minus"/>
+            <input type="checkbox" v-model="serie.checked" class="plus-minus" />
             <button @click="modifySerie(serie)">plus d'information</button>
-        
-        </td>
-    </tbody>
-  </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
   <p>Nombre de séries : {{ series.length }}</p>
   <p>Nombre de séries cochées : {{ series.filter(serie => serie.checked).length }}</p>
@@ -35,7 +41,7 @@
   
 </template>
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, computed } from 'vue'
   import seriesData from './data/CharacteristiquesSeriesReco+.json'
   import infoSérie from './data/Series.json'
   const series = ref([])
@@ -46,7 +52,9 @@
       ...serie,
       id: index,
       checked: false,
-      supprimées: false
+      supprimées: false,
+      deleted: false,
+      modified: false
     }))
       seriesInfo.value = infoSérie.map((nom, description, image, index) => ({
           ...nom,
@@ -55,6 +63,17 @@
           id: index
       }))
   })
+
+  // Propriété calculée pour regrouper les séries par lot de 5
+  const groupedSeries = computed(() => {
+    const filteredSeries = series.value.filter(serie => !serie.deleted)
+    const groups = []
+    for (let i = 0; i < filteredSeries.length; i += 5) {
+      groups.push(filteredSeries.slice(i, i + 5))
+    }
+    return groups
+  })
+
   const searchQuery =() => {
       //ToDo
       series.value.filter(serie => serie['supprimées']=true)
