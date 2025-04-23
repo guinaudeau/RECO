@@ -21,11 +21,11 @@ window.addEventListener('hashchange', () => {
   currentPath.value = window.location.hash
 })
 const currentView = computed(() => {
-    HomeB=window.location.hash =="#/"
-    ResultatB=window.location.hash =="#/Resultat"
-    PuissanceB=window.location.hash =="#/SelectionPuissance"
-  return routes[currentPath.value.slice(1) || '/'] || NotFound
-})
+  HomeB = window.location.hash === "#/";
+  ResultatB = window.location.hash === "#/Resultat";
+  PuissanceB = window.location.hash === "#/SelectionPuissance";
+  return routes[currentPath.value.slice(1) || "/"] || NotFound;
+});
 
 
 </script>
