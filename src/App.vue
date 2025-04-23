@@ -169,4 +169,8 @@ h1{
     text-align: center;
     font-size: 2em;
   }
+  .fixed_footer img {
+    padding: 5px;
+    width: 150px;
+  }
 </style>
