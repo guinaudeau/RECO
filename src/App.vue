@@ -35,7 +35,8 @@ const currentView = computed(() => {
     <h1 v-if="ResultatB">Résultat</h1>
     <h1 v-else-if="PuissanceB">Puissance</h1>
     <h1 v-else-if="HomeB">Catalogue</h1>
-    <h1 v-else>Pas normal</h1>
+    <h1 v-else>Catalogue</h1>
+    
     <p>is dark: {{ isdark }}</p>
     <button @click="toggleDark()"> mode jour nuit</button>
     <nav>
