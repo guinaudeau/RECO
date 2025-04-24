@@ -52,8 +52,20 @@ const loadExcelData = async (filePath) => {
     const response = await fetch(filePath)
     const arrayBuffer = await response.arrayBuffer()
     const workbook = XLSX.read(arrayBuffer, { type: 'array' })
+
+    // Vérifiez si le fichier contient des feuilles
+    if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
+      throw new Error('Le fichier Excel ne contient aucune feuille.')
+    }
+
     const sheetName = workbook.SheetNames[0] // Utiliser la première feuille
     const sheet = workbook.Sheets[sheetName]
+
+    // Vérifiez si la feuille contient des données
+    if (!sheet) {
+      throw new Error('La feuille Excel est vide ou invalide.')
+    }
+
     series.value = XLSX.utils.sheet_to_json(sheet) // Convertir en tableau d'objets
     series.value = series.value.map((serie, index) => ({
       ...serie,
@@ -69,7 +81,7 @@ const loadExcelData = async (filePath) => {
 
 // Charger les données Excel au montage du composant
 onMounted(() => {
-  loadExcelData('./data/CharacteristiquesSeriesReco+.xlsx') // Chemin vers le fichier Excel
+  loadExcelData('/data/CharacteristiquesSeriesReco+.xlsx') // Chemin vers le fichier Excel
 })
 
 // Propriété calculée pour regrouper les séries par lot de 5
