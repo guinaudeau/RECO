@@ -41,69 +41,46 @@
   
 </template>
 <script setup>
-  import { ref, onMounted, computed } from 'vue'
-  import seriesData from './data/CharacteristiquesSeriesReco+.json'
-  import infoSérie from './data/Series.json'
-  const series = ref([])
-  const seriesInfo = ref([])
-  const rechercher = ref('')
-  onMounted(() => {
-    series.value = seriesData.map((serie, index) => ({
+import { ref, onMounted, computed } from 'vue'
+import * as XLSX from 'xlsx'
+
+const series = ref([])
+
+// Fonction pour charger les données depuis un fichier Excel
+const loadExcelData = async (filePath) => {
+  try {
+    const response = await fetch(filePath)
+    const arrayBuffer = await response.arrayBuffer()
+    const workbook = XLSX.read(arrayBuffer, { type: 'array' })
+    const sheetName = workbook.SheetNames[0] // Utiliser la première feuille
+    const sheet = workbook.Sheets[sheetName]
+    series.value = XLSX.utils.sheet_to_json(sheet) // Convertir en tableau d'objets
+    series.value = series.value.map((serie, index) => ({
       ...serie,
       id: index,
       checked: false,
-      supprimées: false,
       deleted: false,
       modified: false
     }))
-      seriesInfo.value = infoSérie.map((nom, description, image, index) => ({
-          ...nom,
-          ...description,
-          ...image,
-          id: index
-      }))
-  })
-
-  // Propriété calculée pour regrouper les séries par lot de 5
-  const groupedSeries = computed(() => {
-    const filteredSeries = series.value.filter(serie => !serie.deleted)
-    const groups = []
-    for (let i = 0; i < filteredSeries.length; i += 5) {
-      groups.push(filteredSeries.slice(i, i + 5))
-    }
-    return groups
-  })
-
-  const searchQuery =() => {
-      //ToDo
-      series.value.filter(serie => serie['supprimées']=true)
-      alert(series.value.filter(serie => serie['TV Serie Name'].toLowerCase().includes(rechercher.value.toLowerCase()))['supprimées']=false)
-      if (series.value.filter(serie => serie['TV Serie Name'].toLowerCase().includes('a'))!==undefined) {
-          alert(series.value.filter(serie => serie['TV Serie Name'].toLowerCase().includes(rechercher.value.toLowerCase())).map(serie => serie['TV Serie Name']).join(', '))
-          
-      } else {
-          alert('Aucune série trouvée')
-      }
-
+  } catch (error) {
+    console.error('Erreur lors du chargement du fichier Excel :', error)
   }
-  const modifySerie = (serie) => {
-      let i=0
-      while (serie[ 'TV Serie Name'] !== seriesInfo.value[i]['name']) {
-          i++
-      }
-      alert(seriesInfo.value[i]['description'])
-    
-    serie.modified = true
-  }
+}
 
-  const afficherSelectionnes = () => {
-    const selectedSeries = series.value.filter(serie => serie.checked)
-    if (selectedSeries.length > 0) {
-      alert('Séries sélectionnées : ' + selectedSeries.map(serie => serie['TV Serie Name']).join(', '))
-    } else {
-      alert('Aucune série sélectionnée')
-    }
+// Charger les données Excel au montage du composant
+onMounted(() => {
+  loadExcelData('./data/CharacteristiquesSeriesReco+.xlsx') // Chemin vers le fichier Excel
+})
+
+// Propriété calculée pour regrouper les séries par lot de 5
+const groupedSeries = computed(() => {
+  const filteredSeries = series.value.filter(serie => !serie.deleted)
+  const groups = []
+  for (let i = 0; i < filteredSeries.length; i += 5) {
+    groups.push(filteredSeries.slice(i, i + 5))
   }
+  return groups
+})
 </script>
 
 <style>
