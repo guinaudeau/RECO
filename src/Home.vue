@@ -81,7 +81,7 @@ const loadExcelData = async (filePath) => {
 
 // Charger les données Excel au montage du composant
 onMounted(() => {
-  loadExcelData('/data/CharacteristiquesSeriesReco+.xlsx') // Chemin vers le fichier Excel
+  loadExcelData('/data/CharacteristiquesSeriesReco+.xlsx') // Chemin relatif depuis la racine du site
 })
 
 // Propriété calculée pour regrouper les séries par lot de 5
