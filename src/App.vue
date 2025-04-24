@@ -36,7 +36,7 @@ const currentView = computed(() => {
     <h1 v-else-if="PuissanceB">Puissance</h1>
     <h1 v-else-if="HomeB">Catalogue</h1>
     <h1 v-else>Catalogue</h1>
-    
+
     <p>is dark: {{ isdark }}</p>
     <button @click="toggleDark()"> mode jour nuit</button>
     <nav>
@@ -113,6 +113,14 @@ nav button {
     box-shadow: 0 0 15px 3px white;
     @include transform(skewX(-20deg));
   }
+}
+html.dark button{
+  background:#443b3d;
+  color: aquamarine;
+}
+html.dark {
+  background:#111;
+  color: aquamarine;
 }
 html.dark nav button{
   color:aquamarine;
