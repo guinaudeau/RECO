@@ -6,7 +6,9 @@ import AboutReco from './AboutReco.vue'
 import NotFound from './NotFound.vue'
 import SelectionPuissance from './SelectionPuissance.vue'
 import Resultat from './Result.vue'
-
+import {useDark, useToggle} from '@vueuse/core'
+const isdark = useDark()
+const toggleDark = useToggle(isdark)
 const routes = {
   '/': Home,
   '/aboutReco': AboutReco,
@@ -34,6 +36,8 @@ const currentView = computed(() => {
     <h1 v-else-if="PuissanceB">Puissance</h1>
     <h1 v-else-if="HomeB">Catalogue</h1>
     <h1 v-else>Pas normal</h1>
+    <p>is dark: {{ isdark }}</p>
+    <button @click="toggleDark()"> mode jour nuit</button>
     <nav>
         <a v-if="!HomeB" href="#/"><button v-if="!HomeB"  id="Home">Catalogue </button></a>
         <a v-else href="#/SelectionPuissance"><button v-if="HomeB" id="Home">puissance </button></a>|
@@ -109,7 +113,16 @@ nav button {
     @include transform(skewX(-20deg));
   }
 }
+html.dark nav button{
+  color:aquamarine;
+  background: #111;
 
+  &:hover {
+    color: black;
+    box-shadow: 0 0 30px 0 transparentize(#00c7ec, 0.5);
+    background-color:#00c7ec;
+  }
+}
 @include keyframes(shine) {
   from {
     opacity: 0;
@@ -140,6 +153,10 @@ h1{
     margin-left: 0;
     margin-right: 0;
 
+}
+html.dark h1{
+  background-color: #443b3d;
+  color : aquamarine;
 }
 .fixed_footer{
   width: 100%;
