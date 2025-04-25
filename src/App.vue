@@ -35,13 +35,16 @@ const currentView = computed(() => {
 
 </script>
 <template>
+  <div class="top">
+    <img src="CNRS.png" alt="Logo du CNRS" style="width: 100px; height: 100px; position: absolute; top: 10px; left: 10px;" />
     <h1 v-if="ResultatB">Résultat</h1>
     <h1 v-else-if="PuissanceB">Puissance</h1>
     <h1 v-else-if="HomeB">Catalogue</h1>
     <h1 v-else>Catalogue</h1>
-
+  
     <p>is dark: {{ isdark }}</p>
     <button @click="toggleDark()"> mode jour nuit</button>
+  </div>
     <nav>
         <a v-if="!HomeB" href="#/"><button v-if="!HomeB"  id="Home">Catalogue </button></a>
         <a v-else href="#/SelectionPuissance"><button v-if="HomeB" id="Home">puissance </button></a>|
@@ -150,38 +153,44 @@ html.dark nav button{
   }
 }
 
-  html{
+  html, body{
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    font-family:'Times New Roman', Times, serif;
+    background-color: #fae7e7;
     color: #34495e;
-  }
-  h1{
-    background-color: #aa9d9f;
-    font-size: 3em;
-    text-align: center;
-    text-decoration: underline;
-    font-variant: small-caps;
-    margin: 0;
-  }
-
-  html.dark h1{
-    background-color: #443b3d;
-    color : aquamarine;
-  }
-  body{
-    margin: 0;
-    padding: 0;
-    font-family: 'Special Gothic Expanded One', 'Times New Roman', Times, serif;
-    background-color: #f5f5f5;
-    color: #34495e;
+    box-sizing: border-box;
   }
   html.dark body{
     background-color: #111;
     color: aquamarine;
+  }
+  h1{
+    text-align: center;
+    text-decoration: underline;
+    font-variant: small-caps;
+    margin: 0;
+    padding:0;
+    width: 100%;
+  }
+
+  div.top{
+    text-align: center;
+    text-decoration: underline;
+    font-variant: small-caps;
+    margin: 0;
+    padding:0;
+    width: 100%;
+    background-color: #d0c8ca;
+    margin-top:0;
+  }
+
+  html.dark div.top{
+    background-color: #443b3d;
+    color : aquamarine;
   }
   h2{
     background-color: #a7a7be;
@@ -205,12 +214,15 @@ html.dark nav button{
     font-weight: 300;
   }
   nav{
-    background-color: #605252;
+    background-color: #9c9cc9;
     margin-right: 0%;
     margin-left: 0%;
     display: -ms-flex;
     display: -webkit-flex; 
     display: flex;
+  }
+  html.dark nav{
+    background-color: rgb(91, 95, 104);
   }
   nav a{
     flex:1;
