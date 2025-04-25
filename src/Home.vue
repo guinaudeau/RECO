@@ -98,7 +98,7 @@ const groupedSeries = computed(() => {
 <style>
   body {
     font-family: Arial, sans-serif;
-    background-color: #69c8ff;
+    background: #e7e7ff;
     color: #34495e;
     margin: 0;
   }
@@ -107,6 +107,7 @@ const groupedSeries = computed(() => {
     background-color: #111;
     color:aquamarine;
     margin: 0;
+    
   }
   input[type="range"] {
     font-size: 1.5rem;
