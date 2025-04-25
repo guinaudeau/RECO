@@ -78,6 +78,25 @@ const loadExcelData = async (filePath) => {
     console.error('Erreur lors du chargement du fichier Excel :', error)
   }
 }
+   const searchQuery =() => {
+       //ToDo
+       series.value.filter(serie => serie['supprimées']=true)
+       //alert(series.value.filter(serie => serie['TV Serie Name'].toLowerCase().includes(rechercher.value.toLowerCase()))['supprimées']=false)
+       if (series.value.filter(serie => serie['TV Serie Name'].toLowerCase().includes('a'))!==undefined) {
+           //alert(series.value.filter(serie => serie['TV Serie Name'].toLowerCase().includes(rechercher.value.toLowerCase())).map(serie => serie['TV Serie Name']).join(', '))
+           
+       } else {
+           alert('Aucune série trouvée')
+       }
+}
+const afficherSelectionnes = () => {
+     const selectedSeries = series.value.filter(serie => serie.checked)
+     if (selectedSeries.length > 0) {
+       alert('Séries sélectionnées : ' + selectedSeries.map(serie => serie['TV Serie Name']).join(', '))
+     } else {
+       alert('Aucune série sélectionnée')
+     }
+    }
 
 // Charger les données Excel au montage du composant
 onMounted(() => {
