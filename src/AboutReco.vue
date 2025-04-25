@@ -10,17 +10,17 @@
 </script>
 <style>
     div.texte{
-        background-color: #fff;
+        background-color:rgb(255, 255, 191);
         margin: 1em;
+        margin-left: 3em;
+        margin-right: 3em;
+        font-size: 20px;
     }
     div.texte h3{
         text-align: left;
+        font-variant: small-caps;
         margin-left: 3em;
         text-decoration: underline;
-        text-shadow: #333;
-    }
-    div.texte h3{
-        text-shadow: #aaa;
     }
     html.dark div.texte{
         background-color: #333;

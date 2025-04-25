@@ -150,27 +150,49 @@ html.dark nav button{
   }
 }
 
-html{
+  html{
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
-}
-h1{
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #34495e;
+  }
+  h1{
     background-color: #aa9d9f;
     font-size: 3em;
     text-align: center;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
+    text-decoration: underline;
+    font-variant: small-caps;
+    margin: 0;
+  }
 
-}
-html.dark h1{
-  background-color: #443b3d;
-  color : aquamarine;
-}
-.fixed_footer{
+  html.dark h1{
+    background-color: #443b3d;
+    color : aquamarine;
+  }
+  body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Special Gothic Expanded One', 'Times New Roman', Times, serif;
+    background-color: #f5f5f5;
+    color: #34495e;
+  }
+  html.dark body{
+    background-color: #111;
+    color: aquamarine;
+  }
+  h2{
+    background-color: #a7a7be;
+    color:#000;
+    text-align: center;
+    text-decoration: underline;
+  }
+  html.dark h2{
+    background-color: #1E2235;
+  }
+  .fixed_footer{
   width: 100%;
   height: 350px;
   background: #111;
@@ -181,9 +203,6 @@ html.dark h1{
     column-gap: 50px;
     font-size: 1em;
     font-weight: 300;
-  }
-  h2{
-    color:darkgreen;
   }
   nav{
     background-color: #605252;

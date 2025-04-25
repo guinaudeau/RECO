@@ -1,5 +1,5 @@
 <template>
-  <h1>Liste des séries</h1>
+  <h2>Liste des séries</h2>
   <form @submit.prevent="afficherSelectionnes">
     <input type="checkbox" v-model="afficherSelectionnes" />
     <label>Afficher les séries sélectionnées</label>
@@ -45,7 +45,8 @@ import { ref, onMounted, computed } from 'vue'
 import * as XLSX from 'xlsx'
 
 const series = ref([])
-
+let rechercher = ref('')
+const selected = ref('')
 // Fonction pour charger les données depuis un fichier Excel
 const loadExcelData = async (filePath) => {
   try {
@@ -79,15 +80,12 @@ const loadExcelData = async (filePath) => {
   }
 }
    const searchQuery =() => {
-       //ToDo
-       series.value.filter(serie => serie['supprimées']=true)
-       //alert(series.value.filter(serie => serie['TV Serie Name'].toLowerCase().includes(rechercher.value.toLowerCase()))['supprimées']=false)
-       if (series.value.filter(serie => serie['TV Serie Name'].toLowerCase().includes('a'))!==undefined) {
-           //alert(series.value.filter(serie => serie['TV Serie Name'].toLowerCase().includes(rechercher.value.toLowerCase())).map(serie => serie['TV Serie Name']).join(', '))
-           
-       } else {
-           alert('Aucune série trouvée')
-       }
+    const filteredSeries = series.value.filter(serie => {
+      return Object.values(serie).some(value => {
+        return String(value).toLowerCase().includes(rechercher.value.toLowerCase())
+      })
+    })
+    series.value = filteredSeries
 }
 const afficherSelectionnes = () => {
      const selectedSeries = series.value.filter(serie => serie.checked)
@@ -115,19 +113,6 @@ const groupedSeries = computed(() => {
 </script>
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #e7e7ff;
-    color: #34495e;
-    margin: 0;
-  }
-  html.dark body {
-    font-family: Arial, sans-serif;
-    background-color: #111;
-    color:aquamarine;
-    margin: 0;
-    
-  }
   input[type="range"] {
     font-size: 1.5rem;
     width: 12.5em;
