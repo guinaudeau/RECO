@@ -13,12 +13,14 @@ const routes = {
   '/': Home,
   '/aboutReco': AboutReco,
   '/SelectionPuissance': SelectionPuissance,
-  '/Resultat': Resultat
+  '/Resultat': Resultat,
+  '/AboutReco': AboutReco
 }
 const currentPath = ref(window.location.hash)
 let HomeB=true
 let ResultatB=false
 let PuissanceB=false
+let AboutRecoB= false
 window.addEventListener('hashchange', () => {
   currentPath.value = window.location.hash
 })
@@ -26,6 +28,7 @@ const currentView = computed(() => {
   HomeB = window.location.hash === "#/";
   ResultatB = window.location.hash === "#/Resultat";
   PuissanceB = window.location.hash === "#/SelectionPuissance";
+  AboutRecoB = window.location.hash === "#/AboutReco";
   return routes[currentPath.value.slice(1) || "/"] || NotFound;
 });
 
@@ -44,7 +47,7 @@ const currentView = computed(() => {
         <a v-else href="#/SelectionPuissance"><button v-if="HomeB" id="Home">puissance </button></a>|
         <a v-if="!ResultatB" href="#/Resultat"><button v-if="!ResultatB"  id="Home">Résultat </button></a>
         <a v-else href="#/SelectionPuissance"><button v-if="ResultatB" id="Home">puissance </button></a>|
-        <a href="#/non-existent-path" id="Broken"><button id="Home">Broken </button></a>
+        <a v-if="!AboutRecoB" href="#/AboutReco" id="Home"><button id="Home">About Reco </button></a>
 
     </nav>
     <body>
