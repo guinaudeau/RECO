@@ -201,6 +201,7 @@ html.dark nav button{
   }
   html.dark h2{
     background-color: #1E2235;
+    color: aquamarine;
   }
   .fixed_footer{
   width: 100%;
