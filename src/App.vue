@@ -36,14 +36,14 @@ const currentView = computed(() => {
 </script>
 <template>
   <div class="top">
-    <img src="CNRS.png" alt="Logo du CNRS" style="width: 100px; height: 100px; position: absolute; top: 10px; left: 10px;" />
-    <h1 v-if="ResultatB">Résultat</h1>
-    <h1 v-else-if="PuissanceB">Puissance</h1>
-    <h1 v-else-if="HomeB">Catalogue</h1>
-    <h1 v-else>Catalogue</h1>
-  
-    <p>is dark: {{ isdark }}</p>
-    <button @click="toggleDark()"> mode jour nuit</button>
+    <div class="title-container">
+      <img src="CNRS.png" alt="Logo du CNRS" style="max-width: 100px; max-height: 100px; top: 10px; left: 10px;" />
+      <h1 v-if="ResultatB">Résultat</h1>
+      <h1 v-else-if="PuissanceB">Puissance</h1>
+      <h1 v-else-if="HomeB">Catalogue</h1>
+      <h1 v-else>Catalogue</h1>
+      <button @click="toggleDark()" class="dark-mode-toggle">Mode Jour/Nuit</button>
+    </div>
   </div>
     <nav>
         <a v-if="!HomeB" href="#/"><button v-if="!HomeB"  id="Home">Catalogue </button></a>
@@ -183,13 +183,14 @@ html.dark nav button{
     font-variant: small-caps;
     margin: 0;
     padding:0;
+    font-size:30px;
     width: 100%;
     background-color: #d0c8ca;
     margin-top:0;
   }
 
   html.dark div.top{
-    background-color: #443b3d;
+    background-color: #111;
     color : aquamarine;
   }
   h2{
@@ -233,4 +234,42 @@ html.dark nav button{
     padding: 5px;
     width: 150px;
   }
+
+  .title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* Espacement entre le titre et le bouton */
+}
+
+.dark-mode-toggle {
+  padding: 10px 20px;
+  font-size: 1em;
+  border: 1px solid #00c7ec;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #00c7ec;
+  cursor: pointer;
+  
+  transition: all 0.3s ease;
+}
+div.dark-mode-toggle button{
+  text-decoration: none;
+}
+
+
+.dark-mode-toggle:hover {
+  background-color: #00c7ec;
+  color: #fff;
+}
+
+html.dark .dark-mode-toggle {
+  background-color: #443b3d;
+  color: aquamarine;
+}
+
+html.dark .dark-mode-toggle:hover {
+  background-color: aquamarine;
+  color: #443b3d;
+}
 </style>
