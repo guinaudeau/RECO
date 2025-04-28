@@ -92,7 +92,7 @@ nav button {
     box-shadow: 0 0 30px 0 transparentize(#00c7ec, 0.5);
     background-color:#00c7ec;
 
-    @include transition(all 0.2s ease-out);
+    @include transition(all 0.5s ease-out);
 
     &:before {
       @include animation(shine 0.5s 0s linear);
@@ -174,6 +174,7 @@ html.dark nav button{
     margin: 0;
     padding:0;
     width: 100%;
+    text-anchor: middle;
   }
 
   div.top{
@@ -182,7 +183,7 @@ html.dark nav button{
     font-variant: small-caps;
     margin: 0;
     padding:0;
-    font-size:30px;
+    font-size:40px;
     width: 100%;
     background-color: #fff;
     border-bottom: 0.5px solid #34495e;
@@ -199,6 +200,9 @@ html.dark nav button{
     color:#000;
     text-align: center;
     text-decoration: underline;
+    margin:0;
+    font-size: 30px;
+    text-anchor: middle;
   }
   html.dark h2{
     background-color: #1E2235;
@@ -259,7 +263,7 @@ html.dark nav button{
   
   transition: all 0.3s ease;
 }
-div.dark-mode-toggle button{
+.dark-mode-toggle button{
   text-decoration: none;
 }
 
