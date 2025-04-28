@@ -182,7 +182,8 @@ html.dark nav button{
     padding:0;
     font-size:30px;
     width: 100%;
-    background-color: #d0c8ca;
+    background-color: #fff;
+    border-bottom: 0.5px solid #34495e;
     margin-top:0;
   }
 
@@ -191,7 +192,7 @@ html.dark nav button{
     color : rgb(127, 150, 255);
   }
   h2{
-    background-color: #a7a7be;
+    background-color: #fae7e7;
     color:#000;
     text-align: center;
     text-decoration: underline;
@@ -213,7 +214,7 @@ html.dark nav button{
     font-weight: 300;
   }
   nav{
-    background-color: #9c9cc9;
+    background-color: #fff;
     margin-right: 0%;
     margin-left: 0%;
     display: -ms-flex;
