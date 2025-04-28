@@ -18,7 +18,7 @@ const routes = {
 }
 const currentPath = ref(window.location.hash)
 let HomeB=true
-let ResultatB=false
+//let ResultatB=false
 let PuissanceB=false
 let AboutRecoB= false
 window.addEventListener('hashchange', () => {
@@ -26,7 +26,7 @@ window.addEventListener('hashchange', () => {
 })
 const currentView = computed(() => {
   HomeB = window.location.hash === "#/";
-  ResultatB = window.location.hash === "#/Resultat";
+  //ResultatB = window.location.hash === "#/Resultat";
   PuissanceB = window.location.hash === "#/SelectionPuissance";
   AboutRecoB = window.location.hash === "#/AboutReco";
   return routes[currentPath.value.slice(1) || "/"] || NotFound;
@@ -43,11 +43,11 @@ const currentView = computed(() => {
     </div>
   </div>
     <nav>
-        <a v-if="!HomeB" href="#/"><button v-if="!HomeB"  id="Home">Catalogue </button></a>
-        <a v-else href="#/SelectionPuissance"><button v-if="HomeB" id="Home">puissance </button></a>|
-        <a v-if="!ResultatB & PuissanceB" href="#/Resultat"><button v-if="!ResultatB"  id="Home">Résultat </button></a>
-        <a v-else href="#/SelectionPuissance"><button v-if="ResultatB" id="Home">puissance </button></a>|
-        <a v-if="!AboutRecoB" href="#/AboutReco" id="Home"><button id="Home">About Reco </button></a>
+        <a v-if="!HomeB" href="#/"><button v-if="!HomeB">Catalogue </button></a>
+        <a v-else href="#/SelectionPuissance"><button v-if="HomeB">puissance </button></a>|
+        <a v-if="HomeB | PuissanceB" href="#/Resultat"><button>Résultat </button></a>
+        <a v-else href="#/SelectionPuissance"><button>puissance </button></a>|
+        <a v-if="!AboutRecoB" href="#/AboutReco" id="Home"><button >About Reco </button></a>
 
     </nav>
     <body>
@@ -58,9 +58,9 @@ const currentView = computed(() => {
   <footer class="fixed_footer">
   <div class="content">
     <p>projet réalisé en partenaria avec :</p>
-    <a href="https://www.cnrs.fr/fr"><img src="CNRS.png"/></a>
-    <a href="https://isjps.pantheonsorbonne.fr/"><img src="ISJPS.png"/></a>
-    <a href="https://jfli.cnrs.fr/" ><img src="logo-jfli.png"/></a>
+    <a href="https://www.cnrs.fr/fr"><img src="CNRS.png" alt="logo du CNRS"/></a>
+    <a href="https://isjps.pantheonsorbonne.fr/"><img src="ISJPS.png" alt="logo du ISJPS"/></a>
+    <a href="https://jfli.cnrs.fr/" ><img src="logo-jfli.png" alt="logo du JFLI"/></a>
   </div>
 </footer>
     

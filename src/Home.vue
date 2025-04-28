@@ -37,7 +37,6 @@
   <p>Nombre de séries non cochées : {{ series.filter(serie => !serie.checked).length }}</p>
   <p>Nombre de séries modifiées : {{ series.filter(serie => serie.modified).length }}</p>
   <input type="range" min="0" max="100" value="40" step="5" />
-  <h2> teste de proter</h2>
   
 </template>
 <script setup>
