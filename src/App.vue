@@ -164,7 +164,7 @@ html.dark nav button{
     box-sizing: border-box;
   }
   html.dark body{
-    background-color: #111;
+    background-color: #000;
     color: rgb(127, 150, 255);
   }
   h1{
@@ -191,7 +191,7 @@ html.dark nav button{
   }
 
   html.dark div.top{
-    background-color: #111;
+    background-color: #000;
     color : rgb(127, 150, 255);
   }
   h2{
@@ -223,9 +223,11 @@ html.dark nav button{
     display: -ms-flex;
     display: -webkit-flex; 
     display: flex;
+    border-bottom:1px solid #111 ;
   }
   html.dark nav{
-    background-color: rgb(91, 95, 104);
+    background-color: #000;
+    border-bottom: #00c7ec;
   }
   nav a{
     flex:1;
