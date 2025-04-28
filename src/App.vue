@@ -38,17 +38,14 @@ const currentView = computed(() => {
   <div class="top">
     <div class="title-container">
       <a href="https://www.cnrs.fr/fr"><img src="CNRS.png" alt="Logo du CNRS" style="max-width: 100px; max-height: 100px; top: 10px; left: 10px;" /></a>
-      <h1 v-if="ResultatB">Résultat</h1>
-      <h1 v-else-if="PuissanceB">Puissance</h1>
-      <h1 v-else-if="HomeB">Catalogue</h1>
-      <h1 v-else>Catalogue</h1>
+      <h1>RECO+</h1>
       <button @click="toggleDark()" class="dark-mode-toggle">Mode Jour/Nuit</button>
     </div>
   </div>
     <nav>
         <a v-if="!HomeB" href="#/"><button v-if="!HomeB"  id="Home">Catalogue </button></a>
         <a v-else href="#/SelectionPuissance"><button v-if="HomeB" id="Home">puissance </button></a>|
-        <a v-if="!ResultatB" href="#/Resultat"><button v-if="!ResultatB"  id="Home">Résultat </button></a>
+        <a v-if="!ResultatB & PuissanceB" href="#/Resultat"><button v-if="!ResultatB"  id="Home">Résultat </button></a>
         <a v-else href="#/SelectionPuissance"><button v-if="ResultatB" id="Home">puissance </button></a>|
         <a v-if="!AboutRecoB" href="#/AboutReco" id="Home"><button id="Home">About Reco </button></a>
 
@@ -60,10 +57,10 @@ const currentView = computed(() => {
     </body>
   <footer class="fixed_footer">
   <div class="content">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis ducimus nemo quo totam neque quis soluta nisi obcaecati aliquam saepe dicta adipisci blanditiis quaerat earum laboriosam accusamus nesciunt! Saepe ex maxime enim asperiores nisi. Obcaecati nostrum nobis laudantium aliquam commodi veniam magni similique ullam quis pariatur voluptatem harum id error.</p>
+    <p>projet réalisé en partenaria avec :</p>
     <a href="https://www.cnrs.fr/fr"><img src="CNRS.png"/></a>
     <a href="https://isjps.pantheonsorbonne.fr/"><img src="ISJPS.png"/></a>
-    <a href="https://jfli.cnrs.fr/"><img src="logo-jfli.png"/></a>
+    <a href="https://jfli.cnrs.fr/" ><img src="logo-jfli.png"/></a>
   </div>
 </footer>
     
@@ -234,6 +231,8 @@ html.dark nav button{
   .fixed_footer img {
     padding: 5px;
     width: 150px;
+    align-items: center;
+    justify-content: center;
   }
 
   .title-container {

@@ -1,5 +1,5 @@
 <template>
-    <h1> test</h1>
+    <h2> personalisation des critères</h2>
     <ul>
         <li>couleur</li>
         <input type="range" id="couleur" min="0" max="100" value="40" step="5" />
