@@ -9,12 +9,6 @@
     <input type="text" v-model="rechercher" autocomplete="on" placeholder="Rechercher une série" />
     <button type="submit">Rechercher</button>
 </form>
-    <select v-model="selected">
-        <option disabled value="">Please select one</option>
-        <option>couleur</option>
-        <option>sénario</option>
-        <option>C</option>
-    </select>
     <table>
       <tbody>
         <tr v-for="(group, groupIndex) in groupedSeries" :key="groupIndex">

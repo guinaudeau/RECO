@@ -1,5 +1,5 @@
 <script setup>
-import { selectedSeries } from './store.js'
+import { selectedSeries, sliders } from './store.js'
 </script>
 
 <template>
@@ -10,4 +10,11 @@ import { selectedSeries } from './store.js'
     </li>
   </ul>
   <p v-if="selectedSeries.length === 0">Aucune série sélectionnée.</p>
+
+  <h3>Valeurs des sliders :</h3>
+  <ul>
+    <li>Couleur : {{ sliders.couleur }}</li>
+    <li>Scénario : {{ sliders.scenario }}</li>
+    <li>Exemple : {{ sliders.exemple }}</li>
+  </ul>
 </template>
