@@ -36,7 +36,6 @@
   <p>Nombre de séries cochées : {{ series.filter(serie => serie.checked).length }}</p>
   <p>Nombre de séries non cochées : {{ series.filter(serie => !serie.checked).length }}</p>
   <p>Nombre de séries modifiées : {{ series.filter(serie => serie.modified).length }}</p>
-  <input type="range" min="0" max="100" value="40" step="5" />
   
 </template>
 <script setup>
@@ -112,23 +111,8 @@ const groupedSeries = computed(() => {
 </script>
 
 <style>
-  input[type="range"] {
-    font-size: 1.5rem;
-    width: 12.5em;
-  }
   tbody{
     text-align: center;
-  }
-
-  input[type="range"] {
-    appearance: none;
-    color: #ef233c;
-    --thumb-height: 1.125em;
-    --track-height: 0.125em;
-    --track-color: rgba(0, 0, 0, 0.2);
-    --brightness-hover: 180%;
-    --brightness-down: 80%;
-    --clip-edges: 0.125em;
   }
   form {
     margin-bottom: 20px;
