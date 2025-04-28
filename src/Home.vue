@@ -41,6 +41,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import * as XLSX from 'xlsx'
+import { selectedSeries } from './store.js'
 
 const series = ref([])
 let rechercher = ref('')
@@ -86,13 +87,13 @@ const loadExcelData = async (filePath) => {
     series.value = filteredSeries
 }
 const afficherSelectionnes = () => {
-     const selectedSeries = series.value.filter(serie => serie.checked)
-     if (selectedSeries.length > 0) {
-       alert('Séries sélectionnées : ' + selectedSeries.map(serie => serie['TV Serie Name']).join(', '))
-     } else {
-       alert('Aucune série sélectionnée')
-     }
-    }
+  selectedSeries.value = series.value.filter(serie => serie.checked) // Met à jour le store
+  if (selectedSeries.value.length > 0) {
+    alert('Séries sélectionnées : ' + selectedSeries.value.map(serie => serie['TV Serie Name']).join(', '))
+  } else {
+    alert('Aucune série sélectionnée')
+  }
+}
 
 // Charger les données Excel au montage du composant
 onMounted(() => {
