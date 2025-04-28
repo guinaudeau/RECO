@@ -44,9 +44,9 @@ const currentView = computed(() => {
   </div>
     <nav>
         <a v-if="!HomeB" href="#/"><button v-if="!HomeB">Catalogue </button></a>
-        <a v-else href="#/SelectionPuissance"><button v-if="HomeB">puissance </button></a>|
+        <a v-else href="#/SelectionPuissance"><button v-if="HomeB">puissance </button></a>
         <a v-if="HomeB | PuissanceB" href="#/Resultat"><button>Résultat </button></a>
-        <a v-else href="#/SelectionPuissance"><button>puissance </button></a>|
+        <a v-else href="#/SelectionPuissance"><button>puissance </button></a>
         <a v-if="!AboutRecoB" href="#/AboutReco" id="Home"><button >About Reco </button></a>
 
     </nav>
@@ -72,7 +72,9 @@ nav button {
   font-family: 'Special Gothic Expanded One', 'Times New Roman', Times, serif;
   font-weight: auto;
   font-size: auto;
-
+  height: 100%;
+  width: 100%;
+  size:100%;
   display: inline-block;
   position: relative;
   text-align: center;
@@ -185,6 +187,7 @@ html.dark nav button{
     background-color: #fff;
     border-bottom: 0.5px solid #34495e;
     margin-top:0;
+    margin-left: 5px;
   }
 
   html.dark div.top{
