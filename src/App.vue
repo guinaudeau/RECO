@@ -37,7 +37,7 @@ const currentView = computed(() => {
 <template>
   <div class="top">
     <div class="title-container">
-      <img src="CNRS.png" alt="Logo du CNRS" style="max-width: 100px; max-height: 100px; top: 10px; left: 10px;" />
+      <a href="https://www.cnrs.fr/fr"><img src="CNRS.png" alt="Logo du CNRS" style="max-width: 100px; max-height: 100px; top: 10px; left: 10px;" /></a>
       <h1 v-if="ResultatB">Résultat</h1>
       <h1 v-else-if="PuissanceB">Puissance</h1>
       <h1 v-else-if="HomeB">Catalogue</h1>
@@ -61,9 +61,9 @@ const currentView = computed(() => {
   <footer class="fixed_footer">
   <div class="content">
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis ducimus nemo quo totam neque quis soluta nisi obcaecati aliquam saepe dicta adipisci blanditiis quaerat earum laboriosam accusamus nesciunt! Saepe ex maxime enim asperiores nisi. Obcaecati nostrum nobis laudantium aliquam commodi veniam magni similique ullam quis pariatur voluptatem harum id error.</p>
-    <img src="CNRS.png"/>
-    <img src="ISJPS.png"/>
-    <img src="logo-jfli.png"/>
+    <a href="https://www.cnrs.fr/fr"><img src="CNRS.png"/></a>
+    <a href="https://isjps.pantheonsorbonne.fr/"><img src="ISJPS.png"/></a>
+    <a href="https://jfli.cnrs.fr/"><img src="logo-jfli.png"/></a>
   </div>
 </footer>
     
@@ -122,14 +122,14 @@ nav button {
 }
 html.dark button{
   background:#443b3d;
-  color: aquamarine;
+  color: rgb(127, 150, 255);
 }
 html.dark {
   background:#111;
-  color: aquamarine;
+  color: rgb(127, 150, 255);
 }
 html.dark nav button{
-  color:aquamarine;
+  color:rgb(127, 150, 255);
   background: #111;
 
   &:hover {
@@ -166,7 +166,7 @@ html.dark nav button{
   }
   html.dark body{
     background-color: #111;
-    color: aquamarine;
+    color: rgb(127, 150, 255);
   }
   h1{
     text-align: center;
@@ -191,7 +191,7 @@ html.dark nav button{
 
   html.dark div.top{
     background-color: #111;
-    color : aquamarine;
+    color : rgb(127, 150, 255);
   }
   h2{
     background-color: #a7a7be;
@@ -201,7 +201,7 @@ html.dark nav button{
   }
   html.dark h2{
     background-color: #1E2235;
-    color: aquamarine;
+    color: rgb(127, 150, 255);
   }
   .fixed_footer{
   width: 100%;
@@ -266,11 +266,11 @@ div.dark-mode-toggle button{
 
 html.dark .dark-mode-toggle {
   background-color: #443b3d;
-  color: aquamarine;
+  color: rgb(127, 150, 255);
 }
 
 html.dark .dark-mode-toggle:hover {
-  background-color: aquamarine;
+  background-color: rgb(127, 150, 255);
   color: #443b3d;
 }
 </style>
