@@ -90,7 +90,7 @@ const afficherSelectionnes = () => {
 
 // Charger les données Excel au montage du composant
 onMounted(() => {
-  loadExcelData('/RECO/data/CharacteristiquesSeriesReco.xlsx')
+  loadExcelData('/RECO/data/characteristics.csv')
 })
 
 // Propriété calculée pour regrouper les séries par lot de 5
