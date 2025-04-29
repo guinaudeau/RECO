@@ -64,10 +64,17 @@ function calcul_similarite(serie_1, serie_2, df, features) {
 
 // Exemple d'utilisation
 const features = ['feature1', 'feature2', 'feature3']
-let similarity = null
+const similarity = ref(null)
+
 onMounted(() => {
-  similarity = calcul_similarite('Serie 1', 'Serie 2', df.value, features)
-  console.log('Similarité cosinus entre Serie 1 et Serie 2 :', similarity)
+  if (selectedSeries.value.length >= 2) {
+    const serie1 = selectedSeries.value[0]['TV Serie Name']
+    const serie2 = selectedSeries.value[1]['TV Serie Name']
+    similarity.value = calcul_similarite(serie1, serie2, df.value, features)
+    console.log(`Similarité cosinus entre "${serie1}" et "${serie2}" :`, similarity.value)
+  } else {
+    console.warn('Moins de deux séries sélectionnées pour calculer la similarité.')
+  }
 })
 </script>
 
@@ -80,12 +87,17 @@ onMounted(() => {
   </ul>
   <p v-if="selectedSeries.length === 0">Aucune série sélectionnée.</p>
 
-<h3>Valeurs des sliders :</h3>
+  <h3>Valeurs des sliders :</h3>
   <ul>
     <li>Couleur : {{ sliders.couleur }}</li>
     <li>Scénario : {{ sliders.scenario }}</li>
     <li>Exemple : {{ sliders.exemple }}</li>
   </ul>
   <h3>Exemple de calcul de similarité :</h3>
-  <p>Similarité cosinus entre "Serie 1" et "Serie 2" : {{ similarity }}</p>
+  <p v-if="similarity !== null">
+    Similarité cosinus entre "{{ selectedSeries[0]?.['TV Serie Name'] }}" et "{{ selectedSeries[1]?.['TV Serie Name'] }}" : {{ similarity }}
+  </p>
+  <p v-else>
+    Impossible de calculer la similarité (moins de deux séries sélectionnées).
+  </p>
 </template>

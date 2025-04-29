@@ -39,6 +39,7 @@ import { selectedSeries } from './store.js'
 
 const series = ref([])
 let rechercher = ref('')
+
 // Fonction pour charger les données depuis un fichier Excel
 const loadExcelData = async (filePath) => {
   try {
@@ -46,21 +47,18 @@ const loadExcelData = async (filePath) => {
     const arrayBuffer = await response.arrayBuffer()
     const workbook = XLSX.read(arrayBuffer, { type: 'array' })
 
-    // Vérifiez si le fichier contient des feuilles
     if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
       throw new Error('Le fichier Excel ne contient aucune feuille.')
     }
 
-    const sheetName = workbook.SheetNames[0] // Utiliser la première feuille
+    const sheetName = workbook.SheetNames[0]
     const sheet = workbook.Sheets[sheetName]
 
-    // Vérifiez si la feuille contient des données
     if (!sheet) {
       throw new Error('La feuille Excel est vide ou invalide.')
     }
 
-    series.value = XLSX.utils.sheet_to_json(sheet) // Convertir en tableau d'objets
-    series.value = series.value.map((serie, index) => ({
+    series.value = XLSX.utils.sheet_to_json(sheet).map((serie, index) => ({
       ...serie,
       id: index,
       checked: false,
@@ -71,14 +69,18 @@ const loadExcelData = async (filePath) => {
     console.error('Erreur lors du chargement du fichier Excel :', error)
   }
 }
-   const searchQuery =() => {
-    const filteredSeries = series.value.filter(serie => {
-      return Object.values(serie).some(value => {
-        return String(value).toLowerCase().includes(rechercher.value.toLowerCase())
-      })
+
+// Fonction pour rechercher une série
+const searchQuery = () => {
+  const filteredSeries = series.value.filter(serie => {
+    return Object.values(serie).some(value => {
+      return String(value).toLowerCase().includes(rechercher.value.toLowerCase())
     })
-    series.value = filteredSeries
+  })
+  series.value = filteredSeries
 }
+
+// Fonction pour mettre à jour les séries sélectionnées dans le store
 const afficherSelectionnes = () => {
   selectedSeries.value = series.value.filter(serie => serie.checked) // Met à jour le store
   if (selectedSeries.value.length > 0) {
