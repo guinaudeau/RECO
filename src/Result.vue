@@ -4,6 +4,13 @@ import { selectedSeries } from './store.js'
 
 const df = ref([]) // Tableau réactif pour stocker les données du CSV
 
+// Define sliders with default values
+const sliders = ref({
+  couleur: 0,
+  scenario: 0,
+  exemple: 0,
+})
+
 // Fonction pour charger le fichier CSV
 const loadCSV = async (filePath) => {
   try {
