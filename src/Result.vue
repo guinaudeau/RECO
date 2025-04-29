@@ -19,8 +19,14 @@ const loadCSV = async (filePath) => {
       throw new Error(`Erreur lors du chargement du fichier CSV : ${response.statusText}`)
     }
     const text = await response.text()
+    console.log('Contenu brut du fichier CSV :', text) // Log du contenu brut
+
     const rows = text.split('\n').map(row => row.split(';')) // Adapter le séparateur si nécessaire
+    console.log('Lignes du fichier CSV :', rows) // Log des lignes
+
     const headers = rows.shift() // Extraire les en-têtes
+    console.log('En-têtes du fichier CSV :', headers) // Log des en-têtes
+
     df.value = rows.map(row => {
       const obj = {}
       row.forEach((value, index) => {
@@ -28,7 +34,7 @@ const loadCSV = async (filePath) => {
       })
       return obj
     })
-    console.log('Données chargées :', df.value)
+    console.log('Données chargées :', df.value) // Log des données finales
   } catch (error) {
     console.error('Erreur lors du chargement du fichier CSV :', error)
   }
