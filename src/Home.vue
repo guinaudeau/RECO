@@ -39,7 +39,6 @@ import { selectedSeries } from './store.js'
 
 const series = ref([])
 let rechercher = ref('')
-const selected = ref('')
 // Fonction pour charger les données depuis un fichier Excel
 const loadExcelData = async (filePath) => {
   try {
