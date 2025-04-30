@@ -82,7 +82,7 @@ function calcul_similarite(serie_1, serie_2, df, features) {
 }
 
 // Exemple d'utilisation
-const features = ['feature1', 'feature2', 'feature3']
+const features = ['llama_Synopsis', 'audio', 'vidéo']
 const similarity = ref(null)
 
 onMounted(() => {
