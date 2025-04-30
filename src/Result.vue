@@ -68,7 +68,10 @@ function calcul_similarite(serie_1, serie_2, df, features) {
   if (magnitude1 === 0 || magnitude2 === 0) {
     return 0
   }
-
+  console.log(`Produit scalaire : ${dotProduct}`) // Log du produit scalaire
+  console.log(`Magnitude 1 : ${magnitude1}`) // Log de la magnitude 1
+  console.log(`Magnitude 2 : ${magnitude2}`) // Log de la magnitude 2
+  console.log(`Similarité cosinus : ${dotProduct / (magnitude1 * magnitude2)}`) // Log de la similarité cosinus
   return dotProduct / (magnitude1 * magnitude2)
 }
 
