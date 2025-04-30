@@ -48,6 +48,8 @@ onMounted(() => {
 // Fonction pour extraire les caractéristiques d'une série
 function get_features(serie_name, features, df) {
   const serie = df.find(row => row['TV Serie Name'] === serie_name)
+  console.log(df['TV Serie Name']) // Log de la série recherchée
+  console.log(serie) // Log de la série trouvée
   if (!serie) {
     console.error(`Série ${serie_name} non trouvée dans les données.`)
     return []
