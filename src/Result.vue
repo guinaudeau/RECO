@@ -12,13 +12,13 @@ const sliders = ref({
 })
 
 // Fonction pour charger le fichier CSV
-const loadCSV =(filePath) => {
+const loadCSV =async (filePath) => {
   try {
-    const response =  fetch(filePath)
+    const response =  await fetch(filePath)
     if (!response.ok) {
       throw new Error(`Erreur lors du chargement du fichier CSV : ${response.statusText}`)
     }
-    const text =  response.text()
+    const text =  await response.text()
     console.log('Contenu brut du fichier CSV :', text) // Log du contenu brut
 
     const rows = text.split('\n').map(row => row.split(';'))
@@ -46,10 +46,10 @@ onMounted(() => {
 })
 
 // Fonction pour extraire les caractéristiques d'une série
-function get_features(serie_name, features, df) {
+async function get_features(serie_name, features, df) {
   if (!df || df.length === 0) {
     console.log('Aucune donnée disponible pour extraire les caractéristiques.')
-    loadCSV('/RECO/data/characteristics.csv') // Recharger les données si elles sont vides
+    await loadCSV('/RECO/data/characteristics.csv') // Recharger les données si elles sont vides
   }
   const serie = df.find(row => row['TV Serie Name'] === serie_name)
   console.log(df.map(row => row['TV Serie Name'])) // Log de la série recherchée
