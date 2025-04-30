@@ -39,6 +39,12 @@ const loadCSV = async (filePath) => {
     console.error('Erreur lors du chargement du fichier CSV :', error)
   }
 }
+
+// Charger les données CSV au montage du composant
+onload(() => {
+  loadCSV('/RECO/data/characteristics.csv')
+})
+
 // Fonction pour extraire les caractéristiques d'une série
 function get_features(serie_name, features, df) {
   if (!df || df.length === 0) {
