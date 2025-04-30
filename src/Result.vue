@@ -12,13 +12,13 @@ const sliders = ref({
 })
 
 // Fonction pour charger le fichier CSV
-const loadCSV =async (filePath) => {
+const loadCSV = async (filePath) => {
   try {
-    const response =  await fetch(filePath)
+    const response = await fetch(filePath)
     if (!response.ok) {
       throw new Error(`Erreur lors du chargement du fichier CSV : ${response.statusText}`)
     }
-    const text =  await response.text()
+    const text = await response.text()
     console.log('Contenu brut du fichier CSV :', text) // Log du contenu brut
 
     const rows = text.split('\n').map(row => row.split(';'))
@@ -39,11 +39,11 @@ const loadCSV =async (filePath) => {
     console.error('Erreur lors du chargement du fichier CSV :', error)
   }
 }
+
 // Fonction pour extraire les caractéristiques d'une série
 function get_features(serie_name, features, df) {
-
-  const serie = df.find(row => row['TV Serie Name'] === serie_name)
-  console.log(df.map(row => row['TV Serie Name'])) // Log de la série recherchée
+  const serie = df.value.find(row => row['TV Serie Name'] === serie_name) // Utilisation de .value
+  console.log(df.value.map(row => row['TV Serie Name'])) // Log de la série recherchée
   console.log(serie) // Log de la série trouvée
   if (!serie) {
     console.error(`Série ${serie_name} non trouvée dans les données.`)
@@ -72,18 +72,17 @@ function calcul_similarite(serie_1, serie_2, df, features) {
   return dotProduct / (magnitude1 * magnitude2)
 }
 
-// Exemple d'utilisation
 const features = ['llama_Synopsis', 'audio', 'vidéo']
 const similarity = ref(null)
 
 onMounted(async () => {
-  if (!df || df.length === 0) {
+  if (!df.value || df.value.length === 0) { // Utilisation de .value
     await loadCSV('/RECO/data/characteristics.csv') // charger les données si elles sont vides
   }
   if (selectedSeries.value.length >= 2) {
     const serie1 = selectedSeries.value[0]['TV Serie Name']
     const serie2 = selectedSeries.value[1]['TV Serie Name']
-    similarity.value = calcul_similarite(serie1, serie2, df.value, features)
+    similarity.value = calcul_similarite(serie1, serie2, df, features) // Utilisation de .value pour similarity
     console.log(`Similarité cosinus entre "${serie1}" et "${serie2}" :`, similarity.value)
   } else {
     console.warn('Moins de deux séries sélectionnées pour calculer la similarité.')
