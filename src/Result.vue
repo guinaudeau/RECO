@@ -42,20 +42,42 @@ const loadCSV = async (filePath) => {
 
 // Fonction pour extraire les caractéristiques d'une série
 function get_features(serie_name, features, df) {
-  const serie = df.value.find(row => row['TV Serie Name'] === serie_name) // Utilisation de .value
-  console.log(df.value.map(row => row['TV Serie Name'])) // Log de la série recherchée
-  console.log(serie) // Log de la série trouvée
+  const serie = df.value.find(row => row['TV Serie Name'] === serie_name)
+  console.log(`Série recherchée : ${serie_name}`)
+  console.log(`Série trouvée :`, serie)
   if (!serie) {
     console.error(`Série ${serie_name} non trouvée dans les données.`)
     return []
   }
-  return features.map(feature => serie[feature])
+
+  // Correspondance des caractéristiques avec les plages de colonnes
+  const featureMapping = {
+    'audio': [311,312,313,314,315],
+    'vidéo': [316, 337],
+    'llama_Synopsis': [101, 150],
+  }
+
+  const extractedFeatures = features.flatMap(feature => {
+    const [start, end] = featureMapping[feature]
+    const values = []
+    for (let i = start; i <= end; i++) {
+      const columnName = `Column${i}` // Remplacez par le format réel des colonnes dans votre CSV
+      values.push(parseFloat(serie[columnName]) || 0) // Convertir en nombre ou remplacer par 0
+    }
+    return values
+  })
+
+  console.log(`Caractéristiques extraites pour ${serie_name} :`, extractedFeatures)
+  return extractedFeatures
 }
 
 // Fonction pour calculer la similarité cosinus
 function calcul_similarite(serie_1, serie_2, df, features) {
   const features_1 = get_features(serie_1, features, df)
   const features_2 = get_features(serie_2, features, df)
+
+  console.log(`Caractéristiques de ${serie_1} :`, features_1)
+  console.log(`Caractéristiques de ${serie_2} :`, features_2)
 
   if (features_1.length === 0 || features_2.length === 0) {
     return null
@@ -65,14 +87,17 @@ function calcul_similarite(serie_1, serie_2, df, features) {
   const magnitude1 = Math.sqrt(features_1.reduce((sum, val) => sum + val ** 2, 0))
   const magnitude2 = Math.sqrt(features_2.reduce((sum, val) => sum + val ** 2, 0))
 
+  console.log(`Produit scalaire : ${dotProduct}`)
+  console.log(`Magnitude 1 : ${magnitude1}`)
+  console.log(`Magnitude 2 : ${magnitude2}`)
+
   if (magnitude1 === 0 || magnitude2 === 0) {
     return 0
   }
-  console.log(`Produit scalaire : ${dotProduct}`) // Log du produit scalaire
-  console.log(`Magnitude 1 : ${magnitude1}`) // Log de la magnitude 1
-  console.log(`Magnitude 2 : ${magnitude2}`) // Log de la magnitude 2
-  console.log(`Similarité cosinus : ${dotProduct / (magnitude1 * magnitude2)}`) // Log de la similarité cosinus
-  return dotProduct / (magnitude1 * magnitude2)
+
+  const similarity = dotProduct / (magnitude1 * magnitude2)
+  console.log(`Similarité cosinus : ${similarity}`)
+  return similarity
 }
 
 const features = ['llama_Synopsis', 'audio', 'vidéo']
@@ -85,7 +110,7 @@ onMounted(async () => {
   if (selectedSeries.value.length >= 2) {
     const serie1 = selectedSeries.value[0]['TV Serie Name']
     const serie2 = selectedSeries.value[1]['TV Serie Name']
-    similarity.value = calcul_similarite(serie1, serie2, df, features) // Utilisation de .value pour similarity
+    similarity.value = calcul_similarite(serie1, serie2, df, features)
     console.log(`Similarité cosinus entre "${serie1}" et "${serie2}" :`, similarity.value)
   } else {
     console.warn('Moins de deux séries sélectionnées pour calculer la similarité.')
