@@ -50,9 +50,9 @@ function get_features(serie_name, features, df) {
     return []
   }
 
-  // Correspondance des caractéristiques avec les plages de colonnes
+  // Correspondance des caractéristiques avec les plages d'indices
   const featureMapping = {
-    'audio': [311,312,313,314,315],
+    'audio': [311, 315],
     'vidéo': [316, 337],
     'llama_Synopsis': [101, 150],
   }
@@ -61,13 +61,14 @@ function get_features(serie_name, features, df) {
     const [start, end] = featureMapping[feature]
     const values = []
     for (let i = start; i <= end; i++) {
-      const columnName = `Column${i}` // Remplacez par le format réel des colonnes dans votre CSV
+      const columnName = Object.keys(serie)[i] // Récupérer le nom de la colonne à partir de l'index
       values.push(parseFloat(serie[columnName]) || 0) // Convertir en nombre ou remplacer par 0
     }
     return values
   })
 
-  console.log(`Caractéristiques extraites pour ${serie_name} :`, extractedFeatures)
+  console.log('Indices des colonnes pour les caractéristiques :', featureMapping)
+  console.log('Colonnes extraites pour chaque caractéristique :', extractedFeatures)
   return extractedFeatures
 }
 
