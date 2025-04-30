@@ -46,10 +46,10 @@ onMounted(() => {
 })
 
 // Fonction pour extraire les caractéristiques d'une série
-async function get_features(serie_name, features, df) {
+function get_features(serie_name, features, df) {
   if (!df || df.length === 0) {
     console.log('Aucune donnée disponible pour extraire les caractéristiques.')
-    await loadCSV('/RECO/data/characteristics.csv') // Recharger les données si elles sont vides
+    loadCSV('/RECO/data/characteristics.csv') // Recharger les données si elles sont vides
   }
   const serie = df.find(row => row['TV Serie Name'] === serie_name)
   console.log(df.map(row => row['TV Serie Name'])) // Log de la série recherchée
