@@ -73,46 +73,53 @@ function get_features(serie_name, features, df) {
 }
 
 // Fonction pour calculer la similarité cosinus
-function calcul_similarite(serie_1, serie_2, df, features) {
-  const features_1 = get_features(serie_1, features, df)
-  const features_2 = get_features(serie_2, features, df)
+function calcul_similarite_par_feature(serie_1, serie_2, df, features) {
+  const resultats = {}
 
-  console.log(`Caractéristiques de ${serie_1} :`, features_1)
-  console.log(`Caractéristiques de ${serie_2} :`, features_2)
+  features.forEach(feature => {
+    const features_1 = get_features(serie_1, [feature], df)
+    const features_2 = get_features(serie_2, [feature], df)
 
-  if (features_1.length === 0 || features_2.length === 0) {
-    return null
-  }
+    console.log(`Caractéristiques de ${serie_1} pour ${feature} :`, features_1)
+    console.log(`Caractéristiques de ${serie_2} pour ${feature} :`, features_2)
 
-  const dotProduct = features_1.reduce((sum, val, i) => sum + val * features_2[i], 0)
-  const magnitude1 = Math.sqrt(features_1.reduce((sum, val) => sum + val ** 2, 0))
-  const magnitude2 = Math.sqrt(features_2.reduce((sum, val) => sum + val ** 2, 0))
+    if (features_1.length === 0 || features_2.length === 0) {
+      resultats[feature] = null
+      return
+    }
 
-  console.log(`Produit scalaire : ${dotProduct}`)
-  console.log(`Magnitude 1 : ${magnitude1}`)
-  console.log(`Magnitude 2 : ${magnitude2}`)
+    const dotProduct = features_1.reduce((sum, val, i) => sum + val * features_2[i], 0)
+    const magnitude1 = Math.sqrt(features_1.reduce((sum, val) => sum + val ** 2, 0))
+    const magnitude2 = Math.sqrt(features_2.reduce((sum, val) => sum + val ** 2, 0))
 
-  if (magnitude1 === 0 || magnitude2 === 0) {
-    return 0
-  }
+    console.log(`Produit scalaire pour ${feature} : ${dotProduct}`)
+    console.log(`Magnitude 1 pour ${feature} : ${magnitude1}`)
+    console.log(`Magnitude 2 pour ${feature} : ${magnitude2}`)
 
-  const similarity = dotProduct / (magnitude1 * magnitude2)
-  console.log(`Similarité cosinus : ${similarity}`)
-  return similarity
+    if (magnitude1 === 0 || magnitude2 === 0) {
+      resultats[feature] = 0
+    } else {
+      resultats[feature] = dotProduct / (magnitude1 * magnitude2)
+    }
+
+    console.log(`Similarité cosinus pour ${feature} : ${resultats[feature]}`)
+  })
+
+  return resultats
 }
 
 const features = ['llama_Synopsis', 'audio', 'vidéo']
-const similarity = ref(null)
+const similarities = ref({})
 
 onMounted(async () => {
-  if (!df.value || df.value.length === 0) { // Utilisation de .value
-    await loadCSV('/RECO/data/characteristics.csv') // charger les données si elles sont vides
+  if (!df.value || df.value.length === 0) {
+    await loadCSV('/RECO/data/characteristics.csv')
   }
   if (selectedSeries.value.length >= 2) {
     const serie1 = selectedSeries.value[0]['TV Serie Name']
     const serie2 = selectedSeries.value[1]['TV Serie Name']
-    similarity.value = calcul_similarite(serie1, serie2, df, features)
-    console.log(`Similarité cosinus entre "${serie1}" et "${serie2}" :`, similarity.value)
+    similarities.value = calcul_similarite_par_feature(serie1, serie2, df, features)
+    console.log(`Similarités cosinus entre "${serie1}" et "${serie2}" :`, similarities.value)
   } else {
     console.warn('Moins de deux séries sélectionnées pour calculer la similarité.')
   }
@@ -133,11 +140,11 @@ onMounted(async () => {
     <li>Scénario : {{ sliders.scenario }}</li>
     <li>Exemple : {{ sliders.exemple }}</li>
   </ul>
-  <h3>Exemple de calcul de similarité :</h3>
-  <p v-if="similarity !== null">
-    Similarité cosinus entre "{{ selectedSeries[0]?.['TV Serie Name'] }}" et "{{ selectedSeries[1]?.['TV Serie Name'] }}" : {{ similarity }}
-  </p>
-  <p v-else>
-    Impossible de calculer la similarité (moins de deux séries sélectionnées).
-  </p>
+
+  <h3>Similarités cosinus par feature :</h3>
+  <ul>
+    <li v-for="(value, feature) in similarities" :key="feature">
+      {{ feature }} : {{ value !== null ? value.toFixed(4) : 'Non calculable' }}
+    </li>
+  </ul>
 </template>
