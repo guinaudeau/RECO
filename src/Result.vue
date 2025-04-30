@@ -39,18 +39,9 @@ const loadCSV =async (filePath) => {
     console.error('Erreur lors du chargement du fichier CSV :', error)
   }
 }
-
-// Charger les données CSV au montage du composant
-onMounted(() => {
-  loadCSV('/RECO/data/characteristics.csv')
-})
-
 // Fonction pour extraire les caractéristiques d'une série
 function get_features(serie_name, features, df) {
-  if (!df || df.length === 0) {
-    console.log('Aucune donnée disponible pour extraire les caractéristiques.')
-    loadCSV('/RECO/data/characteristics.csv') // Recharger les données si elles sont vides
-  }
+
   const serie = df.find(row => row['TV Serie Name'] === serie_name)
   console.log(df.map(row => row['TV Serie Name'])) // Log de la série recherchée
   console.log(serie) // Log de la série trouvée
@@ -85,7 +76,10 @@ function calcul_similarite(serie_1, serie_2, df, features) {
 const features = ['llama_Synopsis', 'audio', 'vidéo']
 const similarity = ref(null)
 
-onMounted(() => {
+onMounted(async () => {
+  if (!df || df.length === 0) {
+    await loadCSV('/RECO/data/characteristics.csv') // charger les données si elles sont vides
+  }
   if (selectedSeries.value.length >= 2) {
     const serie1 = selectedSeries.value[0]['TV Serie Name']
     const serie2 = selectedSeries.value[1]['TV Serie Name']
