@@ -19,13 +19,14 @@ const loadCSV = async (filePath) => {
       throw new Error(`Erreur lors du chargement du fichier CSV : ${response.statusText}`)
     }
     const text = await response.text()
-    console.log('Contenu brut du fichier CSV :', text) // Log du contenu brut
+    console.log('Contenu brut du fichier CSV :', text)
 
     const rows = text.split('\n').map(row => row.split(';'))
-    console.log('Lignes du fichier CSV :', rows) // Log des lignes
+    console.log('Lignes du fichier CSV :', rows)
 
     const headers = rows.shift() // Extraire les en-têtes
-    console.log('En-têtes du fichier CSV :', headers) // Log des en-têtes
+    console.log('En-têtes du fichier CSV :', headers)
+    console.log('Ordre des colonnes :', headers)
 
     df.value = rows.map(row => {
       const obj = {}
@@ -34,7 +35,7 @@ const loadCSV = async (filePath) => {
       })
       return obj
     })
-    console.log('Données chargées :', df.value) // Log des données finales
+    console.log('Données chargées :', df.value)
   } catch (error) {
     console.error('Erreur lors du chargement du fichier CSV :', error)
   }
@@ -59,10 +60,11 @@ function get_features(serie_name, features, df) {
 
   const extractedFeatures = features.flatMap(feature => {
     const [start, end] = featureMapping[feature]
+    const keys = Object.keys(serie) // Obtenir les noms des colonnes
     const values = []
     for (let i = start; i <= end; i++) {
-      const columnName = Object.keys(serie)[i] // Récupérer le nom de la colonne à partir de l'index
-      console.log(`Colonne extraite pour ${feature} : ${Object.keys}`)
+      const columnName = keys[i] // Récupérer le nom de la colonne à partir de l'index
+      console.log(`Colonne extraite pour ${feature} : ${columnName}`)
       values.push(parseFloat(serie[columnName]) || 0) // Convertir en nombre ou remplacer par 0
     }
     return values
