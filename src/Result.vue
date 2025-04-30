@@ -54,7 +54,7 @@ function get_features(serie_name, features, df) {
   const featureMapping = {
     'audio': [311, 315],
     'vidéo': [316, 337],
-    //'llama_Synopsis': [101, 150],
+    'llama_Synopsis': [101, 150],
   }
 
   const extractedFeatures = features.flatMap(feature => {
