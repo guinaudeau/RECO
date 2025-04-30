@@ -26,7 +26,6 @@ const loadCSV = async (filePath) => {
 
     const headers = rows.shift() // Extraire les en-têtes
     console.log('En-têtes du fichier CSV :', headers)
-    console.log('Ordre des colonnes :', headers)
 
     df.value = rows.map(row => {
       const obj = {}
@@ -51,27 +50,24 @@ function get_features(serie_name, features, df) {
     return []
   }
 
-  // Correspondance des caractéristiques avec les plages d'indices
+  // Correspondance des caractéristiques avec les indices des colonnes
   const featureMapping = {
-    'audio': [311, 315],
-    'vidéo': [316, 337],
-    'llama_Synopsis': [101, 150],
+    'audio': Object.keys(serie).slice(310, 315), // Colonnes 311 à 315
+    'vidéo': Object.keys(serie).slice(315),      // Colonnes 316 à la fin
+    'llama_Synopsis': Object.keys(serie).slice(100, 150), // Colonnes 101 à 150
   }
 
   const extractedFeatures = features.flatMap(feature => {
-    const [start, end] = featureMapping[feature]
-    const keys = Object.keys(serie) // Obtenir les noms des colonnes
-    const values = []
-    for (let i = start; i <= end; i++) {
-      const columnName = keys[i] // Récupérer le nom de la colonne à partir de l'index
-      console.log(`Colonne extraite pour ${feature} : ${columnName}`)
-      values.push(parseFloat(serie[columnName]) || 0) // Convertir en nombre ou remplacer par 0
-    }
+    const columns = featureMapping[feature]
+    const values = columns.map(columnName => {
+      const value = parseFloat(serie[columnName]) || 0 // Convertir en nombre ou remplacer par 0
+      console.log(`Valeur extraite pour ${feature} (${columnName}) : ${value}`)
+      return value
+    })
     return values
   })
 
-  console.log('Indices des colonnes pour les caractéristiques :', featureMapping)
-  console.log('Colonnes extraites pour chaque caractéristique :', extractedFeatures)
+  console.log(`Caractéristiques extraites pour ${serie_name} :`, extractedFeatures)
   return extractedFeatures
 }
 
@@ -129,7 +125,7 @@ onMounted(async () => {
 })
 </script>
 <template>
-  <h2>Résultats des séries sélectionnées</h2>
+<h2>Résultats des séries sélectionnées</h2>
   <ul>
     <li v-for="serie in selectedSeries" :key="serie.id">
       {{ serie['TV Serie Name'] }}
