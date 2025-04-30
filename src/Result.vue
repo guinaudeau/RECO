@@ -62,7 +62,7 @@ function get_features(serie_name, features, df) {
     const values = []
     for (let i = start; i <= end; i++) {
       const columnName = Object.keys(serie)[i] // Récupérer le nom de la colonne à partir de l'index
-      console.log(`Colonne extraite pour ${feature} : ${columnName}`)
+      console.log(`Colonne extraite pour ${feature} : ${Object.keys}`)
       values.push(parseFloat(serie[columnName]) || 0) // Convertir en nombre ou remplacer par 0
     }
     return values
