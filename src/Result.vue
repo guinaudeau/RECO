@@ -118,7 +118,6 @@ onMounted(async () => {
   }
 })
 </script>
-
 <template>
   <h2>Résultats des séries sélectionnées</h2>
   <ul>
