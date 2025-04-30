@@ -12,13 +12,13 @@ const sliders = ref({
 })
 
 // Fonction pour charger le fichier CSV
-const loadCSV = async (filePath) => {
+const loadCSV =(filePath) => {
   try {
-    const response = await fetch(filePath)
+    const response =  fetch(filePath)
     if (!response.ok) {
       throw new Error(`Erreur lors du chargement du fichier CSV : ${response.statusText}`)
     }
-    const text = await response.text()
+    const text =  response.text()
     console.log('Contenu brut du fichier CSV :', text) // Log du contenu brut
 
     const rows = text.split('\n').map(row => row.split(';'))
@@ -41,7 +41,7 @@ const loadCSV = async (filePath) => {
 }
 
 // Charger les données CSV au montage du composant
-onload(() => {
+onloadstart(() => {
   loadCSV('/RECO/data/characteristics.csv')
 })
 
