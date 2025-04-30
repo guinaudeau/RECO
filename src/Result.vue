@@ -41,7 +41,7 @@ const loadCSV =(filePath) => {
 }
 
 // Charger les données CSV au montage du composant
-onload(() => {
+onMounted(() => {
   loadCSV('/RECO/data/characteristics.csv')
 })
 
