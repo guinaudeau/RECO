@@ -21,7 +21,7 @@ const loadCSV = async (filePath) => {
     const text = await response.text()
     console.log('Contenu brut du fichier CSV :', text) // Log du contenu brut
 
-    const rows = text.split('\n').map(row => row.split(';')) // Adapter le séparateur si nécessaire
+    const rows = text.split('\n').map(row => row.split(';'))
     console.log('Lignes du fichier CSV :', rows) // Log des lignes
 
     const headers = rows.shift() // Extraire les en-têtes
@@ -47,8 +47,12 @@ onMounted(() => {
 
 // Fonction pour extraire les caractéristiques d'une série
 function get_features(serie_name, features, df) {
+  if (!df || df.length === 0) {
+    console.error('Aucune donnée disponible pour extraire les caractéristiques.')
+    return []
+  }
   const serie = df.find(row => row['TV Serie Name'] === serie_name)
-  console.log(df['TV Serie Name']) // Log de la série recherchée
+  console.log(df.map(row => row['TV Serie Name'])) // Log de la série recherchée
   console.log(serie) // Log de la série trouvée
   if (!serie) {
     console.error(`Série ${serie_name} non trouvée dans les données.`)
