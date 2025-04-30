@@ -53,7 +53,7 @@ function get_features(serie_name, features, df) {
   // Correspondance des caractéristiques avec les plages d'indices
   const featureMapping = {
     'audio': [311, 315],
-    //'vidéo': [316, 337],
+    'vidéo': [316, 337],
     //'llama_Synopsis': [101, 150],
   }
 
