@@ -8,29 +8,28 @@
   <form @submit.prevent="searchQuery">
     <input type="text" v-model="rechercher" autocomplete="on" placeholder="Rechercher une série" />
     <button type="submit">Rechercher</button>
-</form>
-    <table>
-      <tbody>
-        <tr v-for="(group, groupIndex) in groupedSeries" :key="groupIndex">
-          <td
-            v-for="serie in group"
-            :key="serie.id"
-            data-titre="séris"
-            class="checkbox-wrapper-50"
-          >
-            <p>{{ serie['TV Serie Name'] }}</p>
-            <input type="checkbox" v-model="serie.checked" class="plus-minus" />
-            <button @click="modifySerie(serie)">plus d'information</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  </form>
+  <table>
+    <tbody>
+      <tr v-for="(group, groupIndex) in groupedSeries" :key="groupIndex">
+        <td
+          v-for="serie in group"
+          :key="serie.id"
+          data-titre="séris"
+          class="checkbox-wrapper-50"
+        >
+          <p>{{ serie['TV Serie Name'] }}</p>
+          <input type="checkbox" v-model="serie.checked" class="plus-minus" />
+          <button @click="showDescription(serie)">plus d'information</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <p>Nombre de séries : {{ series.length }}</p>
   <p>Nombre de séries cochées : {{ series.filter(serie => serie.checked).length }}</p>
   <p>Nombre de séries non cochées : {{ series.filter(serie => !serie.checked).length }}</p>
   <p>Nombre de séries modifiées : {{ series.filter(serie => serie.modified).length }}</p>
-  
 </template>
 <script setup>
 import { ref, onMounted, computed } from 'vue'
@@ -88,6 +87,11 @@ const afficherSelectionnes = () => {
   } else {
     alert('Aucune série sélectionnée')
   }
+}
+
+// Fonction pour afficher la description d'une série
+const showDescription = (serie) => {
+  alert(`Description de "${serie['TV Serie Name']}": ${serie.description}`)
 }
 
 // Charger les données Excel au montage du composant

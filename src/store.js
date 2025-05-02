@@ -6,3 +6,4 @@ export const sliders = ref({
     couleur: 40,
     exemple: 40,
   })
+
