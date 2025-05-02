@@ -18,8 +18,7 @@
           data-titre="séris"
           class="checkbox-wrapper-50"
         >
-          <p>{{ serie['TV Serie Name'] }}</p>
-          <input type="checkbox" v-model="serie.checked" class="plus-minus" />
+          <p>{{ serie.name }}</p>
           <button @click="showDescription(serie)">plus d'information</button>
         </td>
       </tr>
@@ -91,7 +90,11 @@ const afficherSelectionnes = () => {
 
 // Fonction pour afficher la description d'une série
 const showDescription = (serie) => {
-  alert(`Description de "${serie['TV Serie Name']}": ${serie.description}`)
+  if (serie.name && serie.description) {
+    alert(`Description de "${serie.name}": ${serie.description}`)
+  } else {
+    alert("Les informations de la série sont incomplètes.")
+  }
 }
 
 // Charger les données Excel au montage du composant
