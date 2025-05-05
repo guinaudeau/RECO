@@ -42,7 +42,7 @@ const loadCSV = async (filePath) => {
 
 // Fonction pour extraire les caractéristiques d'une série
 function get_features(serie_name, features, df) {
-  const serie = df.value.find(row => row['TV Serie Name'] === serie_name)
+  const serie = df.value.find(row => row['name'] === serie_name)
   console.log(`Série recherchée : ${serie_name}`)
   console.log(`Série trouvée :`, serie)
   if (!serie) {
@@ -115,8 +115,8 @@ onMounted(async () => {
     await loadCSV('/RECO/data/characteristics.csv')
   }
   if (selectedSeries.value.length >= 2) {
-    const serie1 = selectedSeries.value[0]['TV Serie Name']
-    const serie2 = selectedSeries.value[1]['TV Serie Name']
+    const serie1 = selectedSeries.value[0]['name']
+    const serie2 = selectedSeries.value[1]['name']
     similarities.value = calcul_similarite_par_feature(serie1, serie2, df, features)
     console.log(`Similarités cosinus entre "${serie1}" et "${serie2}" :`, similarities.value)
   } else {
@@ -128,7 +128,7 @@ onMounted(async () => {
 <h2>Résultats des séries sélectionnées</h2>
   <ul>
     <li v-for="serie in selectedSeries" :key="serie.id">
-      {{ serie['TV Serie Name'] }}
+      {{ serie['name'] }}
     </li>
   </ul>
   <p v-if="selectedSeries.length === 0">Aucune série sélectionnée.</p>
