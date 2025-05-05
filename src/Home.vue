@@ -20,7 +20,7 @@
         >
           <div class="cell-content">
             <p class="serie-title">{{ serie.name }}</p>
-            <img :src="serie.image" alt="Image de la série {{ serie.name }}" v-if="serie.image" class="serie-image" />
+            <img :src="serie.image" alt="Image de la série" v-if="serie.image" class="serie-image" />
             <button @click="showDescription(serie)" class="info-button">plus d'information</button>
             <input type="checkbox" v-model="serie.checked" class="plus-minus" />
           </div>
@@ -70,7 +70,7 @@ const loadExcelData = async (filePath) => {
       )
       return {
         id: index,
-        name: serie['TV Serie Name'], // Mapper le nom
+        name: serie['name'], // Mapper le nom
         description: matchingSerie ? matchingSerie.description : 'Description non disponible', // Ajouter la description
         image: matchingSerie ? matchingSerie.image : 'Image non disponible', // Ajouter l'image
         checked: false,
