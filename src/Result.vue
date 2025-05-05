@@ -12,32 +12,25 @@ const sliders = ref({
 })
 
 // Fonction pour charger le fichier CSV
-const loadCSV = async (filePath) => {
+async function loadCSV(url) {
   try {
-    const response = await fetch(filePath)
+    const response = await fetch(url)
     if (!response.ok) {
       throw new Error(`Erreur lors du chargement du fichier CSV : ${response.statusText}`)
     }
     const text = await response.text()
-    console.log('Contenu brut du fichier CSV :', text)
-
-    const rows = text.split('\n').filter(row => row.trim() !== '') // Supprimer les lignes vides
-    console.log('Lignes du fichier CSV :', rows)
-
-    const headers = rows[0].split(';') // Extraire les en-têtes
-    console.log('En-têtes du fichier CSV :', headers)
-
-    df.value = rows.slice(1).map(row => {
-      const values = row.split(';')
+    const rows = text.split('\n').map(row => row.split(','))
+    const headers = rows[0]
+    const data = rows.slice(1).map(row => {
       const obj = {}
       headers.forEach((header, index) => {
-        obj[header] = isNaN(values[index]) ? values[index] : parseFloat(values[index]) // Convertir en nombre si possible
+        obj[header] = row[index]
       })
       return obj
     })
-    console.log('Données chargées :', df.value)
+    df.value = data
   } catch (error) {
-    console.error('Erreur lors du chargement du fichier CSV :', error)
+    console.error('Erreur lors du chargement du CSV :', error)
   }
 }
 
