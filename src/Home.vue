@@ -19,6 +19,7 @@
           class="checkbox-wrapper-50"
         >
           <p>{{ serie.name }}</p>
+          <img :src="serie.image" alt="Image de la série" v-if="serie.image" />
           <input type="checkbox" v-model="serie.checked" class="plus-minus" />
           <button @click="showDescription(serie)">plus d'information</button>
         </td>
