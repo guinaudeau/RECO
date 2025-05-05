@@ -223,9 +223,11 @@ const groupedSeries = computed(() => {
     .cell-content {
       padding: 10px;
     }
+  
     form {
     margin-bottom: 20px;
   }
+}
     .checkbox-wrapper-50 *,
     .checkbox-wrapper-50 *::before,
     .checkbox-wrapper-50 *::after {
@@ -331,6 +333,14 @@ const groupedSeries = computed(() => {
         background-position: 0% 50%;
       }
     }
+    @keyframes checked-50 {
+      from {
+        background-image: radial-gradient(ellipse at center, var(--primary) 0%, var(--primary) 25%, var(--secondary) 25.1%, var(--secondary) 100%);
+        background-position: 100% 50%;
+      }
+      to {
+        background-position: 0% 50%;
+      }
     }
     table{overflow-x: auto}
     table img{
