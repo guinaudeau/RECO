@@ -21,16 +21,17 @@ const loadCSV = async (filePath) => {
     const text = await response.text()
     console.log('Contenu brut du fichier CSV :', text)
 
-    const rows = text.split('\n').map(row => row.split(';'))
+    const rows = text.split('\n').filter(row => row.trim() !== '') // Supprimer les lignes vides
     console.log('Lignes du fichier CSV :', rows)
 
-    const headers = rows.shift() // Extraire les en-têtes
+    const headers = rows[0].split(';') // Extraire les en-têtes
     console.log('En-têtes du fichier CSV :', headers)
 
-    df.value = rows.map(row => {
+    df.value = rows.slice(1).map(row => {
+      const values = row.split(';')
       const obj = {}
-      row.forEach((value, index) => {
-        obj[headers[index]] = isNaN(value) ? value : parseFloat(value) // Convertir en nombre si possible
+      headers.forEach((header, index) => {
+        obj[header] = isNaN(values[index]) ? values[index] : parseFloat(values[index]) // Convertir en nombre si possible
       })
       return obj
     })
