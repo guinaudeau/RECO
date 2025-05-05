@@ -109,7 +109,7 @@ const searchQuery = () => {
 const afficherSelectionnes = () => {
   selectedSeries.value = series.value.filter(serie => serie.checked) // Met à jour le store
   if (selectedSeries.value.length > 0) {
-    alert('Séries sélectionnées : ' + selectedSeries.value.map(serie => serie['TV Serie Name']).join(', '))
+    alert('Séries sélectionnées : ' + selectedSeries.value.map(serie => serie['name']).join(', '))
   } else {
     alert('Aucune série sélectionnée')
   }
