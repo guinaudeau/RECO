@@ -57,17 +57,37 @@ const loadExcelData = async (filePath) => {
       throw new Error('La feuille Excel est vide ou invalide.')
     }
 
-    // Mapper les données pour utiliser les bonnes clés
-    series.value = XLSX.utils.sheet_to_json(sheet).map((serie, index) => ({
-      id: index,
-      name: serie['TV Serie Name'], // Mapper le nom
-      description: serie['description'] || 'Description non disponible', // Ajouter une description par défaut
-      checked: false,
-      deleted: false,
-      modified: false
-    }))
+    // Charger les descriptions depuis Series.json
+    const seriesJson = await loadSeriesJson()
+
+    // Mapper les données Excel et ajouter les descriptions
+    series.value = XLSX.utils.sheet_to_json(sheet).map((serie, index) => {
+      const matchingSerie = seriesJson.find(
+        (jsonSerie) => jsonSerie.name === serie['TV Serie Name']
+      )
+      return {
+        id: index,
+        name: serie['TV Serie Name'], // Mapper le nom
+        description: matchingSerie ? matchingSerie.description : 'Description non disponible', // Ajouter la description
+        checked: false,
+        deleted: false,
+        modified: false
+      }
+    })
   } catch (error) {
     console.error('Erreur lors du chargement du fichier Excel :', error)
+  }
+}
+
+// Fonction pour charger les données depuis un fichier JSON
+const loadSeriesJson = async () => {
+  try {
+    const response = await fetch('/src/data/Series.json')
+    const jsonData = await response.json()
+    return jsonData
+  } catch (error) {
+    console.error('Erreur lors du chargement de Series.json :', error)
+    return []
   }
 }
 
