@@ -66,7 +66,7 @@ const loadExcelData = async (filePath) => {
     // Mapper les données Excel et ajouter les descriptions
     series.value = XLSX.utils.sheet_to_json(sheet).map((serie, index) => {
       const matchingSerie = seriesJson.find(
-        (jsonSerie) => jsonSerie.name === serie['TV Serie Name']
+        (jsonSerie) => jsonSerie.name === serie['name']
       )
       return {
         id: index,
