@@ -20,7 +20,7 @@
         >
           <div class="cell-content">
             <p class="serie-title">{{ serie.name }}</p>
-            <img :src="serie.image" alt="Image de la série" v-if="serie.image" class="serie-image" />
+            <img :src="serie.image" alt="Image de la série {{ serie.name }}" v-if="serie.image" class="serie-image" />
             <button @click="showDescription(serie)" class="info-button">plus d'information</button>
             <input type="checkbox" v-model="serie.checked" class="plus-minus" />
           </div>
