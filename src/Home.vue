@@ -70,6 +70,7 @@ const loadExcelData = async (filePath) => {
         id: index,
         name: serie['TV Serie Name'], // Mapper le nom
         description: matchingSerie ? matchingSerie.description : 'Description non disponible', // Ajouter la description
+        image: matchingSerie ? matchingSerie.image : 'Image non disponible', // Ajouter l'image
         checked: false,
         deleted: false,
         modified: false
