@@ -281,4 +281,12 @@ const groupedSeries = computed(() => {
       }
     }
     table{overflow-x: auto}
+    table img{
+      width: 100px;
+      height: 100px;
+    }
+    table p{
+      font-size: 1.2em;
+      font-weight: bold;
+    }
 </style>
