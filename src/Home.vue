@@ -19,6 +19,7 @@
           class="checkbox-wrapper-50"
         >
           <p>{{ serie.name }}</p>
+          <input type="checkbox" v-model="serie.checked" class="plus-minus" />
           <button @click="showDescription(serie)">plus d'information</button>
         </td>
       </tr>
@@ -56,9 +57,11 @@ const loadExcelData = async (filePath) => {
       throw new Error('La feuille Excel est vide ou invalide.')
     }
 
+    // Mapper les données pour utiliser les bonnes clés
     series.value = XLSX.utils.sheet_to_json(sheet).map((serie, index) => ({
-      ...serie,
       id: index,
+      name: serie['TV Serie Name'], // Mapper le nom
+      description: serie['description'] || 'Description non disponible', // Ajouter une description par défaut
       checked: false,
       deleted: false,
       modified: false
