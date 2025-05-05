@@ -82,7 +82,7 @@ const loadExcelData = async (filePath) => {
 // Fonction pour charger les données depuis un fichier JSON
 const loadSeriesJson = async () => {
   try {
-    const response = await fetch('/src/data/Series.json')
+    const response = await fetch('/RECO/data/Series.json')
     const jsonData = await response.json()
     return jsonData
   } catch (error) {
