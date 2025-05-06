@@ -81,24 +81,35 @@ function calcul_similarite_par_feature(serie_1, serie_2, df, features) {
       return
     }
 
-    const dotProduct = features_1.reduce((sum, val, i) => sum + val * features_2[i], 0)
-    const magnitude1 = Math.sqrt(features_1.reduce((sum, val) => sum + val ** 2, 0))
-    const magnitude2 = Math.sqrt(features_2.reduce((sum, val) => sum + val ** 2, 0))
-
-    console.log(`Produit scalaire pour ${feature} : ${dotProduct}`)
-    console.log(`Magnitude 1 pour ${feature} : ${magnitude1}`)
-    console.log(`Magnitude 2 pour ${feature} : ${magnitude2}`)
-
-    if (magnitude1 === 0 || magnitude2 === 0) {
-      resultats[feature] = 0
-    } else {
-      resultats[feature] = dotProduct / (magnitude1 * magnitude2)
-    }
+    // Utilisation de la fonction cosine_similarity
+    resultats[feature] = cosine_similarity(features_1, features_2)
 
     console.log(`Similarité cosinus pour ${feature} : ${resultats[feature]}`)
   })
 
   return resultats
+}
+
+// Fonction cosine_similarity
+function cosine_similarity(A, B) {
+  let dotProduct = 0
+  let mA = 0
+  let mB = 0
+
+  for (let i = 0; i < A.length; i++) {
+    dotProduct += A[i] * B[i]
+    mA += A[i] * A[i]
+    mB += B[i] * B[i]
+  }
+
+  mA = Math.sqrt(mA)
+  mB = Math.sqrt(mB)
+
+  if (mA === 0 || mB === 0) {
+    return 0 // Évite la division par zéro
+  }
+
+  return dotProduct / (mA * mB)
 }
 
 const features = ['llama_Synopsis', 'audio', 'vidéo']
