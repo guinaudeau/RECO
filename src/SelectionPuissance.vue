@@ -11,8 +11,8 @@ import { sliders } from './store.js'
       <input type="range" v-model="sliders.vidéo" min="-5" max="5" step="0.01" />
     </li>
     <li>
-      Scénario : {{ sliders.scenario }}
-      <input type="range" v-model="sliders.scenario" min="-5" max="5" step="0.01" />
+      Scénario : {{ sliders.llama_Synopsis }}
+      <input type="range" v-model="sliders.llama_Synopsis" min="-5" max="5" step="0.01" />
     </li>
     <li>
       Audio : {{ sliders.audio }}
