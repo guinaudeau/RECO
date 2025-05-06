@@ -47,7 +47,7 @@ function get_features(serie_name, features, df) {
   // Correspondance des caractéristiques avec les indices des colonnes
   const featureMapping = {
     'llama_Synopsis': Object.keys(serie).slice(1, 51), // Colonnes 100 à 150
-    'audio': Object.keys(serie).slice(51, 56), // Colonnes 311 à 315
+    'audio': Object.keys(serie).slice(51, 57), // Colonnes 311 à 315
     'vidéo': Object.keys(serie).slice(57),      // Colonnes 316 à la fin
   }
 
