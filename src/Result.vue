@@ -70,7 +70,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
     const similarities = features.map(feature => {
       const features_1 = get_features(serie_name, feature, df)
       const features_2 = get_features(otherSerieName, feature, df)
-      return cosine_similarity(features_1, features_2)
+      return (cosine_similarity(features_1, features_2) * sliders[feature]) // Applique le slider
     })
 
     const averageSimilarity = similarities.reduce((sum, val) => sum + val, 0) / similarities.length

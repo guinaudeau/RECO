@@ -2,8 +2,8 @@ import { ref } from 'vue'
 
 export const selectedSeries = ref([])
 export const sliders = ref({
-    scenario: 40,
-    vidéo: 40,
-    audio: 40,
+    scenario: 1,
+    vidéo: 1,
+    audio: 1,
   })
 
