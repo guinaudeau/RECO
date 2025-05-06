@@ -84,27 +84,11 @@ function calcul_similarite_par_feature(serie_1, serie_2, df, features) {
 }
 
 // Fonction cosine_similarity
-function cosine_similarity(A, B) {
-  let dotProduct = 0
-  let mA = 0
-  let mB = 0
-
-  for (let i = 0; i < A.length; i++) {
-    dotProduct += A[i] * B[i]
-    mA += A[i] * A[i]
-    mB += B[i] * B[i]
-  }
-
-  mA = Math.sqrt(mA)
-  mB = Math.sqrt(mB)
-
-  if (mA === 0 || mB === 0) {
-    return 0
-  }
-
-  const result = dotProduct / (mA * mB)
-  console.log(`Similarité cosinus (Vue.js) : ${result}`)
-  return result
+  function cosine_similarity(vecA, vecB) {
+    const dotProduct = vecA.reduce((sum, value, index) => sum + value * vecB[index], 0);
+    const magnitudeA = Math.sqrt(vecA.reduce((sum, value) => sum + value * value, 0));
+    const magnitudeB = Math.sqrt(vecB.reduce((sum, value) => sum + value * value, 0));
+    return dotProduct / (magnitudeA * magnitudeB);
 }
 
 const features = ['llama_Synopsis', 'audio', 'vidéo']
