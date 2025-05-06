@@ -40,14 +40,15 @@ function get_features(serie_name, features, df) {
   const feature_names = {
     'llama_Synopsis': [1, 51],
     'audio': [51, 56],
-    'vidéo': [56, df.value[0].length]
+    'vidéo': [56, Object.keys(df.value[0]).length] // Utilisation de la longueur des clés
   }
 
   if (features in feature_names) {
     const df_serie = df.value.filter(row => row['name'] === serie_name)
     if (df_serie.length > 0) {
       const idx = feature_names[features]
-      feats.push(...df_serie[0].slice(idx[0], idx[1]).map(value => parseFloat(value) || 0))
+      const keys = Object.keys(df_serie[0]).slice(idx[0], idx[1]) // Obtenez les clés des colonnes
+      feats.push(...keys.map(key => parseFloat(df_serie[0][key]) || 0)) // Récupérez les valeurs
     }
   } else {
     console.error("Nom de caractéristique inconnu")
