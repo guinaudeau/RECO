@@ -81,7 +81,15 @@ function calculerSimilaritesPourUneSerie(serie_name) {
     })
 
     const averageSimilarity = similarities.reduce((sum, val) => sum + val, 0) / similarities.length
-    return { name: otherSerieName, similarity: averageSimilarity }
+    return { 
+      name: otherSerieName, 
+      similarity: averageSimilarity, 
+      details: {
+        llama_Synopsis: similarities[0],
+        audio: similarities[1],
+        vidéo: similarities[2]
+      }
+    }
   }).filter(item => item !== null) // Supprime les entrées nulles
 }
 
@@ -95,7 +103,16 @@ function comparerDeuxSeries(serie1, serie2) {
   })
 
   const averageSimilarity = similarities.reduce((sum, val) => sum + val, 0) / similarities.length
-  comparisonResult.value = { serie1, serie2, similarity: averageSimilarity }
+  comparisonResult.value = { 
+    serie1, 
+    serie2, 
+    similarity: averageSimilarity,
+    details: {
+      llama_Synopsis: similarities[0],
+      audio: similarities[1],
+      vidéo: similarities[2]
+    }
+  }
 }
 
 onMounted(async () => {
