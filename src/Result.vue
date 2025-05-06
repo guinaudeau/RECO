@@ -150,12 +150,18 @@ onMounted(async () => {
       <tr>
         <th>Série</th>
         <th>Score de Similarité</th>
+        <th>llama_Synopsis</th>
+        <th>Audio</th>
+        <th>Vidéo</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="item in similaritiesTable" :key="item.name">
         <td>{{ item.name }}</td>
         <td>{{ item.similarity.toFixed(4) }}</td>
+        <td>{{ item.details.llama_Synopsis.toFixed(4) }}</td>
+        <td>{{ item.details.audio.toFixed(4) }}</td>
+        <td>{{ item.details.vidéo.toFixed(4) }}</td>
       </tr>
     </tbody>
   </table>
@@ -165,4 +171,9 @@ onMounted(async () => {
     Similarité entre {{ comparisonResult.serie1 }} et {{ comparisonResult.serie2 }} :
     {{ comparisonResult.similarity.toFixed(4) }}
   </p>
+  <ul v-if="comparisonResult">
+    <li>llama_Synopsis : {{ comparisonResult.details.llama_Synopsis.toFixed(4) }}</li>
+    <li>Audio : {{ comparisonResult.details.audio.toFixed(4) }}</li>
+    <li>Vidéo : {{ comparisonResult.details.vidéo.toFixed(4) }}</li>
+  </ul>
 </template>
