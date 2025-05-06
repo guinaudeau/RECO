@@ -36,33 +36,25 @@ async function loadCSV(url) {
 
 // Fonction pour extraire les caractéristiques d'une série
 function get_features(serie_name, features, df) {
-  const serie = df.value.find(row => row['name'] === serie_name)
-  console.log(`Série recherchée : ${serie_name}`)
-  console.log(`Série trouvée :`, serie)
-  if (!serie) {
-    console.error(`Série ${serie_name} non trouvée dans les données.`)
-    return []
+  const feats = []
+  const feature_names = {
+    'llama_Synopsis': [1, 51],
+    'audio': [51, 56],
+    'vidéo': [56, df.value[0].length]
   }
 
-  // Correspondance des caractéristiques avec les indices des colonnes
-  const featureMapping = {
-    'llama_Synopsis': Object.keys(serie).slice(1, 51), // Colonnes 100 à 150
-    'audio': Object.keys(serie).slice(51, 56), // Colonnes 311 à 315
-    'vidéo': Object.keys(serie).slice(56),      // Colonnes 316 à la fin
+  if (features in feature_names) {
+    const df_serie = df.value.filter(row => row['name'] === serie_name)
+    if (df_serie.length > 0) {
+      const idx = feature_names[features]
+      feats.push(...df_serie[0].slice(idx[0], idx[1]).map(value => parseFloat(value) || 0))
+    }
+  } else {
+    console.error("Nom de caractéristique inconnu")
   }
 
-  const extractedFeatures = features.flatMap(feature => {
-    const columns = featureMapping[feature]
-    const values = columns.map(columnName => {
-      const value = parseFloat(serie[columnName]) || 0 // Convertir en nombre ou remplacer par 0
-      console.log(`Valeur extraite pour ${feature} (${columnName}) : ${value}`)
-      return value
-    })
-    return values
-  })
-
-  console.log(`Caractéristiques extraites pour ${serie_name} :`, extractedFeatures)
-  return extractedFeatures
+  console.log(`Vecteurs extraits pour ${serie_name} (${features}) :`, feats)
+  return feats
 }
 
 // Fonction pour calculer la similarité cosinus
@@ -70,8 +62,8 @@ function calcul_similarite_par_feature(serie_1, serie_2, df, features) {
   const resultats = {}
 
   features.forEach(feature => {
-    const features_1 = get_features(serie_1, [feature], df)
-    const features_2 = get_features(serie_2, [feature], df)
+    const features_1 = get_features(serie_1, feature, df)
+    const features_2 = get_features(serie_2, feature, df)
 
     console.log(`Caractéristiques de ${serie_1} pour ${feature} :`, features_1)
     console.log(`Caractéristiques de ${serie_2} pour ${feature} :`, features_2)
@@ -106,10 +98,12 @@ function cosine_similarity(A, B) {
   mB = Math.sqrt(mB)
 
   if (mA === 0 || mB === 0) {
-    return 0 // Évite la division par zéro
+    return 0
   }
 
-  return dotProduct / (mA * mB)
+  const result = dotProduct / (mA * mB)
+  console.log(`Similarité cosinus (Vue.js) : ${result}`)
+  return result
 }
 
 const features = ['llama_Synopsis', 'audio', 'vidéo']
