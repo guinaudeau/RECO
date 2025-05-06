@@ -7,16 +7,16 @@ import { sliders } from './store.js'
   <h2>Personnalisation des critères</h2>
   <ul>
     <li>
-      Couleur : {{ sliders.couleur }}
-      <input type="range" v-model="sliders.couleur" min="0" max="100" step="5" />
+      Vidéo : {{ sliders.vidéo }}
+      <input type="range" v-model="sliders.vidéo" min="0" max="100" step="5" />
     </li>
     <li>
       Scénario : {{ sliders.scenario }}
       <input type="range" v-model="sliders.scenario" min="0" max="100" step="5" />
     </li>
     <li>
-      Exemple : {{ sliders.exemple }}
-      <input type="range" v-model="sliders.exemple" min="0" max="100" step="5" />
+      Audio : {{ sliders.audio }}
+      <input type="range" v-model="sliders.audio" min="0" max="100" step="5" />
     </li>
   </ul>
 </template>

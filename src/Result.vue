@@ -1,17 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { selectedSeries } from './store.js'
+import { selectedSeries, sliders } from './store.js'
 
 const df = ref([]) // Tableau réactif pour stocker les données du CSV
 const similaritiesTable = ref([]) // Tableau pour stocker les similarités avec toutes les séries
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
-
-// Define sliders with default values
-const sliders = ref({
-  couleur: 0,
-  scenario: 0,
-  exemple: 0,
-})
 
 // Fonction pour charger le fichier CSV
 async function loadCSV(url) {
@@ -139,9 +132,9 @@ onMounted(async () => {
 
   <h3>Valeurs des sliders :</h3>
   <ul>
-    <li>Couleur : {{ sliders.couleur }}</li>
+    <li>Video : {{ sliders.vidéo }}</li>
     <li>Scénario : {{ sliders.scenario }}</li>
-    <li>Exemple : {{ sliders.exemple }}</li>
+    <li>Audio : {{ sliders.audio }}</li>
   </ul>
 
   <h3 v-if="selectedSeries.length === 1">Tableau des similarités</h3>
