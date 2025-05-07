@@ -68,31 +68,34 @@ function calculerSimilaritesPourUneSerie(serie_name) {
     const otherSerieName = row['name']
     if (otherSerieName === serie_name) return null // Ignore la série elle-même
 
-    const similarities = features.map(feature => {
+    // Calcul des similarités pondérées
+    const weightedSimilarities = features.map(feature => {
       const features_1 = get_features(serie_name, feature, df)
       const features_2 = get_features(otherSerieName, feature, df)
-      console.log("features_1", features_1)
-      console.log("features_2", features_2)
-      console.log("feature", feature)
-      console.log("sliders[feature]", sliders[feature])
-      const similarityScore = cosine_similarity(features_1, features_2) * (sliders[feature] || 1) // Utilise 1 si le slider est invalide
-      console.log("similarityScore", similarityScore)
-      return similarityScore
+      const sliderValue = sliders[feature] || 1 // Utilise 1 si le slider est invalide
+      const similarityScore = cosine_similarity(features_1, features_2) * sliderValue
+      console.log(`Feature: ${feature}, Slider: ${sliderValue}, Similarity: ${similarityScore}`)
+      return { similarity: similarityScore, weight: sliderValue }
     })
 
-    const averageSimilarity = similarities.reduce((sum, val) => sum + val, 0) / similarities.length
+    // Calcul de la moyenne pondérée
+    const totalWeight = weightedSimilarities.reduce((sum, item) => sum + item.weight, 0)
+    const averageSimilarity = weightedSimilarities.reduce((sum, item) => sum + item.similarity, 0) / totalWeight
+
     return { 
       name: otherSerieName, 
       similarity: averageSimilarity, 
       details: {
-        llama_Synopsis: similarities[0],
-        audio: similarities[1],
-        vidéo: similarities[2]
+        llama_Synopsis: weightedSimilarities[0].similarity,
+        audio: weightedSimilarities[1].similarity,
+        vidéo: weightedSimilarities[2].similarity
       }
     }
   }).filter(item => item !== null) // Supprime les entrées nulles
-  similaritiesTable.value.sort((a, b) => b.similarity - a.similarity) // Trie par similarité décroissante
-  similaritiesTable.value = similaritiesTable.value.slice(0, 10) // Limite à 10 résultats
+
+  // Trie les résultats par similarité décroissante et limite à 10 résultats
+  similaritiesTable.value.sort((a, b) => b.similarity - a.similarity)
+  similaritiesTable.value = similaritiesTable.value.slice(0, 10)
 }
 
 // Fonction pour comparer deux séries
