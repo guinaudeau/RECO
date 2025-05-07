@@ -72,7 +72,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
     const weightedSimilarities = features.map(feature => {
       const features_1 = get_features(serie_name, feature, df)
       const features_2 = get_features(otherSerieName, feature, df)
-      const sliderValue = sliders.value[feature] || 1 // Utilise 1 si le slider est invalide
+      const sliderValue = Number(sliders.value[feature]) || 1 // Utilise 1 si le slider est invalide
       const similarityScore = cosine_similarity(features_1, features_2) * sliderValue
       console.log("Feature:", feature)
       console.log("Slider value:", sliderValue)
