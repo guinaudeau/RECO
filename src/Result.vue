@@ -6,6 +6,8 @@ const df = ref([]) // Tableau réactif pour stocker les données du CSV
 const similaritiesTable = ref([]) // Tableau pour stocker les similarités avec toutes les séries
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
 
+const features = ['llama_Synopsis', 'audio', 'vidéo']
+
 // Fonction pour charger le fichier CSV
 async function loadCSV(url) {
   try {
@@ -62,7 +64,6 @@ function cosine_similarity(vecA, vecB) {
 
 // Fonction pour calculer les similarités avec toutes les séries
 function calculerSimilaritesPourUneSerie(serie_name) {
-  const features = ['llama_Synopsis', 'audio', 'vidéo']
   similaritiesTable.value = df.value.map(row => {
     const otherSerieName = row['name']
     if (otherSerieName === serie_name) return null // Ignore la série elle-même
@@ -74,7 +75,9 @@ function calculerSimilaritesPourUneSerie(serie_name) {
       console.log("features_2", features_2)
       console.log("feature", feature)
       console.log("sliders[feature]", sliders[feature])
-      return (cosine_similarity(features_1, features_2) * (sliders[feature] || 1)) // Utilise 1 si le slider est invalide
+      const similarityScore = cosine_similarity(features_1, features_2) * (sliders[feature] || 1) // Utilise 1 si le slider est invalide
+      console.log("similarityScore", similarityScore)
+      return similarityScore
     })
 
     const averageSimilarity = similarities.reduce((sum, val) => sum + val, 0) / similarities.length
@@ -94,7 +97,6 @@ function calculerSimilaritesPourUneSerie(serie_name) {
 
 // Fonction pour comparer deux séries
 function comparerDeuxSeries(serie1, serie2) {
-  const features = ['llama_Synopsis', 'audio', 'vidéo']
   const similarities = features.map(feature => {
     const features_1 = get_features(serie1, feature, df)
     const features_2 = get_features(serie2, feature, df)
