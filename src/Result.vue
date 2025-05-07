@@ -69,21 +69,17 @@ function calculerSimilaritesPourUneSerie(serie_name) {
     if (otherSerieName === serie_name) return null // Ignore la série elle-même
 
     // Calcul des similarités pondérées
-    const weightedSimilarities = features
-      .map(feature => {
-        const features_1 = get_features(serie_name, feature, df)
-        const features_2 = get_features(otherSerieName, feature, df)
-        const sliderValue = sliders.value[feature] || 0 // Utilise 0 si le slider est invalide
-        if (sliderValue === 0) {
-          return null // Ignore cette feature si le slider est égal à 0
-        }
-        const similarityScore = cosine_similarity(features_1, features_2) * sliderValue
-        console.log("Feature:", feature)
-        console.log("Slider value:", sliderValue)
-        console.log("Similarity score:", similarityScore)
-        return { similarity: similarityScore, weight: sliderValue }
-      })
-      .filter(item => item !== null) // Supprime les features ignorées
+    const weightedSimilarities = features.map(feature => {
+      const features_1 = get_features(serie_name, feature, df)
+      const features_2 = get_features(otherSerieName, feature, df)
+      const sliderValue = Number(sliders.value[feature]) || 1 // Utilise 1 si le slider est invalide
+      if (sliderValue===0) return { similarity: 0, weight: 0 } // Ignore les sliders à 0
+      const similarityScore = cosine_similarity(features_1, features_2) * sliderValue
+      console.log("Feature:", feature)
+      console.log("Slider value:", sliderValue)
+      console.log("Similarity score:", similarityScore)
+      return { similarity: similarityScore, weight: sliderValue }
+    })
 
     // Calcul de la moyenne pondérée
     const totalWeight = weightedSimilarities.reduce((sum, item) => sum + item.weight, 0)
@@ -99,16 +95,16 @@ function calculerSimilaritesPourUneSerie(serie_name) {
       name: otherSerieName, 
       similarity: averageSimilarity, 
       details: {
-        llama_Synopsis: weightedSimilarities.find(item => item && item.similarity && item.weight === sliders.value['llama_Synopsis'])?.similarity || 0,
-        audio: weightedSimilarities.find(item => item && item.similarity && item.weight === sliders.value['audio'])?.similarity || 0,
-        vidéo: weightedSimilarities.find(item => item && item.similarity && item.weight === sliders.value['vidéo'])?.similarity || 0
+        llama_Synopsis: weightedSimilarities[0].similarity,
+        audio: weightedSimilarities[1].similarity,
+        vidéo: weightedSimilarities[2].similarity
       }
     }
   }).filter(item => item !== null) // Supprime les entrées nulles
 
   // Trie les résultats par similarité décroissante et limite à 10 résultats
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity)
-  similaritiesTable.value = similaritiesTable.value.slice(0, 10)
+//  similaritiesTable.value = similaritiesTable.value.slice(0, 10)
 }
 
 // Fonction pour comparer deux séries
