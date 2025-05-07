@@ -155,19 +155,19 @@ onMounted(async () => {
     <thead>
       <tr>
         <th>Série</th>
-        <th>Score de Similarité</th>
-        <th>llama_Synopsis</th>
-        <th>Audio</th>
-        <th>Vidéo</th>
+        <th>Score de Similarité (%)</th>
+        <th>llama_Synopsis (%)</th>
+        <th>Audio (%)</th>
+        <th>Vidéo (%)</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="item in similaritiesTable" :key="item.name">
         <td>{{ item.name }}</td>
-        <td>{{ item.similarity.toFixed(4) }}</td>
-        <td>{{ item.details.llama_Synopsis.toFixed(4) }}</td>
-        <td>{{ item.details.audio.toFixed(4) }}</td>
-        <td>{{ item.details.vidéo.toFixed(4) }}</td>
+        <td>{{ (item.similarity * 100).toFixed(2) }}</td>
+        <td>{{ (item.details.llama_Synopsis * 100).toFixed(2) }}</td>
+        <td>{{ (item.details.audio * 100).toFixed(2) }}</td>
+        <td>{{ (item.details.vidéo * 100).toFixed(2) }}</td>
       </tr>
     </tbody>
   </table>
@@ -175,11 +175,11 @@ onMounted(async () => {
   <h3 v-if="selectedSeries.length === 2">Comparaison entre deux séries</h3>
   <p v-if="comparisonResult">
     Similarité entre {{ comparisonResult.serie1 }} et {{ comparisonResult.serie2 }} :
-    {{ comparisonResult.similarity.toFixed(4) }}
+    {{ (comparisonResult.similarity * 100).toFixed(2) }}%
   </p>
   <ul v-if="comparisonResult">
-    <li>llama_Synopsis : {{ comparisonResult.details.llama_Synopsis.toFixed(4) }}</li>
-    <li>Audio : {{ comparisonResult.details.audio.toFixed(4) }}</li>
-    <li>Vidéo : {{ comparisonResult.details.vidéo.toFixed(4) }}</li>
+    <li>llama_Synopsis : {{ (comparisonResult.details.llama_Synopsis * 100).toFixed(2) }}%</li>
+    <li>Audio : {{ (comparisonResult.details.audio * 100).toFixed(2) }}%</li>
+    <li>Vidéo : {{ (comparisonResult.details.vidéo * 100).toFixed(2) }}%</li>
   </ul>
 </template>
