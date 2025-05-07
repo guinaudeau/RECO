@@ -82,7 +82,13 @@ function calculerSimilaritesPourUneSerie(serie_name) {
 
     // Calcul de la moyenne pondérée
     const totalWeight = weightedSimilarities.reduce((sum, item) => sum + item.weight, 0)
-    const averageSimilarity = weightedSimilarities.reduce((sum, item) => sum + item.similarity, 0) / totalWeight
+    const averageSimilarity = totalWeight > 0
+      ? weightedSimilarities.reduce((sum, item) => sum + item.similarity, 0) / totalWeight
+      : 0 // Si totalWeight est 0, définissez averageSimilarity à 0
+
+    console.log("Weighted Similarities:", weightedSimilarities)
+    console.log("Total Weight:", totalWeight)
+    console.log("Average Similarity:", averageSimilarity)
 
     return { 
       name: otherSerieName, 
@@ -97,7 +103,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
 
   // Trie les résultats par similarité décroissante et limite à 10 résultats
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity)
-  //similaritiesTable.value = similaritiesTable.value.slice(0, 10)
+//  similaritiesTable.value = similaritiesTable.value.slice(0, 10)
 }
 
 // Fonction pour comparer deux séries
