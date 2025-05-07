@@ -8,15 +8,15 @@ import { sliders } from './store.js'
   <ul>
     <li>
       Vidéo : {{ sliders.vidéo }}
-      <input type="range" v-model="sliders.vidéo" min="-5" max="5" step="0.01" />
+      <input type="range" v-model="sliders.vidéo" min="0" max="5" step="0.01" />
     </li>
     <li>
       Scénario : {{ sliders.llama_Synopsis }}
-      <input type="range" v-model="sliders.llama_Synopsis" min="-5" max="5" step="0.01" />
+      <input type="range" v-model="sliders.llama_Synopsis" min="0" max="5" step="0.01" />
     </li>
     <li>
       Audio : {{ sliders.audio }}
-      <input type="range" v-model="sliders.audio" min="-5" max="5" step="0.01" />
+      <input type="range" v-model="sliders.audio" min="0" max="5" step="0.01" />
     </li>
   </ul>
 </template>
