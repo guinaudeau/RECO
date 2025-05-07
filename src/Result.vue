@@ -84,6 +84,8 @@ function calculerSimilaritesPourUneSerie(serie_name) {
       }
     }
   }).filter(item => item !== null) // Supprime les entrées nulles
+  similaritiesTable.value.sort((a, b) => b.similarity - a.similarity) // Trie par similarité décroissante
+  similaritiesTable.value = similaritiesTable.value.slice(0, 10) // Limite à 10 résultats
 }
 
 // Fonction pour comparer deux séries
