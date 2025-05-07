@@ -72,21 +72,28 @@ function calculerSimilaritesPourUneSerie(serie_name) {
     const weightedSimilarities = features.map(feature => {
       const features_1 = get_features(serie_name, feature, df)
       const features_2 = get_features(otherSerieName, feature, df)
-      const sliderValue = sliders.value[feature] || 1 // Utilise 1 si le slider est invalide
-      const similarityScore = cosine_similarity(features_1, features_2) * sliderValue
-      console.log("Feature:", feature)
+      console.log(`Vecteurs pour ${serie_name} (${feature}):`, features_1)
+      console.log(`Vecteurs pour ${otherSerieName} (${feature}):`, features_2)
+
+      const sliderValue = typeof sliders.value[feature] === 'number' && !isNaN(sliders.value[feature])
+        ? sliders.value[feature]
+        : 1 // Utilise 1 si le slider est invalide
       console.log("Slider value:", sliderValue)
+
+      const similarityScore = cosine_similarity(features_1, features_2) * sliderValue
       console.log("Similarity score:", similarityScore)
+
       return { similarity: similarityScore, weight: sliderValue }
     })
 
     // Calcul de la moyenne pondérée
     const totalWeight = weightedSimilarities.reduce((sum, item) => sum + item.weight, 0)
-    const averageSimilarity = totalWeight > 0
-      ? weightedSimilarities.reduce((sum, item) => sum + item.similarity, 0) / totalWeight
-      : 0 // Si totalWeight est 0, définissez averageSimilarity à 0
+    if (isNaN(totalWeight) || totalWeight <= 0) {
+      console.warn("Total Weight est invalide :", totalWeight)
+      return null // Ignore cette série si Total Weight est invalide
+    }
 
-    console.log("Weighted Similarities:", weightedSimilarities)
+    const averageSimilarity = weightedSimilarities.reduce((sum, item) => sum + item.similarity, 0) / totalWeight
     console.log("Total Weight:", totalWeight)
     console.log("Average Similarity:", averageSimilarity)
 
@@ -103,7 +110,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
 
   // Trie les résultats par similarité décroissante et limite à 10 résultats
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity)
-//  similaritiesTable.value = similaritiesTable.value.slice(0, 10)
+  similaritiesTable.value = similaritiesTable.value.slice(0, 10)
 }
 
 // Fonction pour comparer deux séries
