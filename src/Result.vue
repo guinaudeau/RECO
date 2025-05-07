@@ -97,7 +97,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
 
   // Trie les résultats par similarité décroissante et limite à 10 résultats
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity)
-  similaritiesTable.value = similaritiesTable.value.slice(0, 10)
+  //similaritiesTable.value = similaritiesTable.value.slice(0, 10)
 }
 
 // Fonction pour comparer deux séries
