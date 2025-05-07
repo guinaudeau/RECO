@@ -75,6 +75,9 @@ function calculerSimilaritesPourUneSerie(serie_name) {
       console.log(`Vecteurs pour ${serie_name} (${feature}):`, features_1)
       console.log(`Vecteurs pour ${otherSerieName} (${feature}):`, features_2)
 
+      console.log("Feature:", feature)
+      console.log("Slider value:", sliders.value[feature])
+
       const sliderValue = typeof sliders.value[feature] === 'number' && !isNaN(sliders.value[feature])
         ? sliders.value[feature]
         : 1 // Utilise 1 si le slider est invalide
@@ -158,9 +161,9 @@ onMounted(async () => {
 
   <h3>Valeurs des sliders :</h3>
   <ul>
-    <li>Video : {{ sliders.vidéo }}</li>
-    <li>Scénario : {{ sliders.llama_Synopsis }}</li>
-    <li>Audio : {{ sliders.audio }}</li>
+    <li>Scénario : {{ sliders.value.llama_Synopsis }}</li>
+    <li>Audio : {{ sliders.value.audio }}</li>
+    <li>Vidéo : {{ sliders.value.vidéo }}</li>
   </ul>
 
   <h3 v-if="selectedSeries.length === 1">Tableau des similarités</h3>
