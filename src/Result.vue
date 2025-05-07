@@ -70,6 +70,10 @@ function calculerSimilaritesPourUneSerie(serie_name) {
     const similarities = features.map(feature => {
       const features_1 = get_features(serie_name, feature, df)
       const features_2 = get_features(otherSerieName, feature, df)
+      console.log("features_1", features_1)
+      console.log("features_2", features_2)
+      console.log("feature", feature)
+      console.log("sliders[feature]", sliders[feature])
       return (cosine_similarity(features_1, features_2) * (sliders[feature] || 1)) // Utilise 1 si le slider est invalide
     })
 
@@ -135,7 +139,7 @@ onMounted(async () => {
   <h3>Valeurs des sliders :</h3>
   <ul>
     <li>Video : {{ sliders.vidéo }}</li>
-    <li>Scénario : {{ sliders.scenario }}</li>
+    <li>Scénario : {{ sliders.llama_Synopsis }}</li>
     <li>Audio : {{ sliders.audio }}</li>
   </ul>
 
