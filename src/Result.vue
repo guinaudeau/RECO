@@ -3,8 +3,8 @@ import { ref, onMounted } from 'vue'
 import { selectedSeries, sliders } from './store.js'
 
 const df = ref([]) // Tableau réactif pour stocker les données du CSV
-const similaritiesTable = ref(JSON.parse(localStorage.getItem('similaritiesTable')) || []) // Restaurer depuis localStorage
-const comparisonResult = ref(JSON.parse(localStorage.getItem('comparisonResult')) || null) // Restaurer depuis localStorage
+const similaritiesTable = ref([]) // Tableau des similarités
+const comparisonResult = ref(null) // Résultat de la comparaison
 
 const features = ['llama_Synopsis', 'audio', 'vidéo']
 
@@ -37,15 +37,15 @@ function get_features(serie_name, features, df) {
   const feature_names = {
     'llama_Synopsis': [1, 51],
     'audio': [51, 56],
-    'vidéo': [56, Object.keys(df.value[0]).length] // Utilisation de la longueur des clés
+    'vidéo': [56, Object.keys(df.value[0]).length]
   }
 
   if (features in feature_names) {
     const df_serie = df.value.filter(row => row['name'] === serie_name)
     if (df_serie.length > 0) {
       const idx = feature_names[features]
-      const keys = Object.keys(df_serie[0]).slice(idx[0], idx[1]) // Obtenez les clés des colonnes
-      feats.push(...keys.map(key => parseFloat(df_serie[0][key]) || 0)) // Récupérez les valeurs
+      const keys = Object.keys(df_serie[0]).slice(idx[0], idx[1])
+      feats.push(...keys.map(key => parseFloat(df_serie[0][key]) || 0))
     }
   } else {
     console.error("Nom de caractéristique inconnu")
@@ -66,23 +66,21 @@ function cosine_similarity(vecA, vecB) {
 function calculerSimilaritesPourUneSerie(serie_name) {
   similaritiesTable.value = df.value.map(row => {
     const otherSerieName = row['name']
-    if (otherSerieName === serie_name) return null // Ignore la série elle-même
+    if (otherSerieName === serie_name) return null
 
-    // Calcul des similarités pondérées
     const weightedSimilarities = features.map(feature => {
       const features_1 = get_features(serie_name, feature, df)
       const features_2 = get_features(otherSerieName, feature, df)
-      const sliderValue = Number(sliders.value[feature]) || 1 // Utilise 1 si le slider est invalide
-      if (sliderValue === 0) return { similarity: 0, weight: 0 } // Ignore les sliders à 0
+      const sliderValue = Number(sliders.value[feature]) || 1
+      if (sliderValue === 0) return { similarity: 0, weight: 0 }
       const similarityScore = cosine_similarity(features_1, features_2) * sliderValue
       return { similarity: similarityScore, weight: sliderValue }
     })
 
-    // Calcul de la moyenne pondérée
     const totalWeight = weightedSimilarities.reduce((sum, item) => sum + item.weight, 0)
     const averageSimilarity = totalWeight > 0
       ? weightedSimilarities.reduce((sum, item) => sum + item.similarity, 0) / totalWeight
-      : 0 // Si totalWeight est 0, définissez averageSimilarity à 0
+      : 0
 
     return { 
       name: otherSerieName, 
@@ -93,13 +91,9 @@ function calculerSimilaritesPourUneSerie(serie_name) {
         vidéo: weightedSimilarities[2].similarity
       }
     }
-  }).filter(item => item !== null) // Supprime les entrées nulles
+  }).filter(item => item !== null)
 
-  // Trie les résultats par similarité décroissante et limite à 10 résultats
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity)
-
-  // Sauvegarde dans localStorage
-  localStorage.setItem('similaritiesTable', JSON.stringify(similaritiesTable.value))
 }
 
 // Fonction pour comparer deux séries
@@ -121,9 +115,6 @@ function comparerDeuxSeries(serie1, serie2) {
       vidéo: similarities[2]
     }
   }
-
-  // Sauvegarde dans localStorage
-  localStorage.setItem('comparisonResult', JSON.stringify(comparisonResult.value))
 }
 
 onMounted(async () => {
