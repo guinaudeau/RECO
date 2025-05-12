@@ -17,7 +17,12 @@
             <p class="serie-title">{{ serie.name }}</p>
             <img :src="serie.image" alt="Image de la série" v-if="serie.image" class="serie-image" />
             <button @click="showDescription(serie)" class="info-button">plus d'information</button>
-            <input type="checkbox" v-model="serie.checked" class="plus-minus" />
+            <input 
+              type="checkbox" 
+              v-model="serie.checked" 
+              class="plus-minus" 
+              @change="countChoices($event.target)" 
+            />
           </div>
         </td>
       </tr>
@@ -133,6 +138,24 @@ const groupedSeries = computed(() => {
   }
   return groups
 })
+
+var nbCheck = 0;
+
+function isChecked(elmt) {
+  return elmt.checked;
+}
+
+function countChoices(elmt) {
+  if (nbCheck < 3 || !isChecked(elmt)) {
+    if (isChecked(elmt)) {
+      nbCheck += 1;
+    } else {
+      nbCheck -= 1;
+    }
+  } else {
+    elmt.checked = false;
+  }
+}
 </script>
 
 <style>
