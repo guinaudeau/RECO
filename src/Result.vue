@@ -9,6 +9,7 @@ const comparisonResult = ref(null) // Résultat de la comparaison
 const features = ['llama_Synopsis', 'audio', 'vidéo']
 
 // Fonction pour charger le fichier CSV
+// Cette fonction charge un fichier CSV à partir d'une URL donnée, le parse et stocke les données dans le tableau réactif `df`.
 async function loadCSV(url) {
   try {
     const response = await fetch(url)
@@ -32,6 +33,7 @@ async function loadCSV(url) {
 }
 
 // Fonction pour extraire les caractéristiques d'une série
+// Cette fonction récupère les caractéristiques spécifiques d'une série donnée en fonction des caractéristiques sélectionnées.
 function get_features(serie_name, features, df) {
   const feats = []
   const feature_names = {
@@ -55,6 +57,7 @@ function get_features(serie_name, features, df) {
 }
 
 // Fonction pour calculer la similarité cosinus
+// Cette fonction calcule la similarité cosinus entre deux vecteurs donnés.
 function cosine_similarity(vecA, vecB) {
   const dotProduct = vecA.reduce((sum, value, index) => sum + value * vecB[index], 0)
   const magnitudeA = Math.sqrt(vecA.reduce((sum, value) => sum + value * value, 0))
@@ -63,6 +66,7 @@ function cosine_similarity(vecA, vecB) {
 }
 
 // Fonction pour calculer les similarités avec toutes les séries
+// Cette fonction calcule les similarités entre une série donnée et toutes les autres séries dans le tableau `df`.
 function calculerSimilaritesPourUneSerie(serie_name) {
   similaritiesTable.value = df.value.map(row => {
     const otherSerieName = row['name']
@@ -97,6 +101,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
 }
 
 // Fonction pour comparer deux séries
+// Cette fonction calcule la similarité moyenne entre deux séries sélectionnées en utilisant les caractéristiques définies.
 function comparerDeuxSeries(serie1, serie2) {
   const similarities = features.map(feature => {
     const features_1 = get_features(serie1, feature, df)
@@ -118,6 +123,7 @@ function comparerDeuxSeries(serie1, serie2) {
 }
 
 // Fonction pour exécuter les calculs en fonction des séries sélectionnées
+// Cette fonction détermine si une ou deux séries sont sélectionnées et exécute les calculs appropriés.
 function executerCalculs() {
   if (selectedSeries.value.length === 1) {
     const serieName = selectedSeries.value[0]['name']
@@ -129,12 +135,14 @@ function executerCalculs() {
 }
 
 // Charger les données CSV et exécuter les calculs au montage
+// Cette fonction est exécutée lorsque le composant est monté. Elle charge les données CSV et exécute les calculs initiaux.
 onMounted(async () => {
   await loadCSV('/RECO/data/characteristics.csv')
   executerCalculs()
 })
 
 // Recalculer les résultats si les séries sélectionnées changent
+// Cette fonction surveille les changements dans les séries sélectionnées et met à jour les résultats en conséquence.
 watch(selectedSeries, () => {
   executerCalculs()
 })
