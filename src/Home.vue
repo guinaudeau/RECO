@@ -146,7 +146,7 @@ function isChecked(elmt) {
 }
 
 function countChoices(elmt) {
-  if (nbCheck < 3 || !isChecked(elmt)) {
+  if (nbCheck < 2 || !isChecked(elmt)) {
     if (isChecked(elmt)) {
       nbCheck += 1;
     } else {
