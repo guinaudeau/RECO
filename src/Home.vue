@@ -1,10 +1,5 @@
 <template>
   <h2>Liste des séries</h2>
-  <form @submit.prevent="afficherSelectionnes">
-    <input type="checkbox" v-model="afficherSelectionnes" />
-    <label>Afficher les séries sélectionnées</label>
-    <button type="submit">Afficher</button>
-  </form>
   <form @submit.prevent="searchQuery">
     <input type="text" v-model="rechercher" autocomplete="on" placeholder="Rechercher une série" />
     <button type="submit">Rechercher</button>
@@ -34,8 +29,9 @@
   <p>Nombre de séries non cochées : {{ series.filter(serie => !serie.checked).length }}</p>
   <p>Nombre de séries modifiées : {{ series.filter(serie => serie.modified).length }}</p>
 </template>
+
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import * as XLSX from 'xlsx'
 import { selectedSeries } from './store.js'
 
@@ -105,16 +101,6 @@ const searchQuery = () => {
   series.value = filteredSeries
 }
 
-// Fonction pour mettre à jour les séries sélectionnées dans le store
-const afficherSelectionnes = () => {
-  selectedSeries.value = series.value.filter(serie => serie.checked) // Met à jour le store
-  if (selectedSeries.value.length > 0) {
-    alert('Séries sélectionnées : ' + selectedSeries.value.map(serie => serie['name']).join(', '))
-  } else {
-    alert('Aucune série sélectionnée')
-  }
-}
-
 // Fonction pour afficher la description d'une série
 const showDescription = (serie) => {
   if (serie.name && serie.description) {
@@ -123,6 +109,15 @@ const showDescription = (serie) => {
     alert("Les informations de la série sont incomplètes.")
   }
 }
+
+// Watch pour mettre à jour les séries sélectionnées dans le store
+watch(
+  series,
+  (newSeries) => {
+    selectedSeries.value = newSeries.filter(serie => serie.checked) // Met à jour le store
+  },
+  { deep: true }
+)
 
 // Charger les données Excel au montage du composant
 onMounted(() => {
