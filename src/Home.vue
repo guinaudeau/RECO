@@ -140,11 +140,11 @@ const groupedSeries = computed(() => {
 })
 
 var nbCheck = 0;
-
+// Fonction pour vérifier si une case est cochée
 function isChecked(elmt) {
   return elmt.checked;
 }
-
+// Fonction pour compter le nombre de choix
 function countChoices(elmt) {
   if (nbCheck < 2 || !isChecked(elmt)) {
     if (isChecked(elmt)) {

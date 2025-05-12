@@ -142,16 +142,28 @@ watch(selectedSeries, () => {
 
 <template>
   <h2>Résultats des séries sélectionnées</h2>
-  <ul>
-    <li v-for="serie in selectedSeries" :key="serie.id">
-      {{ serie['name'] }}
-    </li>
-  </ul>
-  <p v-if="selectedSeries.length === 0">Aucune série sélectionnée.</p>
+  
+  <!-- Affichage des séries sélectionnées -->
+  <div v-if="selectedSeries.length > 0">
+    <table>
+      <tbody>
+        <tr v-for="serie in selectedSeries" :key="serie.id">
+          <td class="checkbox-wrapper-50">
+            <div class="cell-content">
+              <p class="serie-title">{{ serie.name }}</p>
+              <img :src="serie.image" alt="Image de la série" v-if="serie.image" class="serie-image" />
+              <p v-if="serie.description">{{ serie.description }}</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p v-else>Aucune série sélectionnée.</p>
 
   <h3>Valeurs des sliders :</h3>
   <ul>
-    <li>Video : {{ sliders.vidéo }}</li>
+    <li>Vidéo : {{ sliders.vidéo }}</li>
     <li>Scénario : {{ sliders.llama_Synopsis }}</li>
     <li>Audio : {{ sliders.audio }}</li>
   </ul>
@@ -189,3 +201,38 @@ watch(selectedSeries, () => {
     <li>Vidéo : {{ (comparisonResult.details.vidéo * 100).toFixed(2) }}%</li>
   </ul>
 </template>
+
+<style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tbody {
+  text-align: center;
+}
+
+td {
+  padding: 10px;
+  vertical-align: top;
+}
+
+.cell-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.serie-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.serie-image {
+  max-width: 100px;
+  max-height: 150px;
+  margin-bottom: 10px;
+}
+</style>
