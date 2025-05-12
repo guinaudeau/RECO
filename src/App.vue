@@ -6,9 +6,11 @@ import AboutReco from './AboutReco.vue'
 import NotFound from './NotFound.vue'
 import SelectionPuissance from './SelectionPuissance.vue'
 import Resultat from './Result.vue'
-import {useDark, useToggle} from '@vueuse/core'
+import { useDark, useToggle } from '@vueuse/core'
+
 const isdark = useDark()
 const toggleDark = useToggle(isdark)
+
 const routes = {
   '/': Home,
   '/aboutReco': AboutReco,
@@ -16,23 +18,32 @@ const routes = {
   '/Resultat': Resultat,
   '/AboutReco': AboutReco
 }
+
 const currentPath = ref(window.location.hash)
-let HomeB=true
-//let ResultatB=false
-let PuissanceB=false
-let AboutRecoB= false
+
+// Redirige vers Home si le chemin est vide ou invalide
+if (!currentPath.value || !routes[currentPath.value.slice(1)]) {
+  window.location.hash = '#/'
+  currentPath.value = '#/'
+}
+
+let HomeB = true
+let PuissanceB = false
+let AboutRecoB = false
+
 window.addEventListener('hashchange', () => {
+  if (!window.location.hash || !routes[window.location.hash.slice(1)]) {
+    window.location.hash = '#/'
+  }
   currentPath.value = window.location.hash
 })
+
 const currentView = computed(() => {
   HomeB = window.location.hash === "#/";
-  //ResultatB = window.location.hash === "#/Resultat";
   PuissanceB = window.location.hash === "#/SelectionPuissance";
   AboutRecoB = window.location.hash === "#/AboutReco";
   return routes[currentPath.value.slice(1) || "/"] || NotFound;
-});
-
-
+})
 </script>
 <template>
   <div class="top">
