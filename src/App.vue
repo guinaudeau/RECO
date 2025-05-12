@@ -21,29 +21,37 @@ const routes = {
 
 const currentPath = ref(window.location.hash)
 
-// Redirige vers Home si le chemin est vide ou invalide
-if (!currentPath.value || !routes[currentPath.value.slice(1)]) {
-  window.location.hash = '#/'
-  currentPath.value = '#/'
-}
-
 let HomeB = true
 let PuissanceB = false
 let AboutRecoB = false
 
-window.addEventListener('hashchange', () => {
-  if (!window.location.hash || !routes[window.location.hash.slice(1)]) {
-    window.location.hash = '#/'
-  }
-  currentPath.value = window.location.hash
-})
-
-const currentView = computed(() => {
+// Fonction pour synchroniser les variables avec le chemin actuel
+const updateNavigationState = () => {
   HomeB = window.location.hash === "#/";
   PuissanceB = window.location.hash === "#/SelectionPuissance";
   AboutRecoB = window.location.hash === "#/AboutReco";
+};
+
+// Redirige vers Home si le chemin est vide ou invalide
+if (!currentPath.value || !routes[currentPath.value.slice(1)]) {
+  window.location.hash = '#/';
+  currentPath.value = '#/';
+}
+
+// Initialisation de l'état de navigation
+updateNavigationState();
+
+window.addEventListener('hashchange', () => {
+  if (!window.location.hash || !routes[window.location.hash.slice(1)]) {
+    window.location.hash = '#/';
+  }
+  currentPath.value = window.location.hash;
+  updateNavigationState(); // Met à jour l'état de navigation après un changement de hash
+});
+
+const currentView = computed(() => {
   return routes[currentPath.value.slice(1) || "/"] || NotFound;
-})
+});
 </script>
 <template>
   <div class="top">
