@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { selectedSeries, sliders } from './store.js'
 
 const df = ref([]) // Tableau réactif pour stocker les données du CSV
@@ -117,9 +117,8 @@ function comparerDeuxSeries(serie1, serie2) {
   }
 }
 
-onMounted(async () => {
-  await loadCSV('/RECO/data/characteristics.csv')
-
+// Fonction pour exécuter les calculs en fonction des séries sélectionnées
+function executerCalculs() {
   if (selectedSeries.value.length === 1) {
     const serieName = selectedSeries.value[0]['name']
     calculerSimilaritesPourUneSerie(serieName)
@@ -127,6 +126,17 @@ onMounted(async () => {
     const [serie1, serie2] = selectedSeries.value.map(serie => serie['name'])
     comparerDeuxSeries(serie1, serie2)
   }
+}
+
+// Charger les données CSV et exécuter les calculs au montage
+onMounted(async () => {
+  await loadCSV('/RECO/data/characteristics.csv')
+  executerCalculs()
+})
+
+// Recalculer les résultats si les séries sélectionnées changent
+watch(selectedSeries, () => {
+  executerCalculs()
 })
 </script>
 
