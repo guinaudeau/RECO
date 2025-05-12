@@ -3,8 +3,8 @@ import { ref, onMounted } from 'vue'
 import { selectedSeries, sliders } from './store.js'
 
 const df = ref([]) // Tableau réactif pour stocker les données du CSV
-const similaritiesTable = ref([]) // Tableau pour stocker les similarités avec toutes les séries
-const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
+const similaritiesTable = ref(JSON.parse(localStorage.getItem('similaritiesTable')) || []) // Restaurer depuis localStorage
+const comparisonResult = ref(JSON.parse(localStorage.getItem('comparisonResult')) || null) // Restaurer depuis localStorage
 
 const features = ['llama_Synopsis', 'audio', 'vidéo']
 
@@ -73,11 +73,8 @@ function calculerSimilaritesPourUneSerie(serie_name) {
       const features_1 = get_features(serie_name, feature, df)
       const features_2 = get_features(otherSerieName, feature, df)
       const sliderValue = Number(sliders.value[feature]) || 1 // Utilise 1 si le slider est invalide
-      if (sliderValue===0) return { similarity: 0, weight: 0 } // Ignore les sliders à 0
+      if (sliderValue === 0) return { similarity: 0, weight: 0 } // Ignore les sliders à 0
       const similarityScore = cosine_similarity(features_1, features_2) * sliderValue
-      console.log("Feature:", feature)
-      console.log("Slider value:", sliderValue)
-      console.log("Similarity score:", similarityScore)
       return { similarity: similarityScore, weight: sliderValue }
     })
 
@@ -86,10 +83,6 @@ function calculerSimilaritesPourUneSerie(serie_name) {
     const averageSimilarity = totalWeight > 0
       ? weightedSimilarities.reduce((sum, item) => sum + item.similarity, 0) / totalWeight
       : 0 // Si totalWeight est 0, définissez averageSimilarity à 0
-
-    console.log("Weighted Similarities:", weightedSimilarities)
-    console.log("Total Weight:", totalWeight)
-    console.log("Average Similarity:", averageSimilarity)
 
     return { 
       name: otherSerieName, 
@@ -104,7 +97,9 @@ function calculerSimilaritesPourUneSerie(serie_name) {
 
   // Trie les résultats par similarité décroissante et limite à 10 résultats
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity)
-//  similaritiesTable.value = similaritiesTable.value.slice(0, 10)
+
+  // Sauvegarde dans localStorage
+  localStorage.setItem('similaritiesTable', JSON.stringify(similaritiesTable.value))
 }
 
 // Fonction pour comparer deux séries
@@ -126,6 +121,9 @@ function comparerDeuxSeries(serie1, serie2) {
       vidéo: similarities[2]
     }
   }
+
+  // Sauvegarde dans localStorage
+  localStorage.setItem('comparisonResult', JSON.stringify(comparisonResult.value))
 }
 
 onMounted(async () => {
