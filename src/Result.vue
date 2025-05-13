@@ -155,7 +155,7 @@ watch(selectedSeries, () => {
   <div v-if="selectedSeries.length > 0">
     <table>
       <tbody>
-        <tr v-for="serie in selectedSeries" :key="serie.id">
+        <td v-for="serie in selectedSeries" :key="serie.id">
           <td class="checkbox-wrapper-50">
             <div class="cell-content">
               <p class="serie-title">{{ serie.name }}</p>
@@ -163,7 +163,7 @@ watch(selectedSeries, () => {
               <p v-if="serie.description">{{ serie.description }}</p>
             </div>
           </td>
-        </tr>
+        </td>
       </tbody>
     </table>
   </div>
