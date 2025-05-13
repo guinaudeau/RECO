@@ -88,7 +88,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
 
     // Récupérer l'image et la description depuis Series.json
     const seriesData = df.value.find(series => series.name === otherSerieName)
-
+    console.log(df.value)
     return { 
       name: otherSerieName, 
       similarity: averageSimilarity, 
@@ -101,7 +101,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
       }
     }
   }).filter(item => item !== null)
-
+  
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity)
 }
 
