@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { defineProps, ref, computed } from 'vue'
 
 const props = defineProps(['series', 'sliders']) // Recevoir les séries et sliders via props
 const similaritiesTable = ref([]) // Tableau des similarités

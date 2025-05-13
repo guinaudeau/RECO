@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { defineProps, ref, computed, watch } from 'vue'
 import { selectedSeries } from './store.js'
 
 const props = defineProps(['series']) // Recevoir les données via props

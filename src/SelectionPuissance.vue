@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { defineProps, defineEmits, ref, watch } from 'vue'
 
 const props = defineProps(['sliders']) // Recevoir les sliders via props
 const emit = defineEmits(['update:sliders']) // Émettre un événement pour notifier le parent
