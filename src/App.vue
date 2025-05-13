@@ -18,7 +18,7 @@ const toggleDark = useToggle(isDark)
 // Charger les séries depuis Series.json
 onMounted(async () => {
   try {
-    const response = await fetch('/src/data/Series.json') // Chemin vers le fichier JSON
+    const response = await fetch('/data/Series.json') // Chemin vers le fichier JSON
     series.value = await response.json()
   } catch (error) {
     console.error('Erreur lors du chargement des séries :', error)
