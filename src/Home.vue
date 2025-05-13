@@ -62,11 +62,11 @@ const showDescription = (serie) => {
   }
 }
 
-// Watch pour mettre à jour les séries sélectionnées dans le store
+// Watch pour mettre à jour les séries sélectionnées dans store
 watch(
   series,
   (newSeries) => {
-    selectedSeries.value = newSeries.filter(serie => serie.checked) // Met à jour le store
+    selectedSeries.value = newSeries.filter(serie => serie.checked) // Met à jour store
   },
   { deep: true }
 )
