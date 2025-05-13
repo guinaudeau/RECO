@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 
 import Home from './Home.vue'
 import AboutReco from './AboutReco.vue'
-import NotFound from './NotFound.vue'
+
 import SelectionPuissance from './SelectionPuissance.vue'
 import Resultat from './Result.vue'
 import { useDark, useToggle } from '@vueuse/core'
@@ -50,7 +50,7 @@ window.addEventListener('hashchange', () => {
 });
 
 const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || "/"] || NotFound;
+  return routes[currentPath.value.slice(1) || "/"];
 });
 </script>
 <template>
