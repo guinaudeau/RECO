@@ -15,14 +15,20 @@ const sliders = ref({
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 
+const isLoading = ref(true)
 
 // Charger les séries depuis Series.json
 onMounted(async () => {
   try {
-    const response = await fetch('/RECO/data/Series.json') // Chemin vers le fichier JSON
+    const response = await fetch('RECO/data/Series.json')
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP : ${response.status}`)
+    }
     series.value = await response.json()
   } catch (error) {
     console.error('Erreur lors du chargement des séries :', error)
+  } finally {
+    isLoading.value = false
   }
 })
 
@@ -88,9 +94,12 @@ changementVus()
     <button v-if="!IsResult && !IsAbout"><a href="#/Resultat">Résultats</a></button>
     <button v-if="!IsAbout"><a href="#/about">À propos</a></button>
   </nav>
-  <keep-alive>
-    <component :is="currentView" :series="series" :sliders="sliders" />
-  </keep-alive>
+  <div v-if="isLoading">Chargement des séries...</div>
+  <div v-else>
+    <keep-alive>
+      <component :is="currentView" :series="series" :sliders="sliders" />
+    </keep-alive>
+  </div>
   <footer class="fixed_footer">
     <div class="content">
       <p>projet réalisé en partenaria avec :</p>
