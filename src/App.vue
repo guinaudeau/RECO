@@ -39,13 +39,14 @@ const currentView = computed(() => routes[currentPath.value.slice(1)] || Home)
 
 window.addEventListener('hashchange', () => {
   currentPath.value = window.location.hash || '#/'
+  changementVus() // Met à jour les états de navigation
 })
 // changer la navigation
 let IsHome = true
 let IsSelection = false
 let IsResult = false
 let IsAbout = false
-const changementVus(){
+function changementVus() {
   if (currentPath.value === '#/') {
     IsHome = true
     IsSelection = false
@@ -68,6 +69,8 @@ const changementVus(){
     IsAbout = true
   }
 }
+
+changementVus()
 
 </script>
 
