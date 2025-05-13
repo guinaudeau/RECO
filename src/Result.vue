@@ -86,9 +86,14 @@ function calculerSimilaritesPourUneSerie(serie_name) {
       ? weightedSimilarities.reduce((sum, item) => sum + item.similarity, 0) / totalWeight
       : 0
 
+    // Récupérer l'image et la description depuis Series.json
+    const seriesData = df.value.find(series => series.name === otherSerieName)
+
     return { 
       name: otherSerieName, 
       similarity: averageSimilarity, 
+      image: seriesData?.image || '', // Image de la série
+      description: seriesData?.description || 'Description non disponible', // Description de la série
       details: {
         llama_Synopsis: weightedSimilarities[0].similarity,
         audio: weightedSimilarities[1].similarity,
@@ -155,7 +160,7 @@ watch(selectedSeries, () => {
   <div v-if="selectedSeries.length > 0">
     <table>
       <tbody>
-        <td v-for="serie in selectedSeries" :key="serie.id">
+        <tr v-for="serie in selectedSeries" :key="serie.id">
           <td class="checkbox-wrapper-50">
             <div class="cell-content">
               <p class="serie-title">{{ serie.name }}</p>
@@ -163,7 +168,7 @@ watch(selectedSeries, () => {
               <p v-if="serie.description">{{ serie.description }}</p>
             </div>
           </td>
-        </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -189,7 +194,13 @@ watch(selectedSeries, () => {
     </thead>
     <tbody>
       <tr v-for="item in similaritiesTable" :key="item.name">
-        <td>{{ item.name }}</td>
+        <td class="checkbox-wrapper-50">
+          <div class="cell-content">
+            <p class="serie-title">{{ item.name }}</p>
+            <img :src="item.image" alt="Image de la série" v-if="item.image" class="serie-image" />
+            <p v-if="item.description">{{ item.description }}</p>
+          </div>
+        </td>
         <td>{{ (item.similarity * 100).toFixed(2) }}</td>
         <td>{{ (item.details.llama_Synopsis * 100).toFixed(2) }}</td>
         <td>{{ (item.details.audio * 100).toFixed(2) }}</td>
