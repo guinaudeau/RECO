@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useDark, useToggle } from '@vueuse/core'
 import Home from './Home.vue'
 import SelectionPuissance from './SelectionPuissance.vue'
 import Resultat from './Result.vue'
@@ -10,6 +11,9 @@ const sliders = ref({
   audio: 1,
   vidéo: 1
 })
+
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 
 // Charger les séries depuis Series.json
 onMounted(async () => {
@@ -41,7 +45,7 @@ window.addEventListener('hashchange', () => {
     <div class="title-container">
       <a href="https://www.cnrs.fr/fr" target="Fenêtre définie" ><img src="CNRS.png" alt="Logo du CNRS" style="max-width: 100px; max-height: 100px; top: 10px; left: 10px;" /></a>
       <h1>RECO+</h1>
-      <button @click="toggleDark()" class="dark-mode-toggle">Mode Jour/Nuit</button>
+      <button @click="toggleDark" class="dark-mode-toggle">Mode Jour/Nuit</button>
     </div>
   </div>
   <nav>
