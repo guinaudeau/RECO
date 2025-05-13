@@ -80,10 +80,10 @@ const changementVus(){
     </div>
   </div>
   <nav>
-    <button v-if="!IsHome" href="#/">Catalogue</button>
-    <button v-if="!IsSelection" href="#/SelectionPuissance">Personnalisation</button>
-    <button v-if="!IsResult && !IsAbout" href="#/Resultat">Résultats</button>
-    <button v-if="!IsAbout" href="#/about">À propos</button>
+    <button v-if="!IsHome"><a href="#/">Catalogue</a></button>
+    <button v-if="!IsSelection"><a href="#/SelectionPuissance">Personnalisation</a></button>
+    <button v-if="!IsResult && !IsAbout"><a href="#/Resultat">Résultats</a></button>
+    <button v-if="!IsAbout"><a href="#/about">À propos</a></button>
   </nav>
   <keep-alive>
     <component :is="currentView" :series="series" :sliders="sliders" />
