@@ -20,7 +20,7 @@ const isLoading = ref(true)
 // Charger les séries depuis Series.json
 onMounted(async () => {
   try {
-    const response = await fetch('/data/Series.json')
+    const response = await fetch('RECO/data/Series.json')
     if (!response.ok) {
       throw new Error(`Erreur HTTP : ${response.status}`)
     }
