@@ -1,21 +1,36 @@
 <script setup>
+import { ref, watch } from 'vue'
+
 const props = defineProps(['sliders']) // Recevoir les sliders via props
+const emit = defineEmits(['update:sliders']) // Émettre un événement pour notifier le parent
+
+// Créer une copie locale des sliders
+const localSliders = ref({ ...props.sliders })
+
+// Surveiller les changements locaux et émettre un événement
+watch(
+  localSliders,
+  (newValue) => {
+    emit('update:sliders', newValue)
+  },
+  { deep: true }
+)
 </script>
 
 <template>
   <h2>Personnalisation des critères</h2>
   <ul>
     <li>
-      Vidéo : {{ sliders.vidéo }}
-      <input type="range" v-model="sliders.vidéo" min="0" max="1" step="0.01" />
+      Vidéo : {{ localSliders.vidéo }}
+      <input type="range" v-model="localSliders.vidéo" min="0" max="1" step="0.01" />
     </li>
     <li>
-      Scénario : {{ sliders.llama_Synopsis }}
-      <input type="range" v-model="sliders.llama_Synopsis" min="0" max="1" step="0.01" />
+      Scénario : {{ localSliders.llama_Synopsis }}
+      <input type="range" v-model="localSliders.llama_Synopsis" min="0" max="1" step="0.01" />
     </li>
     <li>
-      Audio : {{ sliders.audio }}
-      <input type="range" v-model="sliders.audio" min="0" max="1" step="0.01" />
+      Audio : {{ localSliders.audio }}
+      <input type="range" v-model="localSliders.audio" min="0" max="1" step="0.01" />
     </li>
   </ul>
 </template>
