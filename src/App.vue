@@ -31,7 +31,7 @@ const routes = {
   '/': Home,
   '/SelectionPuissance': SelectionPuissance,
   '/Resultat': Resultat,
-  '/about': () => import('./About.vue')
+  '/about': () => import('./AboutReco.vue')
 }
 
 const currentPath = ref(window.location.hash || '#/')
