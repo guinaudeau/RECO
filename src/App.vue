@@ -1,9 +1,8 @@
 <script setup>
-import { ref, computed } from 'vue'
-
+import { ref, computed, onMounted } from 'vue'
+import * as XLSX from 'xlsx'
 import Home from './Home.vue'
 import AboutReco from './AboutReco.vue'
-
 import SelectionPuissance from './SelectionPuissance.vue'
 import Resultat from './Result.vue'
 import { useDark, useToggle } from '@vueuse/core'
@@ -52,7 +51,74 @@ window.addEventListener('hashchange', () => {
 const currentView = computed(() => {
   return routes[currentPath.value.slice(1) || "/"];
 });
+
+// Variables réactives pour stocker les données
+const series = ref([]) // Données combinées de Series.json et Excel
+const sliders = ref({
+  llama_Synopsis: 1,
+  audio: 1,
+  vidéo: 1
+})
+
+// Fonction pour charger les données depuis un fichier Excel
+const loadExcelData = async (filePath) => {
+  try {
+    const response = await fetch(filePath)
+    const arrayBuffer = await response.arrayBuffer()
+    const workbook = XLSX.read(arrayBuffer, { type: 'array' })
+
+    if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
+      throw new Error('Le fichier Excel ne contient aucune feuille.')
+    }
+
+    const sheetName = workbook.SheetNames[0]
+    const sheet = workbook.Sheets[sheetName]
+
+    if (!sheet) {
+      throw new Error('La feuille Excel est vide ou invalide.')
+    }
+
+    // Charger les descriptions depuis Series.json
+    const seriesJson = await loadSeriesJson()
+
+    // Mapper les données Excel et ajouter les descriptions
+    series.value = XLSX.utils.sheet_to_json(sheet).map((serie, index) => {
+      const matchingSerie = seriesJson.find(
+        (jsonSerie) => jsonSerie.name === serie['name']
+      )
+      return {
+        id: index,
+        name: serie['name'], // Mapper le nom
+        description: matchingSerie ? matchingSerie.description : 'Description non disponible', // Ajouter la description
+        image: matchingSerie ? matchingSerie.image : 'Image non disponible', // Ajouter l'image
+        checked: false,
+        deleted: false,
+        modified: false
+      }
+    })
+  } catch (error) {
+    console.error('Erreur lors du chargement du fichier Excel :', error)
+  }
+}
+
+// Fonction pour charger les données depuis un fichier JSON
+const loadSeriesJson = async () => {
+  try {
+    const response = await fetch('/RECO/data/Series.json')
+    const jsonData = await response.json()
+    return jsonData
+  } catch (error) {
+    console.error('Erreur lors du chargement de Series.json :', error)
+    return []
+  }
+}
+
+// Charger les données au montage
+onMounted(async () => {
+  await loadExcelData('/RECO/data/characteristics.csv')
+})
 </script>
+
 <template>
   <div class="top">
     <div class="title-container">
@@ -67,11 +133,10 @@ const currentView = computed(() => {
         <a v-if="HomeB | PuissanceB" href="#/Resultat"><button>Résultat </button></a>
         <a v-else href="#/SelectionPuissance"><button>puissance </button></a>
         <a v-if="!AboutRecoB" href="#/AboutReco" id="Home"><button >About Reco </button></a>
-
     </nav>
     <body>
         <keep-alive>
-            <component :is="currentView" />
+            <component :is="currentView" :series="series" :sliders="sliders" />
         </keep-alive>
     </body>
   <footer class="fixed_footer">
@@ -82,8 +147,8 @@ const currentView = computed(() => {
     <a href="https://jfli.cnrs.fr/" target="Fenêtre définie" ><img src="logo-jfli.png" alt="logo du JFLI"/></a>
   </div>
 </footer>
-    
 </template>
+
 <style>
 nav button {
   text-decoration: none;

@@ -1,6 +1,5 @@
 <script setup>
-import { sliders } from './store.js'
-
+const props = defineProps(['sliders']) // Recevoir les sliders via props
 </script>
 
 <template>
@@ -20,7 +19,6 @@ import { sliders } from './store.js'
     </li>
   </ul>
 </template>
-
 
 <style>
 input[type="range"] {

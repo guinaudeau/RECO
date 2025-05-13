@@ -36,65 +36,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue'
-import * as XLSX from 'xlsx'
+import { ref, computed, watch } from 'vue'
 import { selectedSeries } from './store.js'
 
-const series = ref([])
+const props = defineProps(['series']) // Recevoir les données via props
+const series = ref(props.series) // Utiliser les données reçues
 let rechercher = ref('')
-
-// Fonction pour charger les données depuis un fichier Excel
-const loadExcelData = async (filePath) => {
-  try {
-    const response = await fetch(filePath)
-    const arrayBuffer = await response.arrayBuffer()
-    const workbook = XLSX.read(arrayBuffer, { type: 'array' })
-
-    if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
-      throw new Error('Le fichier Excel ne contient aucune feuille.')
-    }
-
-    const sheetName = workbook.SheetNames[0]
-    const sheet = workbook.Sheets[sheetName]
-
-    if (!sheet) {
-      throw new Error('La feuille Excel est vide ou invalide.')
-    }
-
-    // Charger les descriptions depuis Series.json
-    const seriesJson = await loadSeriesJson()
-
-    // Mapper les données Excel et ajouter les descriptions
-    series.value = XLSX.utils.sheet_to_json(sheet).map((serie, index) => {
-      const matchingSerie = seriesJson.find(
-        (jsonSerie) => jsonSerie.name === serie['name']
-      )
-      return {
-        id: index,
-        name: serie['name'], // Mapper le nom
-        description: matchingSerie ? matchingSerie.description : 'Description non disponible', // Ajouter la description
-        image: matchingSerie ? matchingSerie.image : 'Image non disponible', // Ajouter l'image
-        checked: false,
-        deleted: false,
-        modified: false
-      }
-    })
-  } catch (error) {
-    console.error('Erreur lors du chargement du fichier Excel :', error)
-  }
-}
-
-// Fonction pour charger les données depuis un fichier JSON
-const loadSeriesJson = async () => {
-  try {
-    const response = await fetch('/RECO/data/Series.json')
-    const jsonData = await response.json()
-    return jsonData
-  } catch (error) {
-    console.error('Erreur lors du chargement de Series.json :', error)
-    return []
-  }
-}
 
 // Fonction pour rechercher une série
 const searchQuery = () => {
@@ -123,11 +70,6 @@ watch(
   },
   { deep: true }
 )
-
-// Charger les données Excel au montage du composant
-onMounted(() => {
-  loadExcelData('/RECO/data/characteristics.csv')
-})
 
 // Propriété calculée pour regrouper les séries par lot de 5
 const groupedSeries = computed(() => {
