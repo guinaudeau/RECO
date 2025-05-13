@@ -15,6 +15,7 @@ const sliders = ref({
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 
+
 // Charger les séries depuis Series.json
 onMounted(async () => {
   try {
@@ -29,7 +30,8 @@ onMounted(async () => {
 const routes = {
   '/': Home,
   '/SelectionPuissance': SelectionPuissance,
-  '/Resultat': Resultat
+  '/Resultat': Resultat,
+  '/about': () => import('./About.vue')
 }
 
 const currentPath = ref(window.location.hash || '#/')
@@ -38,6 +40,35 @@ const currentView = computed(() => routes[currentPath.value.slice(1)] || Home)
 window.addEventListener('hashchange', () => {
   currentPath.value = window.location.hash || '#/'
 })
+// changer la navigation
+let IsHome = true
+let IsSelection = false
+let IsResult = false
+let IsAbout = false
+const changementVus(){
+  if (currentPath.value === '#/') {
+    IsHome = true
+    IsSelection = false
+    IsResult = false
+    IsAbout = false
+  } else if (currentPath.value === '#/SelectionPuissance') {
+    IsHome = false
+    IsSelection = true
+    IsResult = false
+    IsAbout = false
+  } else if (currentPath.value === '#/Resultat') {
+    IsHome = false
+    IsSelection = false
+    IsResult = true
+    IsAbout = false
+  } else if (currentPath.value === '#/about') {
+    IsHome = false
+    IsSelection = false
+    IsResult = false
+    IsAbout = true
+  }
+}
+
 </script>
 
 <template>
@@ -45,13 +76,14 @@ window.addEventListener('hashchange', () => {
     <div class="title-container">
       <a href="https://www.cnrs.fr/fr" target="Fenêtre définie" ><img src="CNRS.png" alt="Logo du CNRS" style="max-width: 100px; max-height: 100px; top: 10px; left: 10px;" /></a>
       <h1>RECO+</h1>
-      <button @click="toggleDark" class="dark-mode-toggle">Mode Jour/Nuit</button>
+      <button @click="toggleDark()" class="dark-mode-toggle">Mode Jour/Nuit</button>
     </div>
   </div>
   <nav>
-    <a href="#/">Catalogue</a>
-    <a href="#/SelectionPuissance">Personnalisation</a>
-    <a href="#/Resultat">Résultats</a>
+    <button v-if="!IsHome" href="#/">Catalogue</button>
+    <button v-if="!IsSelection" href="#/SelectionPuissance">Personnalisation</button>
+    <button v-if="!IsResult && !IsAbout" href="#/Resultat">Résultats</button>
+    <button v-if="!IsAbout" href="#/about">À propos</button>
   </nav>
   <keep-alive>
     <component :is="currentView" :series="series" :sliders="sliders" />
