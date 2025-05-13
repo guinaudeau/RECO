@@ -1,68 +1,38 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import * as XLSX from 'xlsx'
 import Home from './Home.vue'
-import AboutReco from './AboutReco.vue'
 import SelectionPuissance from './SelectionPuissance.vue'
 import Resultat from './Result.vue'
-import { useDark, useToggle } from '@vueuse/core'
 
-const isdark = useDark()
-const toggleDark = useToggle(isdark)
+const series = ref([]) // Stocker les séries chargées
+const sliders = ref({
+  llama_Synopsis: 1,
+  audio: 1,
+  vidéo: 1
+})
 
-const routes = {
-  '/': Home,
-  '/aboutReco': AboutReco,
-  '/SelectionPuissance': SelectionPuissance,
-  '/Resultat': Resultat,
-  '/AboutReco': AboutReco
-}
-
-const currentPath = ref(window.location.hash)
-
-let HomeB = true
-let PuissanceB = false
-let AboutRecoB = false
-
-// Fonction pour synchroniser les variables avec le chemin actuel
-const updateNavigationState = () => {
-  HomeB = window.location.hash === "#/";
-  PuissanceB = window.location.hash === "#/SelectionPuissance";
-  AboutRecoB = window.location.hash === "#/AboutReco";
-};
-
-// Redirige vers Home si le chemin est vide ou invalide
-if (!currentPath.value || !routes[currentPath.value.slice(1)]) {
-  window.location.hash = '#/';
-  currentPath.value = '#/';
-}
-
-// Initialisation de l'état de navigation
-updateNavigationState();
-
-window.addEventListener('hashchange', () => {
-  if (!window.location.hash || !routes[window.location.hash.slice(1)]) {
-    window.location.hash = '#/';
-  }
-  currentPath.value = window.location.hash;
-  updateNavigationState(); // Met à jour l'état de navigation après un changement de hash
-});
-
-const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || "/"];
-});
-
-// Variables réactives pour stocker les données
-const series = ref([]) // Données combinées de Series.json et Excel
-
-// Chargez les séries au montage
+// Charger les séries depuis Series.json
 onMounted(async () => {
   try {
-    const response = await fetch('/src/data/Series.json') // Chemin vers votre fichier JSON
+    const response = await fetch('/src/data/Series.json') // Chemin vers le fichier JSON
     series.value = await response.json()
   } catch (error) {
     console.error('Erreur lors du chargement des séries :', error)
   }
+})
+
+// Gestion des routes
+const routes = {
+  '/': Home,
+  '/SelectionPuissance': SelectionPuissance,
+  '/Resultat': Resultat
+}
+
+const currentPath = ref(window.location.hash || '#/')
+const currentView = computed(() => routes[currentPath.value.slice(1)] || Home)
+
+window.addEventListener('hashchange', () => {
+  currentPath.value = window.location.hash || '#/'
 })
 </script>
 
@@ -74,26 +44,22 @@ onMounted(async () => {
       <button @click="toggleDark()" class="dark-mode-toggle">Mode Jour/Nuit</button>
     </div>
   </div>
-    <nav>
-        <a v-if="!HomeB" href="#/"><button v-if="!HomeB">Catalogue </button></a>
-        <a v-else href="#/SelectionPuissance"><button v-if="HomeB">puissance </button></a>
-        <a v-if="HomeB | PuissanceB" href="#/Resultat"><button>Résultat </button></a>
-        <a v-else href="#/SelectionPuissance"><button>puissance </button></a>
-        <a v-if="!AboutRecoB" href="#/AboutReco" id="Home"><button >About Reco </button></a>
-    </nav>
-    <body>
-        <keep-alive>
-            <component :is="currentView" :series="series" />
-        </keep-alive>
-    </body>
+  <nav>
+    <a href="#/">Catalogue</a>
+    <a href="#/SelectionPuissance">Personnalisation</a>
+    <a href="#/Resultat">Résultats</a>
+  </nav>
+  <keep-alive>
+    <component :is="currentView" :series="series" :sliders="sliders" />
+  </keep-alive>
   <footer class="fixed_footer">
-  <div class="content">
-    <p>projet réalisé en partenaria avec :</p>
-    <a href="https://www.cnrs.fr/fr" target="Fenêtre définie"><img src="CNRS.png" alt="logo du CNRS"/></a>
-    <a href="https://isjps.pantheonsorbonne.fr/" target="Fenêtre définie"><img src="ISJPS.png" alt="logo du ISJPS"/></a>
-    <a href="https://jfli.cnrs.fr/" target="Fenêtre définie" ><img src="logo-jfli.png" alt="logo du JFLI"/></a>
-  </div>
-</footer>
+    <div class="content">
+      <p>projet réalisé en partenaria avec :</p>
+      <a href="https://www.cnrs.fr/fr" target="Fenêtre définie"><img src="CNRS.png" alt="logo du CNRS"/></a>
+      <a href="https://isjps.pantheonsorbonne.fr/" target="Fenêtre définie"><img src="ISJPS.png" alt="logo du ISJPS"/></a>
+      <a href="https://jfli.cnrs.fr/" target="Fenêtre définie" ><img src="logo-jfli.png" alt="logo du JFLI"/></a>
+    </div>
+  </footer>
 </template>
 
 <style>
