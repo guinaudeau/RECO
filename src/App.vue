@@ -248,6 +248,9 @@ html.dark nav button{
     display: -webkit-flex; 
     display: flex;
     border-bottom:1px solid #111 ;
+    padding: 0px 0px;
+    font-size: 1em;
+    cursor: pointer;
   }
   html.dark nav{
     background-color: #000;
