@@ -20,15 +20,15 @@ const isLoading = ref(true)
 // Charger les séries depuis Series.json
 onMounted(async () => {
   try {
-    const response = await fetch('/data/Series.json')
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP : ${response.status}`)
-    }
-    series.value = await response.json()
+    const response = await fetch('/RECO/data/Series.json')
+    const jsonData = await response.json()
+    series.value = jsonData.map(serie => ({
+      ...serie,
+      checked: false // Initialiser la case à cocher à false
+    }))
   } catch (error) {
-    console.error('Erreur lors du chargement des séries :', error)
-  } finally {
-    isLoading.value = false
+    console.error('Erreur lors du chargement de Series.json :', error)
+    series.value = []
   }
 })
 
