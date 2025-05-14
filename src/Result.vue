@@ -1,11 +1,13 @@
 <script setup>
 import { defineProps, ref, onBeforeMount } from 'vue'
+import { useRoute } from 'vue-router'
 import Papa from 'papaparse'
 
 const props = defineProps(['series', 'sliders']) // Recevoir les séries et sliders via props
 const similaritiesTable = ref([]) // Tableau des similarités
 const characteristics = ref([]) // Données des caractéristiques
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
+const route = useRoute() // Accéder à la route actuelle
 
 // Fonction pour charger les données de characteristics.csv
 async function loadCharacteristics() {
@@ -114,7 +116,7 @@ function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
   }
 }
 
-// Charger les données et effectuer les calculs à chaque fois que le composant est monté
+// Charger les données et effectuer les calculs à chaque fois que la route change
 onBeforeMount(async () => {
   try {
     characteristics.value = await loadCharacteristics()
