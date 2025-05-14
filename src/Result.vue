@@ -66,7 +66,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
         return {
           key,
           similarity,
-          weight: props.sliders[key] || 1 // Pondération par le slider
+          weight: props.sliders[key] || 1 // Utiliser les sliders comme pondération
         }
       })
 

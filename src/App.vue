@@ -96,7 +96,7 @@ changementVus()
 <template>
   <div class="top">
     <div class="title-container">
-      <a href="https://www.cnrs.fr/fr" target="Fenêtre définie" ><img src="CNRS.png" alt="Logo du CNRS" style="max-width: 100px; max-height: 100px; top: 10px; left: 10px;" /></a>
+      <a href="https://www.cnrs.fr/fr" target="Fenêtre définie"><img src="CNRS.png" alt="Logo du CNRS" style="max-width: 100px; max-height: 100px; top: 10px; left: 10px;" /></a>
       <h1>RECO+</h1>
       <button @click="toggleDark()" class="dark-mode-toggle">Mode Jour/Nuit</button>
     </div>
@@ -110,15 +110,15 @@ changementVus()
   <div v-if="isLoading">Chargement des séries...</div>
   <div v-else>
     <keep-alive>
-      <component :is="currentView" :series="series" :sliders="sliders" />
+      <component :is="currentView" :series="series" :sliders.sync="sliders" />
     </keep-alive>
   </div>
   <footer class="fixed_footer">
     <div class="content">
       <p>projet réalisé en partenaria avec :</p>
-      <a href="https://www.cnrs.fr/fr" target="Fenêtre définie"><img src="CNRS.png" alt="logo du CNRS"/></a>
-      <a href="https://isjps.pantheonsorbonne.fr/" target="Fenêtre définie"><img src="ISJPS.png" alt="logo du ISJPS"/></a>
-      <a href="https://jfli.cnrs.fr/" target="Fenêtre définie" ><img src="logo-jfli.png" alt="logo du JFLI"/></a>
+      <a href="https://www.cnrs.fr/fr" target="Fenêtre définie"><img src="CNRS.png" alt="logo du CNRS" /></a>
+      <a href="https://isjps.pantheonsorbonne.fr/" target="Fenêtre définie"><img src="ISJPS.png" alt="logo du ISJPS" /></a>
+      <a href="https://jfli.cnrs.fr/" target="Fenêtre définie"><img src="logo-jfli.png" alt="logo du JFLI" /></a>
     </div>
   </footer>
 </template>
