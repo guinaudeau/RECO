@@ -15,7 +15,7 @@
             <div class="checkbox-wrapper-50">
               <input type="checkbox" class="plus-minus" v-model="serie.checked" @change="countChoices(serie)">
             </div>
-            <button @click="showDescription(serie)" class="plus-minus">Voir description</button>
+            <button @click="showDescription(serie)">Voir description</button>
           </div>
         </td>
       </tr>
