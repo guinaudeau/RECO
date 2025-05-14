@@ -5,6 +5,7 @@ import Papa from 'papaparse'
 const props = defineProps(['series', 'sliders']) // Recevoir les séries et sliders via props
 const similaritiesTable = ref([]) // Tableau des similarités
 const characteristics = ref([]) // Données des caractéristiques
+const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
 
 // Fonction pour charger les données de characteristics.csv
 async function loadCharacteristics() {
@@ -84,14 +85,58 @@ function calculerSimilaritesPourUneSerie(serie_name) {
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity) // Trier par similarité décroissante
 }
 
+// Fonction pour calculer la similarité entre deux séries
+function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
+  const featureKeys = ['llama_Synopsis', 'audio', 'vidéo'] // Clés des caractéristiques utilisées pour le calcul
+
+  const featureSimilarities = featureKeys.map(key => {
+    const featureVectorA = getFeatures(serie1Name, [key])
+    const featureVectorB = getFeatures(serie2Name, [key])
+    const similarity = cosineSimilarity(featureVectorA, featureVectorB)
+    return {
+      key,
+      similarity,
+      weight: props.sliders[key] || 1 // Pondération par le slider
+    }
+  })
+
+  const weightedSimilarity = featureSimilarities.reduce(
+    (sum, feature) => sum + feature.similarity * feature.weight,
+    0
+  ) / featureSimilarities.reduce((sum, feature) => sum + feature.weight, 0)
+
+  // Stocker le résultat dans comparisonResult
+  comparisonResult.value = {
+    serie1Name,
+    serie2Name,
+    weightedSimilarity,
+    featureSimilarities
+  }
+}
+
 // Charger les données au montage
 onMounted(async () => {
   try {
     characteristics.value = await loadCharacteristics()
-    const selectedSerie = props.series.find(serie => serie.checked)
-    if (selectedSerie) {
-      calculerSimilaritesPourUneSerie(selectedSerie.name)
+    const selectedSeries = props.series.filter(serie => serie.checked)
+    if (selectedSeries.length === 1) {
+      // Calculer les similarités pour la première série cochée
+      calculerSimilaritesPourUneSerie(selectedSeries[0].name)
+    } else if (selectedSeries.length === 2) {
+      // Calculer les similarités entre deux séries cochées
+      calculerSimilaritesEntreDeuxSeries(selectedSeries[0].name, selectedSeries[1].name)
     }
+    
+    /* teste pour faire un calcul sur toutes les séries cochées
+    else {
+      // Calculer les similarités pour toutes les séries cochées
+      props.series.forEach(serie => {
+        if (serie.checked) {
+          calculerSimilaritesPourUneSerie(serie.name)
+        }
+      })
+    }
+    */
   } catch (error) {
     console.error('Erreur lors du chargement des caractéristiques :', error)
   }
@@ -132,6 +177,17 @@ function showFeatureSimilarities(featureSimilarities) {
       </tr>
     </tbody>
   </table>
+
+  <!-- Affichage des résultats de la comparaison -->
+  <div v-if="comparisonResult" class="comparison-result">
+    <h3>Comparaison entre {{ comparisonResult.serie1Name }} et {{ comparisonResult.serie2Name }}</h3>
+    <p><strong>Similarité globale pondérée :</strong> {{ (comparisonResult.weightedSimilarity * 100).toFixed(2) }}%</p>
+    <ul>
+      <li v-for="feature in comparisonResult.featureSimilarities" :key="feature.key">
+        <strong>{{ feature.key }} :</strong> {{ (feature.similarity * 100).toFixed(2) }}% (Pondération : {{ feature.weight }})
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style>
@@ -165,5 +221,26 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.comparison-result {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.comparison-result h3 {
+  margin-bottom: 10px;
+}
+
+.comparison-result ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comparison-result li {
+  margin-bottom: 5px;
 }
 </style>
