@@ -25,10 +25,12 @@ onMounted(async () => {
       throw new Error(`Erreur HTTP : ${response.status}`)
     }
     const jsonData = await response.json()
-    series.value = jsonData.map(serie => ({
-      ...serie,
-      checked: false // Initialiser la case à cocher à false
-    }))
+    series.value = jsonData
+      .map(serie => ({
+        ...serie,
+        checked: false // Initialiser la case à cocher à false
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name)) // Trier par ordre alphabétique
   } catch (error) {
     console.error('Erreur lors du chargement de Series.json :', error)
     series.value = []
