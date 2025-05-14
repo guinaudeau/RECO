@@ -1,13 +1,11 @@
 <script setup>
-import { defineProps, ref, onBeforeMount } from 'vue'
-import { useRoute } from 'vue-router'
+import { defineProps, ref, onBeforeMount, onActivated } from 'vue'
 import Papa from 'papaparse'
 
 const props = defineProps(['series', 'sliders']) // Recevoir les séries et sliders via props
 const similaritiesTable = ref([]) // Tableau des similarités
 const characteristics = ref([]) // Données des caractéristiques
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
-const route = useRoute() // Accéder à la route actuelle
 
 // Fonction pour charger les données de characteristics.csv
 async function loadCharacteristics() {
@@ -116,8 +114,8 @@ function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
   }
 }
 
-// Charger les données et effectuer les calculs à chaque fois que la route change
-onBeforeMount(async () => {
+// Charger les données et effectuer les calculs à chaque fois que le composant est activé
+onActivated(async () => {
   try {
     characteristics.value = await loadCharacteristics()
     const selectedSeries = props.series.filter(serie => serie.checked)
@@ -139,9 +137,6 @@ onBeforeMount(async () => {
       })
     }
     */
-    else if (window.location.hash !== '#/') {
-      window.location.hash = '#/'
-    }
   } catch (error) {
     console.error('Erreur lors du chargement des caractéristiques :', error)
   }
