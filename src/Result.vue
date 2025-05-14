@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, onMounted } from 'vue'
+import { defineProps, ref, computed, onMounted } from 'vue'
 import Papa from 'papaparse'
 
 const props = defineProps(['series', 'sliders']) // Recevoir les séries et sliders via props
@@ -58,21 +58,26 @@ function calculerSimilaritesPourUneSerie(serie_name) {
       const vectorA = getFeatures(selectedSerie.name, featureKeys) // Caractéristiques de la série sélectionnée
       const vectorB = getFeatures(serie.name, featureKeys) // Caractéristiques de l'autre série
 
-      const similarity = cosineSimilarity(vectorA, vectorB)
-
-      // Calculer la similarité pour chaque feature
+      // Calculer la similarité globale pondérée par les sliders
       const featureSimilarities = featureKeys.map(key => {
         const featureVectorA = getFeatures(selectedSerie.name, [key])
         const featureVectorB = getFeatures(serie.name, [key])
+        const similarity = cosineSimilarity(featureVectorA, featureVectorB)
         return {
           key,
-          similarity: cosineSimilarity(featureVectorA, featureVectorB)
+          similarity,
+          weight: props.sliders[key] || 1 // Pondération par le slider
         }
       })
 
+      const weightedSimilarity = featureSimilarities.reduce(
+        (sum, feature) => sum + feature.similarity * feature.weight,
+        0
+      ) / featureSimilarities.reduce((sum, feature) => sum + feature.weight, 0)
+
       return {
         name: serie.name,
-        similarity: similarity,
+        similarity: weightedSimilarity,
         featureSimilarities: featureSimilarities,
         image: serie.image,
         description: serie.description
@@ -98,7 +103,7 @@ onMounted(async () => {
 // Fonction pour afficher la similarité pour chaque feature
 function showFeatureSimilarities(featureSimilarities) {
   const message = featureSimilarities
-    .map(feature => `${feature.key} : ${(feature.similarity * 100).toFixed(2)}%`)
+    .map(feature => `${feature.key} : ${(feature.similarity * 100).toFixed(2)}% (Pondération : ${feature.weight})`)
     .join('\n')
   alert(`Similarité par feature :\n${message}`)
 }

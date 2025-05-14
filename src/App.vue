@@ -48,6 +48,12 @@ const routes = {
 }
 
 const currentPath = ref(window.location.hash || '#/')
+
+// Charger Home par défaut si aucune route n'est définie
+if (!window.location.hash) {
+  window.location.hash = '#/'
+}
+
 const currentView = computed(() => routes[currentPath.value.slice(1)] || Home)
 
 window.addEventListener('hashchange', () => {
