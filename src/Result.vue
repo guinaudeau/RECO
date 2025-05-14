@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, onBeforeMount, onActivated } from 'vue'
+import { defineProps, ref, onActivated } from 'vue'
 import Papa from 'papaparse'
 
 const props = defineProps(['series', 'sliders']) // Recevoir les séries et sliders via props
