@@ -167,7 +167,7 @@ function showFeatureSimilarities(featureSimilarities) {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in similaritiesTable" :key="item.name">
+      <tr v-for="item in similaritiesTable" :key="item.name" limit="5">
         <td>{{ item.name }}</td>
         <td>
           <img :src="item.image" alt="Image de la série" class="serie-image" />
