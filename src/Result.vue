@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, onMounted } from 'vue'
+import { defineProps, ref, onBeforeMount } from 'vue'
 import Papa from 'papaparse'
 
 const props = defineProps(['series', 'sliders']) // Recevoir les séries et sliders via props
@@ -114,8 +114,8 @@ function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
   }
 }
 
-// Charger les données au montage
-onMounted(async () => {
+// Charger les données et effectuer les calculs à chaque fois que le composant est monté
+onBeforeMount(async () => {
   try {
     characteristics.value = await loadCharacteristics()
     const selectedSeries = props.series.filter(serie => serie.checked)
@@ -167,7 +167,7 @@ function showFeatureSimilarities(featureSimilarities) {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in similaritiesTable" :key="item.name" limit="5">
+      <tr v-for="item in similaritiesTable" :key="item.name">
         <td>{{ item.name }}</td>
         <td>
           <img :src="item.image" alt="Image de la série" class="serie-image" />
