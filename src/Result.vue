@@ -55,9 +55,6 @@ function calculerSimilaritesPourUneSerie(serie_name) {
   similaritiesTable.value = props.series
     .filter(serie => serie.name !== serie_name) // Exclure la série sélectionnée
     .map(serie => {
-      const vectorA = getFeatures(selectedSerie.name, featureKeys) // Caractéristiques de la série sélectionnée
-      const vectorB = getFeatures(serie.name, featureKeys) // Caractéristiques de l'autre série
-
       // Calculer la similarité globale pondérée par les sliders
       const featureSimilarities = featureKeys.map(key => {
         const featureVectorA = getFeatures(selectedSerie.name, [key])
