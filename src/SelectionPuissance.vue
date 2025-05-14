@@ -11,7 +11,7 @@ const localSliders = ref({ ...props.sliders })
 watch(
   localSliders,
   (newValue) => {
-    emit('update:sliders', newValue)
+    emit('update:sliders', newValue) // Émettre les nouvelles valeurs des sliders
   },
   { deep: true }
 )

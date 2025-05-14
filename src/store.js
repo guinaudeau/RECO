@@ -12,11 +12,6 @@ export const sliders = ref(
   }
 )
 
-// Sauvegarder les séries sélectionnées dans localStorage
-watch(selectedSeries, (newValue) => {
-  localStorage.setItem('selectedSeries', JSON.stringify(newValue))
-}, { deep: true })
-
 // Sauvegarder les sliders dans localStorage
 watch(sliders, (newValue) => {
   localStorage.setItem('sliders', JSON.stringify(newValue))

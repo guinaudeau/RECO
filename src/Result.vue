@@ -176,6 +176,7 @@ function showFeatureSimilarities(featureSimilarities) {
         </td>
       </tr>
     </tbody>
+    <Result :series="series" :sliders="sliders" />
   </table>
 
   <!-- Affichage des résultats de la comparaison -->
@@ -187,7 +188,11 @@ function showFeatureSimilarities(featureSimilarities) {
         <strong>{{ feature.key }} :</strong> {{ (feature.similarity * 100).toFixed(2) }}% (Pondération : {{ feature.weight }})
       </li>
     </ul>
+    <Result :series="series" :sliders="sliders" />
   </div>
+  
+  <div v-else>Aucune série sélectionnée ou aucune similarité calculée.</div>
+  <p v-if="similaritiesTable.length === 0">Aucune série trouvée.</p>
 </template>
 
 <style>
@@ -251,7 +256,7 @@ button:hover {
 }
 
 /* Mode sombre */
-body.dark-mode .comparison-result {
+html.dark .comparison-result {
   --background-color: #333;
   --text-color: #00c7ec;
   --border-color: #555;
