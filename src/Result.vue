@@ -1,11 +1,13 @@
 <script setup>
 import { defineProps, ref, onActivated } from 'vue'
+import { useRouter } from 'vue-router'
 import Papa from 'papaparse'
 
 const props = defineProps(['series', 'sliders']) // Recevoir les séries et sliders via props
 const similaritiesTable = ref([]) // Tableau des similarités
 const characteristics = ref([]) // Données des caractéristiques
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
+const router = useRouter() // Accéder au routeur pour rediriger
 
 // Fonction pour charger les données de characteristics.csv
 async function loadCharacteristics() {
@@ -117,8 +119,15 @@ function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
 // Charger les données et effectuer les calculs à chaque fois que le composant est activé
 onActivated(async () => {
   try {
-    characteristics.value = await loadCharacteristics()
+    // Vérifier si la liste des séries sélectionnées est vide
     const selectedSeries = props.series.filter(serie => serie.checked)
+    if (selectedSeries.length === 0) {
+      // Rediriger vers Home si aucune série n'est sélectionnée
+      router.push('/')
+      return
+    }
+
+    characteristics.value = await loadCharacteristics()
     if (selectedSeries.length === 1) {
       // Calculer les similarités pour la première série cochée
       calculerSimilaritesPourUneSerie(selectedSeries[0].name)
