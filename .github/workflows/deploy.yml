@@ -23,8 +23,11 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-      
-    - name: papaparse
+
+    - name: Install vue-router
+      run: npm install vue-router
+
+    - name: Install papaparse
       run: npm install papaparse
 
     - name: Build project
