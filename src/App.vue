@@ -96,10 +96,10 @@ changementVus()
     </div>
   </div>
   <nav>
-    <button v-if="!IsHome"><a href="#/">Catalogue</a></button>
-    <button v-if="!IsSelection"><a href="#/SelectionPuissance">Personnalisation</a></button>
-    <button v-if="!IsResult && !IsAbout"><a href="#/Resultat">Résultats</a></button>
-    <button v-if="!IsAbout"><a href="#/about">À propos</a></button>
+    <a href="#/" v-if="!IsHome"><button v-if="!IsHome">Catalogue</button></a>
+    <a href="#/SelectionPuissance" v-if="!IsSelection"><button v-if="!IsSelection">Personnalisation</button></a>
+    <a href="#/Resultat" v-if="!IsResult && !IsAbout"><button v-if="!IsResult && !IsAbout">Résultats</button></a>
+    <a href="#/about" v-if="!IsAbout"><button v-if="!IsAbout">À propos</button></a>
   </nav>
   <div v-if="isLoading">Chargement des séries...</div>
   <div v-else>
