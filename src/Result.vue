@@ -191,6 +191,7 @@ function showFeatureSimilarities(featureSimilarities) {
 </template>
 
 <style>
+/* Styles pour le tableau */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -210,6 +211,7 @@ td {
   max-height: 150px;
 }
 
+/* Styles pour les boutons */
 button {
   padding: 5px 10px;
   background-color: #007bff;
@@ -223,18 +225,22 @@ button:hover {
   background-color: #0056b3;
 }
 
+/* Styles pour la section de comparaison */
 .comparison-result {
   margin-top: 20px;
   padding: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color, #ddd);
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: var(--background-color, #f9f9f9);
+  color: var(--text-color, #000);
 }
 
+/* Titre de la section */
 .comparison-result h3 {
   margin-bottom: 10px;
 }
 
+/* Liste des similarités */
 .comparison-result ul {
   list-style-type: none;
   padding: 0;
@@ -242,5 +248,12 @@ button:hover {
 
 .comparison-result li {
   margin-bottom: 5px;
+}
+
+/* Mode sombre */
+body.dark-mode .comparison-result {
+  --background-color: #333;
+  --text-color: #00c7ec;
+  --border-color: #555;
 }
 </style>
