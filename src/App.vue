@@ -21,6 +21,9 @@ const isLoading = ref(true)
 onMounted(async () => {
   try {
     const response = await fetch('/RECO/data/Series.json')
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP : ${response.status}`)
+    }
     const jsonData = await response.json()
     series.value = jsonData.map(serie => ({
       ...serie,
@@ -29,6 +32,8 @@ onMounted(async () => {
   } catch (error) {
     console.error('Erreur lors du chargement de Series.json :', error)
     series.value = []
+  } finally {
+    isLoading.value = false
   }
 })
 
