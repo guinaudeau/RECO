@@ -137,6 +137,9 @@ onMounted(async () => {
       })
     }
     */
+    else {
+      window.location.hash = '#/'
+    }
   } catch (error) {
     console.error('Erreur lors du chargement des caractéristiques :', error)
   }
