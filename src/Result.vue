@@ -150,7 +150,7 @@ onActivated(async () => {
     const selectedSeries = props.series.filter(serie => serie.checked)
     if (selectedSeries.length === 0) {
       // Rediriger vers Home si aucune série n'est sélectionnée
-      router.push('/')
+      window.location.hash = '#/'
       return
     }
 
