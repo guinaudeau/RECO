@@ -22,11 +22,19 @@ async function loadCharacteristics() {
 }
 
 // Fonction pour calculer la similarité entre deux vecteurs
-function cosineSimilarity(vectorA, vectorB) {
-  const dotProduct = vectorA.reduce((sum, value, index) => sum + value * vectorB[index], 0)
-  const magnitudeA = Math.sqrt(vectorA.reduce((sum, value) => sum + value * value, 0))
-  const magnitudeB = Math.sqrt(vectorB.reduce((sum, value) => sum + value * value, 0))
-  return magnitudeA && magnitudeB ? dotProduct / (magnitudeA * magnitudeB) : 0
+function cosineSimilarity(A, B) {
+  let dotproduct = 0;
+  let mA = 0;
+  let mB = 0;
+  for (let i = 0; i < A.length; i++) {
+    dotproduct += (A[i] * B[i]);
+    mA += (A[i] * A[i]);
+    mB += (B[i] * B[i]);
+  }
+  mA = Math.sqrt(mA);
+  mB = Math.sqrt(mB);
+  // Correction de la formule : le dénominateur doit être (mA * mB)
+  return mA && mB ? (dotproduct) / (mA * mB) : 0;
 }
 
 // Fonction pour récupérer les caractéristiques d'une série
