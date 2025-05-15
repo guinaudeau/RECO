@@ -154,7 +154,7 @@ onActivated(async () => {
 // Fonction pour afficher la similarité pour chaque feature
 function showFeatureSimilarities(featureSimilarities) {
   const message = featureSimilarities
-    .map(feature => `${feature.key} : ${(feature.similarity * 100).toFixed(2)}% (Pondération : ${feature.weight})`)
+    .map(feature => `${feature.key} : ${feature.similarity} (Pondération : ${feature.weight})`)
     .join('\n')
   alert(`Similarité par feature :\n${message}`)
 }
@@ -179,7 +179,7 @@ function showFeatureSimilarities(featureSimilarities) {
           <img :src="item.image" alt="Image de la série" class="serie-image" />
         </td>
         <td>{{ item.description }}</td>
-        <td>{{ (item.similarity * 100).toFixed(2) }}%</td>
+        <td>{{ item.similarity }}</td>
         <td>
           <button @click="showFeatureSimilarities(item.featureSimilarities)">Voir Similarité par Feature</button>
         </td>
@@ -190,10 +190,10 @@ function showFeatureSimilarities(featureSimilarities) {
   <!-- Affichage des résultats de la comparaison -->
   <div v-if="comparisonResult" class="comparison-result">
     <h3>Comparaison entre {{ comparisonResult.serie1Name }} et {{ comparisonResult.serie2Name }}</h3>
-    <p><strong>Similarité globale pondérée :</strong> {{ (comparisonResult.weightedSimilarity * 100).toFixed(2) }}%</p>
+    <p><strong>Similarité globale pondérée :</strong> {{ comparisonResult.weightedSimilarity }}</p>
     <ul>
       <li v-for="feature in comparisonResult.featureSimilarities" :key="feature.key">
-        <strong>{{ feature.key }} :</strong> {{ (feature.similarity * 100).toFixed(2) }}% (Pondération : {{ feature.weight }})
+        <strong>{{ feature.key }} :</strong> {{ feature.similarity }} (Pondération : {{ feature.weight }})
       </li>
     </ul>
   </div>
