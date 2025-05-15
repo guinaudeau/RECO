@@ -86,6 +86,11 @@ function calculerSimilaritesPourUneSerie(serie_name) {
         (sum, feature) => sum + feature.similarity * feature.weight,
         0
       ) / featureSimilarities.reduce((sum, feature) => sum + feature.weight, 0)
+      // Ajout des logs pour le debug
+    console.log('Similarité calculée pour', serie.name, ':', weightedSimilarity)
+    featureSimilarities.forEach(feature => {
+      console.log(`  - ${feature.key} : ${feature.similarity} (poids : ${feature.weight})`)
+    })
       return {
         name: serie.name,
         similarity: weightedSimilarity,
@@ -94,11 +99,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
         description: serie.description
       }
     })
-    // Ajout des logs pour le debug
-    console.log('Similarité calculée pour', serie.name, ':', weightedSimilarity)
-    featureSimilarities.forEach(feature => {
-      console.log(`  - ${feature.key} : ${feature.similarity} (poids : ${feature.weight})`)
-    })
+    
 
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity) // Trier par similarité décroissante
 }
