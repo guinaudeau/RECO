@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref, computed } from 'vue'
+import { defineProps, ref } from 'vue'
 
 const props = defineProps(['series']) // Recevoir les séries via props
 const series = ref(props.series) // Référence locale pour manipuler les séries
