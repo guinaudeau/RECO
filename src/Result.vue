@@ -1,13 +1,11 @@
 <script setup>
 import { defineProps, ref, onActivated } from 'vue'
-import { useRouter } from 'vue-router'
 import Papa from 'papaparse'
 
 const props = defineProps(['series', 'sliders']) // Recevoir les séries et sliders via props
 const similaritiesTable = ref([]) // Tableau des similarités
 const characteristics = ref([]) // Données des caractéristiques
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
-const router = useRouter() // Accéder au routeur pour rediriger
 
 // Fonction pour charger les données de characteristics.csv
 async function loadCharacteristics() {
