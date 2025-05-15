@@ -79,13 +79,109 @@ function countChoices(serie) {
 </script>
 
 <style>
-.serie-image {
-  max-width: 100px;
-  max-height: 150px;
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 20px 10px;
+  background: #f8fafd;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+  margin: 30px auto 10px auto;
 }
+
+td {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  padding: 18px 12px 12px 12px;
+  vertical-align: top;
+  text-align: center;
+  min-width: 170px;
+  transition: box-shadow 0.2s;
+}
+
+td:hover {
+  box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10);
+}
+
+.serie-image {
+  max-width: 110px;
+  max-height: 160px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+  background: #f3f3f3;
+}
+
 .serie-image:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
   transition: transform 0.3s;
+}
+
+h2 {
+  color: #2d3a4a;
+  background: none;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 2.2em;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 18px 0 10px 0;
+  gap: 10px;
+}
+
+input[type="text"] {
+  padding: 8px 14px;
+  border: 1.5px solid #dbe2ea;
+  border-radius: 6px;
+  font-size: 1.1em;
+  background: #f8fafd;
+  transition: border 0.2s;
+}
+
+input[type="text"]:focus {
+  border: 1.5px solid #7dcfff;
+  outline: none;
+}
+
+button[type="submit"], button {
+  background: #7dcfff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.06);
+  transition: background 0.2s, color 0.2s;
+}
+
+button[type="submit"]:hover, button:hover {
+  background: #2d3a4a;
+  color: #fff;
+}
+
+p {
+  color: #3a4a5d;
+  font-size: 1.08em;
+  margin: 8px 0 0 0;
+}
+
+@media (max-width: 900px) {
+  table, tbody, tr, td {
+    display: block;
+    width: 100%;
+  }
+  td {
+    margin-bottom: 18px;
+  }
 }
   .checkbox-wrapper-50 *,
   .checkbox-wrapper-50 *::before,
