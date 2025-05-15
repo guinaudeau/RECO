@@ -319,76 +319,76 @@ p {
     }
   }
 
-  body.dark,
-body.dark-mode {
+  html.dark,
+html.dark-mode {
   background: #181c23;
   color: #e6eaf3;
 }
 
-body.dark table,
-body.dark-mode table {
+html.dark table,
+html.dark-mode table {
   background: #232834;
   box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
 }
 
-body.dark td,
-body.dark-mode td {
+html.dark td,
+html.dark-mode td {
   background: #232834;
   color: #e6eaf3;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
 }
 
-body.dark td:hover,
-body.dark-mode td:hover {
+html.dark td:hover,
+html.dark-mode td:hover {
   box-shadow: 0 6px 24px 0 rgba(0,0,0,0.32);
 }
 
-body.dark .serie-image,
-body.dark-mode .serie-image {
+html.dark .serie-image,
+html.dark-mode .serie-image {
   background: #232834;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.22);
 }
 
-body.dark h2,
-body.dark-mode h2 {
+html.dark h2,
+html.dark-mode h2 {
   color: #7dcfff;
 }
 
-body.dark form,
-body.dark-mode form {
+html.dark form,
+html.dark-mode form {
   background: none;
 }
 
-body.dark input[type="text"],
-body.dark-mode input[type="text"] {
+html.dark input[type="text"],
+html.dark-mode input[type="text"] {
   background: #232834;
   color: #e6eaf3;
   border: 1.5px solid #3a4152;
 }
 
-body.dark input[type="text"]:focus,
-body.dark-mode input[type="text"]:focus {
+html.dark input[type="text"]:focus,
+html.dark-mode input[type="text"]:focus {
   border: 1.5px solid #7dcfff;
 }
 
-body.dark button,
-body.dark-mode button,
-body.dark button[type="submit"],
-body.dark-mode button[type="submit"] {
+html.dark button,
+html.dark-mode button,
+html.dark button[type="submit"],
+html.dark-mode button[type="submit"] {
   background: #2d3a4a;
   color: #fff;
 }
 
-body.dark button:hover,
-body.dark-mode button:hover,
-body.dark button[type="submit"]:hover,
-body.dark-mode button[type="submit"]:hover {
+html.dark button:hover,
+html.dark-mode button:hover,
+html.dark button[type="submit"]:hover,
+html.dark-mode button[type="submit"]:hover {
   background: #7dcfff;
   color: #232834;
 }
 
-body.dark p,
-body.dark-mode p {
+html.dark p,
+html.dark-mode p {
   color: #b6c2d1;
 }
 </style>
