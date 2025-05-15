@@ -31,8 +31,10 @@ function cosineSimilarity(A, B) {
   }
   mA = Math.sqrt(mA);
   mB = Math.sqrt(mB);
-  // Correction de la formule : le dénominateur doit être (mA * mB)
-  return mA && mB ? (dotproduct) / (mA * mB) : 0;
+  const denom = mA * mB;
+  if (!denom) return 0;
+  const result = dotproduct / denom;
+  return isNaN(result) ? 0 : result;
 }
 
 // Fonction pour récupérer les caractéristiques d'une série
