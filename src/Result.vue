@@ -81,7 +81,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
           weight: props.sliders[key] || 1 // Utiliser les sliders comme pondération
         }
       })
-
+      console.log('weights', props.sliders)
       const weightedSimilarity = featureSimilarities.reduce(
         (sum, feature) => sum + feature.similarity * feature.weight,
         0
