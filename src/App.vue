@@ -110,7 +110,7 @@ changementVus()
   <div v-if="isLoading">Chargement des séries...</div>
   <div v-else>
     <keep-alive>
-      <component :is="currentView" :series="series" :sliders.sync="sliders" />
+      <component :is="currentView" :series="series" v-model:sliders="sliders" />
     </keep-alive>
   </div>
   <footer class="fixed_footer">
