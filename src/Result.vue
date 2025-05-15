@@ -86,7 +86,10 @@ function calculerSimilaritesPourUneSerie(serie_name) {
         (sum, feature) => sum + feature.similarity * feature.weight,
         0
       ) / featureSimilarities.reduce((sum, feature) => sum + feature.weight, 0)
+      console.log(weightedSimilarity)
+      console.log(featureSimilarities.map(feature => feature.similarity))
       console.log(featureSimilarities.map(feature => feature.weight))
+      console.log(sum)
       return {
         name: serie.name,
         similarity: weightedSimilarity,
