@@ -48,19 +48,6 @@ function getFeatures(serieName, featureKeys) {
   const audioCols = allKeys.slice(51, 56)
   const videoCols = allKeys.slice(56)
 
-  // Affichage console pour debug
-  featureKeys.forEach(key => {
-    if (key === 'llama_Synopsis') {
-      console.log('llama_Synopsis columns:', llamaSynopsisCols)
-    }
-    if (key === 'audio') {
-      console.log('audio columns:', audioCols)
-    }
-    if (key === 'vidéo') {
-      console.log('vidéo columns:', videoCols)
-    }
-  })
-
   const llamaSynopsis = llamaSynopsisCols.map(col => parseFloat(serie[col]) || 0)
   const audio = audioCols.map(col => parseFloat(serie[col]) || 0)
   const video = videoCols.map(col => parseFloat(serie[col]) || 0)
@@ -99,7 +86,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
         (sum, feature) => sum + feature.similarity * feature.weight,
         0
       ) / featureSimilarities.reduce((sum, feature) => sum + feature.weight, 0)
-
+      console.log(featureSimilarities.map(feature => feature.weight))
       return {
         name: serie.name,
         similarity: weightedSimilarity,
