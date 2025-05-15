@@ -38,9 +38,9 @@ function getFeatures(serieName, featureKeys) {
   const allKeys = Object.keys(serie)
 
   // Définir les plages d'index pour chaque feature
-  const llamaSynopsisCols = allKeys.slice(1, 52)
-  const audioCols = allKeys.slice(52, 58)
-  const videoCols = allKeys.slice(58)
+  const llamaSynopsisCols = allKeys.slice(1, 51)
+  const audioCols = allKeys.slice(51, 56)
+  const videoCols = allKeys.slice(56)
 
   // Affichage console pour debug
   featureKeys.forEach(key => {
