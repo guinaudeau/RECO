@@ -5,22 +5,16 @@
     <button type="submit">Rechercher</button>
   </form>
 
-  <table>
-    <tbody>
-      <tr v-for="(group, groupIndex) in groupedSeries" :key="groupIndex">
-        <td v-for="serie in group" :key="serie.name">
-          <div>
-            <img :src="serie.image" alt="Image de la série" class="serie-image" />
-            <p>{{ serie.name }}</p>
-            <div class="checkbox-wrapper-50">
-              <input type="checkbox" class="plus-minus" v-model="serie.checked" @change="countChoices(serie)">
-            </div>
-            <button @click="showDescription(serie)">Voir description</button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="series-grid">
+    <div v-for="serie in series" :key="serie.name" class="serie-card">
+      <img :src="serie.image" alt="Image de la série" class="serie-image" />
+      <p>{{ serie.name }}</p>
+      <div class="checkbox-wrapper-50">
+        <input type="checkbox" class="plus-minus" v-model="serie.checked" @change="countChoices(serie)">
+      </div>
+      <button @click="showDescription(serie)">Voir description</button>
+    </div>
+  </div>
 
   <p>Nombre de séries : {{ series.length }}</p>
   <p>Nombre de séries cochées : {{ series.filter(serie => serie.checked).length }}</p>
@@ -390,5 +384,47 @@ html.dark-mode button[type="submit"]:hover {
 html.dark p,
 html.dark-mode p {
   color: #b6c2d1;
+}
+
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px 20px;
+  margin: 30px auto 10px auto;
+  background: #f8fafd;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+  padding: 24px;
+}
+
+.serie-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  padding: 18px 12px 12px 12px;
+  text-align: center;
+  min-width: 0;
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.serie-card:hover {
+  box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10);
+}
+
+/* Mode sombre */
+html.dark .series-grid,
+html.dark-mode .series-grid {
+  background: #232834;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
+}
+
+html.dark .serie-card,
+html.dark-mode .serie-card {
+  background: #232834;
+  color: #e6eaf3;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
 }
 </style>
