@@ -81,7 +81,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
         return {
           key,
           similarity,
-          weight: props.sliders[key] || 1 // Utiliser les sliders comme pondération
+          weight: parseFloat(props.sliders[key]) || 1 // Conversion forcée ici
         }
       })
       console.log('weights', props.sliders)
@@ -118,7 +118,7 @@ function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
     return {
       key,
       similarity,
-      weight: props.sliders[key] || 1 // Pondération par le slider
+      weight: parseFloat(props.sliders[key]) || 1 // Pondération par le slider
     }
   })
 
