@@ -75,6 +75,7 @@ function calculerSimilaritesPourUneSerie(serie_name) {
         const featureVectorA = getFeatures(selectedSerie.name, [key])
         const featureVectorB = getFeatures(serie.name, [key])
         const similarity = cosineSimilarity(featureVectorA, featureVectorB)
+        console.log('similarity', similarity)
         return {
           key,
           similarity,
