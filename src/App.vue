@@ -344,4 +344,61 @@ html.dark .dark-mode-toggle:hover {
   background-color: rgb(127, 150, 255);
   color: #443b3d;
 }
+
+/* Responsive pour le header et la nav */
+@media (max-width: 900px) {
+  .title-container {
+    flex-direction: column;
+    gap: 10px;
+    font-size: 1.2em;
+  }
+  div.top {
+    font-size: 28px;
+    padding: 10px 0;
+  }
+  nav {
+    flex-direction: column;
+    font-size: 1em;
+    padding: 0;
+  }
+  nav a {
+    font-size: 1.2em;
+    padding: 8px 0;
+    width: 100%;
+    display: block;
+  }
+  .dark-mode-toggle {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .title-container {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 1em;
+  }
+  div.top {
+    font-size: 20px;
+    padding: 6px 0;
+  }
+  nav {
+    flex-direction: column;
+    font-size: 0.95em;
+    padding: 0;
+  }
+  nav a {
+    font-size: 1em;
+    padding: 6px 0;
+    width: 100%;
+    display: block;
+  }
+  .dark-mode-toggle {
+    width: 100%;
+    margin: 0 auto;
+    font-size: 0.95em;
+    padding: 8px 0;
+  }
+}
 </style>
