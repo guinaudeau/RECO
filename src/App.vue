@@ -140,7 +140,7 @@ nav button {
   border:1px solid #00c7ec;
   border-radius: 15px;
 
-  line-height: 3em;
+  line-height: 1.5em;
   box-shadow: 0 0 0 0 transparent;
 
   @include transition(all 0.2s ease-in);
