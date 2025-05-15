@@ -48,15 +48,6 @@ const showDescription = (serie) => {
   }
 }
 
-// Propriété calculée pour regrouper les séries par lot de 5
-const groupedSeries = computed(() => {
-  const groups = []
-  for (let i = 0; i < series.value.length; i += 5) {
-    groups.push(series.value.slice(i, i + 5))
-  }
-  return groups
-})
-
 // Fonction pour gérer les cases cochées
 function countChoices(serie) {
   if (serie.checked) {
