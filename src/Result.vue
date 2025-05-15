@@ -32,14 +32,33 @@ function cosineSimilarity(vectorA, vectorB) {
 // Fonction pour récupérer les caractéristiques d'une série
 function getFeatures(serieName, featureKeys) {
   const serie = characteristics.value.find(item => item.name === serieName)
-  if (!serie) return featureKeys.map(() => 0) // Retourne un vecteur nul si la série n'est pas trouvée
+  if (!serie) return featureKeys.map(() => 0)
 
-  // Récupérer les plages spécifiques pour chaque clé
-  const llamaSynopsis = Object.values(serie).slice(1, 52).map(value => parseFloat(value) || 0) // Colonnes 1 à 51
-  const audio = Object.values(serie).slice(52, 58).map(value => parseFloat(value) || 0) // Colonnes 52 à 57
-  const video = Object.values(serie).slice(58).map(value => parseFloat(value) || 0) // Colonnes 58 à la fin
+  // Récupérer les clés de colonnes du CSV
+  const allKeys = Object.keys(serie)
 
-  // Retourner les vecteurs correspondants
+  // Définir les plages d'index pour chaque feature
+  const llamaSynopsisCols = allKeys.slice(1, 52)
+  const audioCols = allKeys.slice(52, 58)
+  const videoCols = allKeys.slice(58)
+
+  // Affichage console pour debug
+  featureKeys.forEach(key => {
+    if (key === 'llama_Synopsis') {
+      console.log('llama_Synopsis columns:', llamaSynopsisCols)
+    }
+    if (key === 'audio') {
+      console.log('audio columns:', audioCols)
+    }
+    if (key === 'vidéo') {
+      console.log('vidéo columns:', videoCols)
+    }
+  })
+
+  const llamaSynopsis = llamaSynopsisCols.map(col => parseFloat(serie[col]) || 0)
+  const audio = audioCols.map(col => parseFloat(serie[col]) || 0)
+  const video = videoCols.map(col => parseFloat(serie[col]) || 0)
+
   return featureKeys.map(key => {
     if (key === 'llama_Synopsis') return llamaSynopsis
     if (key === 'audio') return audio
