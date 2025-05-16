@@ -61,6 +61,7 @@ function countChoices(serie) {
     }
   } else {
     nbCheck--
+    listeCoches = listeCoches.filter(s => s !== serie.name) // Retirer la série de la liste si décochée
   }
 }
 </script>

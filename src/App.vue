@@ -29,7 +29,7 @@ onMounted(async () => {
     series.value = jsonData
       .map(serie => ({
         ...serie,
-        checked: false // Initialiser la case à cocher à false
+        checked: false
       }))
       .sort((a, b) => a.name.localeCompare(b.name)) // Trier par ordre alphabétique
   } catch (error) {
