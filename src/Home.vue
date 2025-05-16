@@ -49,11 +49,13 @@ const showDescription = (serie) => {
 }
 
 // Fonction pour gérer les cases cochées
+let listeCoches = []
 function countChoices(serie) {
   if (serie.checked) {
     nbCheck++
+    listeCoches.push(serie.name)
     if (nbCheck > 2) {
-      serie.checked = false
+      listeCoches.shift() // Retirer le premier élément si plus de 2 séries sont cochées
       nbCheck--
     }
   } else {
