@@ -34,15 +34,15 @@ onMounted(async () => {
         checked: false
       }))
       .sort((a, b) => a.name.localeCompare(b.name)) // Trier par ordre alphabétique
+      // Charger les données de characteristics.csv
+    characteristics.value = await loadCharacteristics()
+    console.log('Caractéristiques chargées :', characteristics.value)
   } catch (error) {
     console.error('Erreur lors du chargement de Series.json :', error)
     series.value = []
   } finally {
     isLoading.value = false
   }
-  // Charger les données de characteristics.csv
-  characteristics.value = await loadCharacteristics()
-  console.log('Caractéristiques chargées :', characteristics.value)
 })
 
 // Fonction pour charger les données de characteristics.csv
