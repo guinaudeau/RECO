@@ -143,6 +143,8 @@ onActivated(async () => {
   try {
     // Vérifier si la liste des séries sélectionnées est vide
     const selectedSeries = props.series.filter(serie => serie.checked)
+    comparisonResult.value = null // Réinitialiser le résultat de la comparaison
+    similaritiesTable.value = [] // Réinitialiser le tableau des similarités
     if (selectedSeries.length === 0) {
       // Rediriger vers Home si aucune série n'est sélectionnée
       window.location.hash = '#/'
