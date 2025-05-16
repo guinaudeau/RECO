@@ -70,30 +70,28 @@ function calculerSimilaritesPourUneSerie(serie_name) {
   const featureKeys = ['llama_Synopsis', 'audio', 'vidéo'] // Clés des caractéristiques utilisées pour le calcul
 
   similaritiesTable.value = props.series
-    .filter(serie => serie.name !== serie_name) // Exclure la série sélectionnée
+    .filter(serie => serie.name !== serie_name)
     .map(serie => {
-      // Calculer la similarité globale pondérée par les sliders
       const featureSimilarities = featureKeys.map(key => {
+        const weight = parseFloat(props.sliders[key]) || 0
+        if (weight === 0) return null // Ignorer la feature si poids 0
         const featureVectorA = getFeatures(selectedSerie.name, [key])
         const featureVectorB = getFeatures(serie.name, [key])
         const similarity = cosineSimilarity(featureVectorA, featureVectorB)
-        console.log('similarity', similarity)
         return {
           key,
           similarity,
-          weight: parseFloat(props.sliders[key]) || 1 // Conversion forcée ici
+          weight
         }
-      })
-      console.log('weights', props.sliders)
-      const weightedSimilarity = featureSimilarities.reduce(
-        (sum, feature) => sum + feature.similarity * feature.weight,
-        0
-      ) / featureSimilarities.reduce((sum, feature) => sum + feature.weight, 0)
-      // Ajout des logs pour le debug
-    console.log('Similarité calculée pour', serie.name, ':', weightedSimilarity)
-    featureSimilarities.forEach(feature => {
-      console.log(`  - ${feature.key} : ${feature.similarity} (poids : ${feature.weight})`)
-    })
+      }).filter(Boolean) // Retirer les null
+
+      const weightedSimilarity = featureSimilarities.length > 0
+        ? featureSimilarities.reduce(
+            (sum, feature) => sum + feature.similarity * feature.weight,
+            0
+          ) / featureSimilarities.reduce((sum, feature) => sum + feature.weight, 0)
+        : 0
+
       return {
         name: serie.name,
         similarity: weightedSimilarity,
