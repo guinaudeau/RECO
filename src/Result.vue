@@ -112,20 +112,24 @@ function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
   const featureKeys = ['llama_Synopsis', 'audio', 'vidéo'] // Clés des caractéristiques utilisées pour le calcul
 
   const featureSimilarities = featureKeys.map(key => {
+    const weight = parseFloat(props.sliders[key]) || 0
+    if (weight === 0) return null // Exclure la feature si le slider est à 0
     const featureVectorA = getFeatures(serie1Name, [key])
     const featureVectorB = getFeatures(serie2Name, [key])
     const similarity = cosineSimilarity(featureVectorA, featureVectorB)
     return {
       key,
       similarity,
-      weight: parseFloat(props.sliders[key]) || 1 // Pondération par le slider
+      weight
     }
-  })
+  }).filter(Boolean) // Retirer les null
 
-  const weightedSimilarity = featureSimilarities.reduce(
-    (sum, feature) => sum + feature.similarity * feature.weight,
-    0
-  ) / featureSimilarities.reduce((sum, feature) => sum + feature.weight, 0)
+  const weightedSimilarity = featureSimilarities.length > 0
+    ? featureSimilarities.reduce(
+        (sum, feature) => sum + feature.similarity * feature.weight,
+        0
+      ) / featureSimilarities.reduce((sum, feature) => sum + feature.weight, 0)
+    : 0
 
   // Stocker le résultat dans comparisonResult
   comparisonResult.value = {
