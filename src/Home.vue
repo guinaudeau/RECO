@@ -55,7 +55,6 @@ function countChoices(serie) {
     if (nbCheck > 2) {
       serie.checked = false
       nbCheck--
-      alert('Vous ne pouvez sélectionner que 2 séries au maximum.')
     }
   } else {
     nbCheck--
