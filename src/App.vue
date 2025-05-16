@@ -4,6 +4,7 @@ import { useDark, useToggle } from '@vueuse/core'
 import Home from './Home.vue'
 import SelectionPuissance from './SelectionPuissance.vue'
 import Resultat from './Result.vue'
+import AboutReco from './AboutReco.vue'
 
 const series = ref([]) // Stocker les séries chargées
 const sliders = ref({
@@ -44,7 +45,7 @@ const routes = {
   '/': Home,
   '/SelectionPuissance': SelectionPuissance,
   '/Resultat': Resultat,
-  '/about': () => import('./AboutReco.vue')
+  '/about': AboutReco
 }
 
 const currentPath = ref(window.location.hash || '#/')
