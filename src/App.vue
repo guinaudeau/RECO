@@ -5,8 +5,10 @@ import Home from './Home.vue'
 import SelectionPuissance from './SelectionPuissance.vue'
 import Resultat from './Result.vue'
 import AboutReco from './AboutReco.vue'
+import Papa from 'papaparse'
 
 const series = ref([]) // Stocker les séries chargées
+const characteristics = ref([]) // Stocker les caractéristiques chargées
 const sliders = ref({
   llama_Synopsis: 1,
   audio: 1,
@@ -38,7 +40,21 @@ onMounted(async () => {
   } finally {
     isLoading.value = false
   }
+  // Charger les données de characteristics.csv
+  characteristics.value = await loadCharacteristics()
 })
+
+// Fonction pour charger les données de characteristics.csv
+async function loadCharacteristics() {
+  return new Promise((resolve, reject) => {
+    Papa.parse('/RECO/data/characteristics.csv', {
+      download: true,
+      header: true,
+      complete: (results) => resolve(results.data),
+      error: (error) => reject(error)
+    })
+  })
+}
 
 // Gestion des routes
 const routes = {

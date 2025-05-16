@@ -1,23 +1,10 @@
 <script setup>
 import { defineProps, ref, onActivated } from 'vue'
-import Papa from 'papaparse'
 
-const props = defineProps(['series', 'sliders']) // Recevoir les séries et sliders via props
+
+const props = defineProps(['series', 'sliders', 'characteristics']) // Recevoir les séries et sliders via props
 const similaritiesTable = ref([]) // Tableau des similarités
-const characteristics = ref([]) // Données des caractéristiques
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
-
-// Fonction pour charger les données de characteristics.csv
-async function loadCharacteristics() {
-  return new Promise((resolve, reject) => {
-    Papa.parse('/RECO/data/characteristics.csv', {
-      download: true,
-      header: true,
-      complete: (results) => resolve(results.data),
-      error: (error) => reject(error)
-    })
-  })
-}
 
 // Fonction pour calculer la similarité entre deux vecteurs
 function cosineSimilarity(A, B) {
@@ -39,7 +26,7 @@ function cosineSimilarity(A, B) {
 
 // Fonction pour récupérer les caractéristiques d'une série
 function getFeatures(serieName, featureKeys) {
-  const serie = characteristics.value.find(item => item.name === serieName)
+  const serie = props.characteristics.find(item => item.name === serieName)
   if (!serie) return featureKeys.map(() => 0)
 
   // Récupérer les clés de colonnes du CSV
@@ -151,7 +138,6 @@ onActivated(async () => {
     }
     console.log('Séries sélectionnées :', selectedSeries)
     console.log(selectedSeries.length)
-    characteristics.value = await loadCharacteristics()
     if (selectedSeries.length === 1) {
       typeAffichage.value = 1
       // Calculer les similarités pour la première série cochée

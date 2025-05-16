@@ -1,9 +1,8 @@
 <script setup>
 import { defineProps, defineEmits, ref, watch } from 'vue'
 
-const props = defineProps(['sliders']) // Recevoir les sliders via props
+const props = defineProps(['sliders','characteristics']) // Recevoir les sliders et caractéristiques via props
 const emit = defineEmits(['update:sliders']) // Émettre un événement pour notifier le parent
-
 // Créer une copie locale des sliders
 const localSliders = ref({ ...props.sliders })
 
@@ -31,6 +30,12 @@ watch(
     <li>
       Audio : {{ localSliders.audio }}
       <input type="range" v-model="localSliders.audio" min="0" max="1" step="0.01" />
+    </li>
+  </ul>
+  <ul v-for="characteristic in props.characteristics" :key="characteristic.name">
+    <li>
+      {{ characteristic.name }} : {{ characteristic.value }}
+      <input type="range" v-model="characteristic.value" min="0" max="1" step="0.01" />
     </li>
   </ul>
 </template>
