@@ -26,6 +26,9 @@ function cosineSimilarity(A, B) {
 
 // Fonction pour récupérer les caractéristiques d'une série
 function getFeatures(serieName, featureKeys) {
+  console.log('Récupération des caractéristiques pour la série :', serieName)
+  console.log('Clés de caractéristiques :', featureKeys)
+  console.log('Caractéristiques disponibles :', props.characteristics)
   const serie = props.characteristics.find(item => item.name === serieName)
   if (!serie) return featureKeys.map(() => 0)
 
