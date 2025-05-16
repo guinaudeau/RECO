@@ -132,6 +132,7 @@ function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
 let typeAffichage = ref(0) // 1 pour une série, 2 pour deux séries
 onActivated(async () => {
   try {
+    console.log('Caractéristiques disponibles :', props.characteristics)
     // Vérifier si la liste des séries sélectionnées est vide
     const selectedSeries = props.series.filter(serie => serie.checked)
     if (selectedSeries.length === 0) {
