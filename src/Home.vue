@@ -55,7 +55,8 @@ function countChoices(serie) {
     nbCheck++
     listeCoches.push(serie.name)
     if (nbCheck > 2) {
-      listeCoches.shift() // Retirer le premier élément si plus de 2 séries sont cochées
+      let removed = listeCoches.shift() // Retirer le premier élément si plus de 2 séries sont cochées
+      props.series.find(s => s.name === removed).checked = false
       nbCheck--
     }
   } else {
