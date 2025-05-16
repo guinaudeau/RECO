@@ -184,7 +184,8 @@ function showFeatureSimilarities(featureSimilarities) {
 
 <template>
   <h2>Résultats des séries sélectionnées</h2>
-  <table v-if="similaritiesTable.length > 0">
+  <table v-if="similaritiesTable.length > 0 && !comparisonResult">
+    <caption>Tableau des similarités</caption>
     <thead>
       <tr>
         <th>Série</th>
@@ -210,7 +211,7 @@ function showFeatureSimilarities(featureSimilarities) {
   </table>
 
   <!-- Affichage des résultats de la comparaison -->
-  <div v-if="comparisonResult" class="comparison-result">
+  <div v-if="comparisonResult && similaritiesTable.length ===2" class="comparison-result">
     <h3>Comparaison entre {{ comparisonResult.serie1Name }} et {{ comparisonResult.serie2Name }}</h3>
     <p><strong>Similarité globale pondérée :</strong> {{ (comparisonResult.weightedSimilarity * 100).toFixed(2) }}%</p>
     <ul>
