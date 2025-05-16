@@ -148,14 +148,17 @@ onActivated(async () => {
       window.location.hash = '#/'
       return
     }
-
+    console.log('Séries sélectionnées :', selectedSeries)
+    console.log(selectedSeries.length)
     characteristics.value = await loadCharacteristics()
     if (selectedSeries.length === 1) {
       // Calculer les similarités pour la première série cochée
       calculerSimilaritesPourUneSerie(selectedSeries[0].name)
+      let typeAffichage = 1
     } else if (selectedSeries.length === 2) {
       // Calculer les similarités entre deux séries cochées
       calculerSimilaritesEntreDeuxSeries(selectedSeries[0].name, selectedSeries[1].name)
+      let typeAffichage = 2
     }
     
     /* teste pour faire un calcul sur toutes les séries cochées
@@ -184,7 +187,7 @@ function showFeatureSimilarities(featureSimilarities) {
 
 <template>
   <h2>Résultats des séries sélectionnées</h2>
-  <table v-if="selectedSeries.length===1" class="similarities-table">
+  <table v-if="typeAffichage===1" class="similarities-table">
     <caption>Tableau des similarités</caption>
     <thead>
       <tr>
@@ -211,7 +214,7 @@ function showFeatureSimilarities(featureSimilarities) {
   </table>
 
   <!-- Affichage des résultats de la comparaison -->
-  <div v-else-if="selectedSeries.length === 2 && comparisonResult" class="comparison-result">
+  <div v-else-if="typeAffichage === 2 && comparisonResult" class="comparison-result">
     <h3>Comparaison entre {{ comparisonResult.serie1Name }} et {{ comparisonResult.serie2Name }}</h3>
     <p><strong>Similarité globale pondérée :</strong> {{ (comparisonResult.weightedSimilarity * 100).toFixed(2) }}%</p>
     <ul>
