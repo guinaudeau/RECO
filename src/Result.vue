@@ -139,6 +139,7 @@ function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
 }
 
 // Charger les données et effectuer les calculs à chaque fois que le composant est activé
+let typeAffichage = ref(1) // 1 pour une série, 2 pour deux séries
 onActivated(async () => {
   try {
     // Vérifier si la liste des séries sélectionnées est vide
@@ -154,11 +155,11 @@ onActivated(async () => {
     if (selectedSeries.length === 1) {
       // Calculer les similarités pour la première série cochée
       calculerSimilaritesPourUneSerie(selectedSeries[0].name)
-      let typeAffichage = 1
+      typeAffichage = 1
     } else if (selectedSeries.length === 2) {
       // Calculer les similarités entre deux séries cochées
       calculerSimilaritesEntreDeuxSeries(selectedSeries[0].name, selectedSeries[1].name)
-      let typeAffichage = 2
+      typeAffichage = 2
     }
     
     /* teste pour faire un calcul sur toutes les séries cochées
