@@ -42,6 +42,7 @@ onMounted(async () => {
   }
   // Charger les données de characteristics.csv
   characteristics.value = await loadCharacteristics()
+  console.log('Caractéristiques chargées :', characteristics.value)
 })
 
 // Fonction pour charger les données de characteristics.csv
