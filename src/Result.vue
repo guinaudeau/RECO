@@ -114,8 +114,8 @@ function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
   const featureSimilarities = featureKeys.map(key => {
     const weight = parseFloat(props.sliders[key]) || 0
     if (weight === 0) return null
-    const featureVectorA = getFeatures(selectedSerie.name, [key])
-    const featureVectorB = getFeatures(serie.name, [key])
+    const featureVectorA = getFeatures(serie1Name, [key])
+    const featureVectorB = getFeatures(serie2Name, [key])
     const similarity = cosineSimilarity(featureVectorA, featureVectorB)
     return {
       key,
