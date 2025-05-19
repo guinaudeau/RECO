@@ -51,6 +51,9 @@ const voirPlus = ref(false)
       <input type="range" v-model="localSliders[col]" min="0" max="2" step="0.01" value="1"/>
     </li>
   </ul>
+  <button @click="voirPlus = !voirPlus" id="buttonvoirPlus" v-show="voirPlus">
+    {{ voirPlus ? 'Masquer les autres critères' : 'Voir plus de critères' }}
+  </button>
 </template>
 
 <style>
