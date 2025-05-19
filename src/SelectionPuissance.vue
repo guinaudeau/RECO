@@ -49,6 +49,22 @@ watch(
 </template>
 
 <style>
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 0.5em;
+}
+
 input[type="range"] {
   appearance: auto;
   color: #ef233c;
@@ -60,5 +76,6 @@ input[type="range"] {
   --clip-edges: 0.125em;
   font-size: 1.5rem;
   width: 12.5em;
+  margin-left: 1em;
 }
 </style>
