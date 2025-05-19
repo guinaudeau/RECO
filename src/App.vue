@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useDark, useToggle } from '@vueuse/core'
 import Home from './Home.vue'
 import SelectionPuissance from './SelectionPuissance.vue'
@@ -61,6 +61,15 @@ const characteristicsColumns = computed(() => {
   if (!characteristics.value.length) return []
   return Object.keys(characteristics.value[0]).filter(key => key !== 'name')
 })
+
+// Initialiser les sliders à 1 par défaut pour chaque colonne
+watch(characteristicsColumns, (cols) => {
+  cols.forEach(col => {
+    if (!(col in sliders.value)) {
+      sliders.value[col] = 1
+    }
+  })
+}, { immediate: true })
 
 // Gestion des routes
 const routes = {
