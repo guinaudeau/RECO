@@ -25,9 +25,6 @@ function cosineSimilarity(A, B) {
 
 // Fonction pour récupérer les caractéristiques d'une série
 function getFeatures(serieName, featureKeys) {
-  console.log('Récupération des caractéristiques pour la série :', serieName)
-  console.log('Clés de caractéristiques :', featureKeys)
-  console.log('Caractéristiques disponibles :', props.characteristics)
   const serie = props.characteristics.find(item => item.name === serieName)
   if (!serie) return featureKeys.map(() => 0)
 
@@ -39,16 +36,31 @@ function getFeatures(serieName, featureKeys) {
   const audioCols = allKeys.slice(51, 56)
   const videoCols = allKeys.slice(56)
 
-  const llamaSynopsis = llamaSynopsisCols.map(col => parseFloat(serie[col]) || 0)
-  const audio = audioCols.map(col => parseFloat(serie[col]) || 0)
-  const video = videoCols.map(col => parseFloat(serie[col]) || 0)
+  // Fonction utilitaire pour moyenne pondérée
+  function weightedMean(cols) {
+    let sum = 0
+    let totalWeight = 0
+    cols.forEach(col => {
+      const value = parseFloat(serie[col]) || 0
+      const weight = parseFloat(props.sliders[col]) || 0
+      if (weight > 0) {
+        sum += value * weight
+        totalWeight += weight
+      }
+    })
+    return totalWeight > 0 ? sum / totalWeight : 0
+  }
+
+  const llamaSynopsis = weightedMean(llamaSynopsisCols)
+  const audio = weightedMean(audioCols)
+  const video = weightedMean(videoCols)
 
   return featureKeys.map(key => {
     if (key === 'llama_Synopsis') return llamaSynopsis
     if (key === 'audio') return audio
     if (key === 'vidéo') return video
-    return []
-  }).flat() // Aplatir les vecteurs pour obtenir un seul tableau
+    return 0
+  })
 }
 
 // Fonction pour calculer les similarités pour une série donnée
