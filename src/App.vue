@@ -174,7 +174,7 @@ nav button {
   display: inline-block;
   position: relative;
   text-align: center;
-  color: #00c7ec;
+  color: black;
   border:1px solid #00c7ec;
   border-radius: 15px;
 
