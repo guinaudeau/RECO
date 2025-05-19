@@ -26,7 +26,7 @@ function cosineSimilarity(A, B) {
 // Fonction pour récupérer les caractéristiques d'une série
 function getFeatures(serieName, featureKeys) {
   const serie = props.characteristics.find(item => item.name === serieName)
-  if (!serie) return featureKeys.map(() => 0)
+  if (!serie) return featureKeys.map(() => [])
 
   // Récupérer les clés de colonnes du CSV
   const allKeys = Object.keys(serie)
@@ -36,30 +36,18 @@ function getFeatures(serieName, featureKeys) {
   const audioCols = allKeys.slice(51, 56)
   const videoCols = allKeys.slice(56)
 
-  // Fonction utilitaire pour moyenne pondérée
-  function weightedMean(cols) {
-    let sum = 0
-    let totalWeight = 0
-    cols.forEach(col => {
-      const value = parseFloat(serie[col]) || 0
-      const weight = parseFloat(props.sliders[col]) || 0
-      if (weight > 0) {
-        sum += value * weight
-        totalWeight += weight
-      }
-    })
-    return totalWeight > 0 ? sum / totalWeight : 0
-  }
-
-  const llamaSynopsis = weightedMean(llamaSynopsisCols)
-  const audio = weightedMean(audioCols)
-  const video = weightedMean(videoCols)
-
-  return featureKeys.map(key => {
-    if (key === 'llama_Synopsis') return llamaSynopsis
-    if (key === 'audio') return audio
-    if (key === 'vidéo') return video
-    return 0
+  // Pour chaque feature, retourne le vecteur pondéré par les sliders
+  return featureKeys.flatMap(key => {
+    if (key === 'llama_Synopsis') {
+      return llamaSynopsisCols.map(col => (parseFloat(serie[col]) || 0) * (parseFloat(props.sliders[col]) || 0))
+    }
+    if (key === 'audio') {
+      return audioCols.map(col => (parseFloat(serie[col]) || 0) * (parseFloat(props.sliders[col]) || 0))
+    }
+    if (key === 'vidéo') {
+      return videoCols.map(col => (parseFloat(serie[col]) || 0) * (parseFloat(props.sliders[col]) || 0))
+    }
+    return []
   })
 }
 
