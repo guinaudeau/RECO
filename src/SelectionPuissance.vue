@@ -29,21 +29,21 @@ watch(
   <ul>
     <li>
       Vidéo : {{ localSliders.vidéo }}
-      <input type="range" v-model="localSliders.vidéo" min="0" max="1" step="0.01" />
+      <input type="range" v-model="localSliders.vidéo" min="0" max="2" step="0.01" value="1"/>
     </li>
     <li>
       Scénario : {{ localSliders.llama_Synopsis }}
-      <input type="range" v-model="localSliders.llama_Synopsis" min="0" max="1" step="0.01" />
+      <input type="range" v-model="localSliders.llama_Synopsis" min="0" max="2" step="0.01" value="1" />
     </li>
     <li>
       Audio : {{ localSliders.audio }}
-      <input type="range" v-model="localSliders.audio" min="0" max="1" step="0.01" />
+      <input type="range" v-model="localSliders.audio" min="0" max="2" step="0.01" value="1" />
     </li>
   </ul>
   <ul>
     <li v-for="col in props.characteristicsColumns" :key="col">
       {{ col }} : {{ localSliders[col] }}
-      <input type="range" v-model="localSliders[col]" min="0" max="1" step="0.01" />
+      <input type="range" v-model="localSliders[col]" min="0" max="2" step="0.01" value="1"/>
     </li>
   </ul>
 </template>
