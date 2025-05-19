@@ -83,4 +83,35 @@ input[type="range"] {
   width: 12.5em;
   margin-left: 1em;
 }
+
+button {
+  background: #edf2f4;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5em 1.5em;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 1em 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: background 0.2s, color 0.2s;
+}
+
+button:hover {
+  background: #d90429;
+  color: #fff;
+}
+
+html.dark button {
+  background: #22223b;
+  color: #f8f8f2;
+  border: 1px solid #4a4e69;
+}
+
+html.dark button:hover {
+  background: #d90429;
+  color: #fff;
+  border-color: #d90429;
+}
 </style>
