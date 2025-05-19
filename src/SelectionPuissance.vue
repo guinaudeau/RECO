@@ -42,7 +42,7 @@ const voirPlus = ref(false)
       <input type="range" v-model="localSliders.audio" min="0" max="2" step="0.01" value="1" />
     </li>
   </ul>
-  <button @click="voirPlus = !voirPlus">
+  <button @click="voirPlus = !voirPlus" id="buttonvoirPlus">
     {{ voirPlus ? 'Masquer les autres critères' : 'Voir plus de critères' }}
   </button>
   <ul id="voirPlus" v-show="voirPlus">
@@ -84,7 +84,7 @@ input[type="range"] {
   margin-left: 1em;
 }
 
-button {
+#buttonvoirPlus {
   background: #edf2f4;
   color: #222;
   border: none;
@@ -98,18 +98,18 @@ button {
   transition: background 0.2s, color 0.2s;
 }
 
-button:hover {
+#buttonvoirPlus:hover {
   background: #d90429;
   color: #fff;
 }
 
-html.dark button {
+html.dark #buttonvoirPlus {
   background: #22223b;
   color: #f8f8f2;
   border: 1px solid #4a4e69;
 }
 
-html.dark button:hover {
+html.dark #buttonvoirPlus:hover {
   background: #d90429;
   color: #fff;
   border-color: #d90429;
