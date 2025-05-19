@@ -1,7 +1,6 @@
 <script setup>
 import { defineProps, ref, onActivated } from 'vue'
 
-
 const props = defineProps(['series', 'sliders', 'characteristics']) // Recevoir les séries et sliders via props
 const similaritiesTable = ref([]) // Tableau des similarités
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries

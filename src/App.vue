@@ -57,6 +57,11 @@ async function loadCharacteristics() {
   })
 }
 
+const characteristicsColumns = computed(() => {
+  if (!characteristics.value.length) return []
+  return Object.keys(characteristics.value[0]).filter(key => key !== 'name')
+})
+
 // Gestion des routes
 const routes = {
   '/': Home,
@@ -128,7 +133,13 @@ changementVus()
   <div v-if="isLoading">Chargement des séries...</div>
   <div v-else>
     <keep-alive>
-      <component :is="currentView" :series="series" v-model:sliders="sliders" />
+      <component
+        :is="currentView"
+        :series="series"
+        v-model:sliders="sliders"
+        :characteristics="characteristics"
+        :characteristics-columns="characteristicsColumns"
+      />
     </keep-alive>
   </div>
   <footer class="fixed_footer">
