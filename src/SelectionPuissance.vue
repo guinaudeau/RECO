@@ -40,7 +40,10 @@ watch(
       <input type="range" v-model="localSliders.audio" min="0" max="2" step="0.01" value="1" />
     </li>
   </ul>
-  <ul>
+  <button @click="voirPlus = !voirPlus">
+    {{ voirPlus ? 'Masquer les autres critères' : 'Voir plus de critères' }}
+  </button>
+  <ul id="voirPlus" hidden>
     <li v-for="col in props.characteristicsColumns" :key="col">
       {{ col }} : {{ localSliders[col] }}
       <input type="range" v-model="localSliders[col]" min="0" max="2" step="0.01" value="1"/>
