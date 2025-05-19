@@ -22,6 +22,8 @@ watch(
   },
   { deep: true }
 )
+
+const voirPlus = ref(false)
 </script>
 
 <template>
@@ -43,7 +45,7 @@ watch(
   <button @click="voirPlus = !voirPlus">
     {{ voirPlus ? 'Masquer les autres critères' : 'Voir plus de critères' }}
   </button>
-  <ul id="voirPlus" hidden>
+  <ul id="voirPlus" v-show="voirPlus">
     <li v-for="col in props.characteristicsColumns" :key="col">
       {{ col }} : {{ localSliders[col] }}
       <input type="range" v-model="localSliders[col]" min="0" max="2" step="0.01" value="1"/>
