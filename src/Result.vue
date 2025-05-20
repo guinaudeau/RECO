@@ -237,8 +237,7 @@ const secondarySliderKeys = computed(() =>
       <!-- Grille pour les autres critères -->
       <div class="checkbox-grid">
         <label
-          v-for="(value, key) in localSliders"
-          v-if="!['llama_Synopsis', 'audio', 'vidéo'].includes(key)"
+          v-for="key in secondarySliderKeys"
           :key="key"
           class="checkbox-item"
         >
