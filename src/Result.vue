@@ -28,6 +28,8 @@ function validerChanges() {
   console.log(typeAffichage.value)
   if (typeAffichage.value === 1) {
     calculerSimilaritesPourUneSerie(selectedSeries[0].name) // Recalculer les similarités
+    console.log(comparisonResult.value)
+    console.log(similaritiesTable.value)
   } else if (typeAffichage.value === 2) {
     calculerSimilaritesEntreDeuxSeries(selectedSeries[0].name, selectedSeries[1].name) // Recalculer la comparaison
   }
