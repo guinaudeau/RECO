@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, onActivated, defineEmits } from 'vue'
+import { defineProps, ref, onActivated, defineEmits, watch } from 'vue'
 
 const emit = defineEmits(['update:sliders'])
 
@@ -24,14 +24,19 @@ function validerChanges() {
   // Réinitialiser les résultats
   comparisonResult.value = null
   similaritiesTable.value = []
-  // Recalculer les résultats selon le type d'affichage
-  const selectedSeries = props.series.filter(serie => serie.checked)
-  if (typeAffichage.value === 1 && selectedSeries.length > 0) {
-    calculerSimilaritesPourUneSerie(selectedSeries[0].name)
-  } else if (typeAffichage.value === 2 && selectedSeries.length > 1) {
-    calculerSimilaritesEntreDeuxSeries(selectedSeries[0].name, selectedSeries[1].name)
-  }
 }
+watch(
+  () => props.sliders,
+  () => {
+    const selectedSeries = props.series.filter(serie => serie.checked)
+    if (typeAffichage.value === 1 && selectedSeries.length > 0) {
+      calculerSimilaritesPourUneSerie(selectedSeries[0].name)
+    } else if (typeAffichage.value === 2 && selectedSeries.length > 1) {
+      calculerSimilaritesEntreDeuxSeries(selectedSeries[0].name, selectedSeries[1].name)
+    }
+  },
+  { deep: true }
+)
 
 // Fonction pour calculer la similarité entre deux vecteurs
 function cosineSimilarity(A, B) {
