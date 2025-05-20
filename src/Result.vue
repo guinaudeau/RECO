@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, onActivated, defineEmits, watch } from 'vue'
+import { defineProps, ref, onActivated, defineEmits, watch, computed } from 'vue'
 
 const emit = defineEmits(['update:sliders'])
 
@@ -207,6 +207,13 @@ function showFeatureSimilarities(featureSimilarities) {
     .join('\n')
   alert(`Similarité par feature :\n${message}`)
 }
+
+// Liste des clés secondaires (hors les 3 principaux)
+const secondarySliderKeys = computed(() =>
+  Object.keys(localSliders.value).filter(
+    key => !['llama_Synopsis', 'audio', 'vidéo'].includes(key)
+  )
+)
 </script>
 
 <template>
