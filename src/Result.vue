@@ -215,19 +215,35 @@ function showFeatureSimilarities(featureSimilarities) {
     <button @click="openEdit">personnaliser le resultat</button>
     <div v-if="editFeature">
       <h3>Personnalisation des critères</h3>
-      <ul>
-        <li v-for="(value, key) in localSliders" :key="key">
-          <label>
-            <input
-              type="checkbox"
-              v-model="localSliders[key]"
-              true-value="1"
-              false-value="0"
-            />
-            {{ key }}
-          </label>
-        </li>
-      </ul>
+      <!-- Ligne dédiée pour les 3 critères principaux -->
+      <div class="main-checkbox-row">
+        <label v-for="key in ['llama_Synopsis', 'audio', 'vidéo']" :key="key" class="checkbox-item">
+          <input
+            type="checkbox"
+            v-model="localSliders[key]"
+            true-value="1"
+            false-value="0"
+          />
+          {{ key }}
+        </label>
+      </div>
+      <!-- Grille pour les autres critères -->
+      <div class="checkbox-grid">
+        <label
+          v-for="(value, key) in localSliders"
+          v-if="!['llama_Synopsis', 'audio', 'vidéo'].includes(key)"
+          :key="key"
+          class="checkbox-item"
+        >
+          <input
+            type="checkbox"
+            v-model="localSliders[key]"
+            true-value="1"
+            false-value="0"
+          />
+          {{ key }}
+        </label>
+      </div>
       <button @click="validerChanges">Valider les changements</button>
       <button @click="editFeature = false">Annuler</button>
     </div>
@@ -336,5 +352,39 @@ html.dark .comparison-result {
   --background-color: #333;
   --text-color: #00c7ec;
   --border-color: #555;
+}
+
+/* Styles pour la personnalisation */
+#personnalisation {
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin-top: 0;
+}
+
+/* Ligne principale des checkboxes */
+.main-checkbox-row {
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+/* Grille des checkboxes */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1em 2em;
+  margin-bottom: 1em;
+  justify-items: start;
+}
+
+/* Éléments individuels de la checkbox */
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1em;
 }
 </style>
