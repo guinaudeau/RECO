@@ -21,17 +21,15 @@ function openEdit() {
 function validerChanges() {
   emit('update:sliders', localSliders.value)
   editFeature.value = false
-  comparisonResult.value = null // Réinitialiser le résultat de la comparaison
-  similaritiesTable.value = [] // Réinitialiser le tableau des similarités
+  // Réinitialiser les résultats
+  comparisonResult.value = null
+  similaritiesTable.value = []
+  // Recalculer les résultats selon le type d'affichage
   const selectedSeries = props.series.filter(serie => serie.checked)
-  console.log('Séries sélectionnées après modification :', selectedSeries)
-  console.log(typeAffichage.value)
-  if (typeAffichage.value === 1) {
-    calculerSimilaritesPourUneSerie(selectedSeries[0].name) // Recalculer les similarités
-    console.log(comparisonResult.value)
-    console.log(similaritiesTable.value)
-  } else if (typeAffichage.value === 2) {
-    calculerSimilaritesEntreDeuxSeries(selectedSeries[0].name, selectedSeries[1].name) // Recalculer la comparaison
+  if (typeAffichage.value === 1 && selectedSeries.length > 0) {
+    calculerSimilaritesPourUneSerie(selectedSeries[0].name)
+  } else if (typeAffichage.value === 2 && selectedSeries.length > 1) {
+    calculerSimilaritesEntreDeuxSeries(selectedSeries[0].name, selectedSeries[1].name)
   }
 }
 
