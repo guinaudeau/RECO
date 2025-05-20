@@ -24,9 +24,9 @@ function validerChanges() {
   comparisonResult.value = null // Réinitialiser le résultat de la comparaison
   similaritiesTable.value = [] // Réinitialiser le tableau des similarités
   if (typeAffichage.value === 1) {
-    calculerSimilaritesPourUneSerie(props.series[0].name) // Recalculer les similarités
+    calculerSimilaritesPourUneSerie(selectedSeries[0].name) // Recalculer les similarités
   } else if (typeAffichage.value === 2) {
-    calculerSimilaritesEntreDeuxSeries(props.series[0].name, props.series[1].name) // Recalculer la comparaison
+    calculerSimilaritesEntreDeuxSeries(selectedSeries[0].name, selectedSeries[1].name) // Recalculer la comparaison
   }
 }
 
