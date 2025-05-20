@@ -1,5 +1,7 @@
 <script setup>
-import { defineProps, ref, onActivated } from 'vue'
+import { defineProps, ref, onActivated, defineEmits } from 'vue'
+
+const emit = defineEmits(['update:sliders'])
 
 const props = defineProps(['series', 'sliders', 'characteristics']) // Recevoir les séries et sliders via props
 const similaritiesTable = ref([]) // Tableau des similarités
