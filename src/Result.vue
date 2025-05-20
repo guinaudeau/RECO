@@ -217,8 +217,15 @@ function showFeatureSimilarities(featureSimilarities) {
       <h3>Personnalisation des critères</h3>
       <ul>
         <li v-for="(value, key) in localSliders" :key="key">
-          {{ key }} : {{ value }}
-          <input type="range" v-model="localSliders[key]" min="0" max="2" step="0.01" />
+          <label>
+            <input
+              type="checkbox"
+              v-model="localSliders[key]"
+              true-value="1"
+              false-value="0"
+            />
+            {{ key }}
+          </label>
         </li>
       </ul>
       <button @click="validerChanges">Valider les changements</button>
