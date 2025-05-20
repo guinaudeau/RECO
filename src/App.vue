@@ -130,7 +130,10 @@ changementVus()
     <div class="title-container">
       <a href="https://www.cnrs.fr/fr" target="Fenêtre définie"><img src="CNRS.png" alt="Logo du CNRS" style="max-width: 100px; max-height: 100px; top: 10px; left: 10px;" /></a>
       <h1>RECO+</h1>
-      <button @click="toggleDark()" class="dark-mode-toggle">Mode Jour/Nuit</button>
+      <button @click="toggleDark()" class="dark-mode-toggle">
+        <span v-if="!isDark" aria-label="Activer le mode nuit" title="Activer le mode nuit">🌞</span>
+        <span v-else aria-label="Activer le mode jour" title="Activer le mode jour">🌙</span>
+      </button>
     </div>
   </div>
   <nav>
@@ -353,34 +356,33 @@ html.dark nav button{
 }
 
 .dark-mode-toggle {
-  padding: 10px 20px;
-  font-size: 1em;
-  border: 1px solid #00c7ec;
-  border-radius: 5px;
+  padding: 10px;
+  font-size: 1.7em;
+  border: none;
+  border-radius: 50%;
   background-color: #fff;
-  color: #00c7ec;
+  color: #ffb300;
   cursor: pointer;
-  
-  transition: all 0.3s ease;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, color 0.3s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
-.dark-mode-toggle button{
-  text-decoration: none;
-}
-
 
 .dark-mode-toggle:hover {
-  background-color: #00c7ec;
-  color: #fff;
+  background-color: #ffe082;
 }
 
 html.dark .dark-mode-toggle {
-  background-color: #443b3d;
-  color: rgb(127, 150, 255);
+  background-color: #22223b;
+  color: #ffd700;
 }
 
 html.dark .dark-mode-toggle:hover {
-  background-color: rgb(127, 150, 255);
-  color: #443b3d;
+  background-color: #444;
 }
 
 /* Responsive pour le header et la nav */
