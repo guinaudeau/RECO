@@ -23,6 +23,8 @@ function validerChanges() {
   editFeature.value = false
   comparisonResult.value = null // Réinitialiser le résultat de la comparaison
   similaritiesTable.value = [] // Réinitialiser le tableau des similarités
+  const selectedSeries = props.series.filter(serie => serie.checked)
+
   if (typeAffichage.value === 1) {
     calculerSimilaritesPourUneSerie(selectedSeries[0].name) // Recalculer les similarités
   } else if (typeAffichage.value === 2) {
