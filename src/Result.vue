@@ -6,11 +6,21 @@ const similaritiesTable = ref([]) // Tableau des similarités
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
 let editFeature = ref(false) // État pour afficher/masquer la personnalisation
 
-function validerChanges() {
-  // Émettre un événement pour mettre à jour les sliders
-  props.$emit('update:sliders', props.sliders)
-  editFeature.value = false // Masquer la personnalisation après validation
+// Copie locale pour l'édition
+const localSliders = ref({ ...props.sliders })
+
+// Quand on ouvre la personnalisation, synchroniser la copie locale
+function openEdit() {
+  localSliders.value = { ...props.sliders }
+  editFeature.value = true
 }
+
+// Émettre la mise à jour au parent
+function validerChanges() {
+  emit('update:sliders', localSliders.value)
+  editFeature.value = false
+}
+
 // Fonction pour calculer la similarité entre deux vecteurs
 function cosineSimilarity(A, B) {
   let dotproduct = 0;
@@ -185,13 +195,13 @@ function showFeatureSimilarities(featureSimilarities) {
 <template>
   <h2>Résultats des séries sélectionnées</h2>
   <div id="personnalisation">
-    <button @click="editFeature = !editFeature">personnaliser le resultat</button>
+    <button @click="openEdit">personnaliser le resultat</button>
     <div v-if="editFeature">
       <h3>Personnalisation des critères</h3>
       <ul>
-        <li v-for="(value, key) in sliders" :key="key">
+        <li v-for="(value, key) in localSliders" :key="key">
           {{ key }} : {{ value }}
-          <input type="range" v-model="sliders[key]" min="0" max="2" step="0.01" value="1"/>
+          <input type="range" v-model="localSliders[key]" min="0" max="2" step="0.01" />
         </li>
       </ul>
       <button @click="validerChanges">Valider les changements</button>
