@@ -4,7 +4,13 @@ import { defineProps, ref, onActivated } from 'vue'
 const props = defineProps(['series', 'sliders', 'characteristics']) // Recevoir les séries et sliders via props
 const similaritiesTable = ref([]) // Tableau des similarités
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
+let editFeature = ref(false) // État pour afficher/masquer la personnalisation
 
+function validerChanges() {
+  // Émettre un événement pour mettre à jour les sliders
+  props.$emit('update:sliders', props.sliders)
+  editFeature.value = false // Masquer la personnalisation après validation
+}
 // Fonction pour calculer la similarité entre deux vecteurs
 function cosineSimilarity(A, B) {
   let dotproduct = 0;
@@ -178,6 +184,20 @@ function showFeatureSimilarities(featureSimilarities) {
 
 <template>
   <h2>Résultats des séries sélectionnées</h2>
+  <div id="personnalisation">
+    <button @click="editFeature = !editFeature">personnaliser le resultat</button>
+    <div v-if="editFeature">
+      <h3>Personnalisation des critères</h3>
+      <ul>
+        <li v-for="(value, key) in sliders" :key="key">
+          {{ key }} : {{ value }}
+          <input type="range" v-model="sliders[key]" min="0" max="2" step="0.01" value="1"/>
+        </li>
+      </ul>
+      <button @click="validerChanges">Valider les changements</button>
+      <button @click="editFeature = false">Annuler</button>
+    </div>
+  </div>
   <table v-if="typeAffichage===1" class="similarities-table">
     <caption>Tableau des similarités</caption>
     <thead>
