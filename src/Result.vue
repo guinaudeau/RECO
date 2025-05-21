@@ -249,6 +249,7 @@ function syncCheckboxGroup(mainKey) {
   <div id="personnalisation">
     <button @click="openEdit">personnaliser le resultat</button>
     <div v-if="editFeature">
+      <button @click="validerChanges">Valider les changements</button>
       <h3>Personnalisation des critères</h3>
       <!-- Ligne dédiée pour les 3 critères principaux -->
       <div class="main-checkbox-row">
