@@ -22,3 +22,4 @@ pnpm-debug.log*
 *.sln
 *.sw?
 src/data/SimilariteSerie.ipynb
+public/data/.~lock.characteristics.csv#
