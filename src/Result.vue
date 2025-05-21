@@ -219,6 +219,18 @@ const llamaSynopsisCols = computed(() => allKeys.value.slice(1, 51))
 const audioCols = computed(() => allKeys.value.slice(51, 56))
 const videoCols = computed(() => allKeys.value.slice(56))
 
+// Fonction utilitaire pour diviser un tableau en morceaux
+function chunkArray(array, size) {
+  const result = []
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size))
+  }
+  return result
+}
+
+const audioColsChunks = computed(() => chunkArray(audioCols.value, 10))
+const videoColsChunks = computed(() => chunkArray(videoCols.value, 10))
+const llamaSynopsisColsChunks = computed(() => chunkArray(llamaSynopsisCols.value, 10))
 </script>
 
 <template>
@@ -243,51 +255,57 @@ const videoCols = computed(() => allKeys.value.slice(56))
       <div class="checkbox-grid-multi">
         <div>
           <strong>Audio</strong>
-          <label
-            v-for="key in audioCols"
-            :key="key"
-            class="checkbox-item"
-          >
-            <input
-              type="checkbox"
-              v-model="localSliders[key]"
-              true-value="1"
-              false-value="0"
-            />
-            {{ key }}
-          </label>
+          <div class="checkbox-col" v-for="(chunk, idx) in audioColsChunks" :key="'audio-col-' + idx">
+            <label
+              v-for="key in chunk"
+              :key="key"
+              class="checkbox-item"
+            >
+              <input
+                type="checkbox"
+                v-model="localSliders[key]"
+                true-value="1"
+                false-value="0"
+              />
+              {{ key }}
+            </label>
+          </div>
         </div>
         <div>
           <strong>Vidéo</strong>
-          <label
-            v-for="key in videoCols"
-            :key="key"
-            class="checkbox-item"
-          >
-            <input
-              type="checkbox"
-              v-model="localSliders[key]"
-              true-value="1"
-              false-value="0"
-            />
-            {{ key }}
-          </label>
+          <div class="checkbox-col" v-for="(chunk, idx) in videoColsChunks" :key="'video-col-' + idx">
+            <label
+              v-for="key in chunk"
+              :key="key"
+              class="checkbox-item"
+            >
+              <input
+                type="checkbox"
+                v-model="localSliders[key]"
+                true-value="1"
+                false-value="0"
+              />
+              {{ key }}
+            </label>
+          </div>
         </div>
         <div>
           <strong>llama_Synopsis</strong>
-          <label
-            v-for="key in llamaSynopsisCols"
-            :key="key"
-            class="checkbox-item"
-          >
-            <input
-              type="checkbox"
-              v-model="localSliders[key]"
-              true-value="1"
-              false-value="0"
-            />
-            {{ key }}
-          </label>
+          <div class="checkbox-col" v-for="(chunk, idx) in llamaSynopsisColsChunks" :key="'llama-col-' + idx">
+            <label
+              v-for="key in chunk"
+              :key="key"
+              class="checkbox-item"
+            >
+              <input
+                type="checkbox"
+                v-model="localSliders[key]"
+                true-value="1"
+                false-value="0"
+              />
+              {{ key }}
+            </label>
+          </div>
         </div>
       </div>
       <button @click="validerChanges">Valider les changements</button>
@@ -453,5 +471,11 @@ h3 {
   align-items: center;
   gap: 0.5em;
   font-size: 1em;
+}
+
+.checkbox-col {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
 }
 </style>
