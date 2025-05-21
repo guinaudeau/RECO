@@ -219,12 +219,22 @@ const videoKeys = computed(() =>
     key => key.toLowerCase().includes('vidéo') && !['vidéo'].includes(key)
   )
 )
+const allKeys = computed(() => {
+  // Prend la première série pour obtenir les colonnes
+  const firstSerie = props.characteristics[0]
+  return firstSerie ? Object.keys(firstSerie) : []
+})
+
+const llamaSynopsisCols = computed(() => allKeys.value.slice(1, 51))
+const audioCols = computed(() => allKeys.value.slice(51, 56))
+const videoCols = computed(() => allKeys.value.slice(56))
+
 const otherKeys = computed(() =>
   Object.keys(localSliders.value).filter(
     key =>
-      !['llama_Synopsis', 'audio', 'vidéo'].includes(key) &&
-      !key.toLowerCase().includes('audio') &&
-      !key.toLowerCase().includes('vidéo')
+      !llamaSynopsisCols.value.includes(key) &&
+      !audioCols.value.includes(key) &&
+      !videoCols.value.includes(key)
   )
 )
 </script>
@@ -252,7 +262,7 @@ const otherKeys = computed(() =>
         <div>
           <strong>Audio</strong>
           <label
-            v-for="key in audioKeys"
+            v-for="key in audioCols"
             :key="key"
             class="checkbox-item"
           >
@@ -268,7 +278,7 @@ const otherKeys = computed(() =>
         <div>
           <strong>Vidéo</strong>
           <label
-            v-for="key in videoKeys"
+            v-for="key in videoCols"
             :key="key"
             class="checkbox-item"
           >
