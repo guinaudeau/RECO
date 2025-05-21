@@ -209,11 +209,6 @@ function showFeatureSimilarities(featureSimilarities) {
 }
 
 // Liste des clés secondaires (hors les 3 principaux)
-const secondarySliderKeys = computed(() =>
-  Object.keys(localSliders.value).filter(
-    key => !['llama_Synopsis', 'audio', 'vidéo'].includes(key)
-  )
-)
 const audioKeys = computed(() =>
   Object.keys(localSliders.value).filter(
     key => key.toLowerCase().includes('audio') && !['audio'].includes(key)
