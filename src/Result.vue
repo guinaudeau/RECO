@@ -219,14 +219,6 @@ const llamaSynopsisCols = computed(() => allKeys.value.slice(1, 51))
 const audioCols = computed(() => allKeys.value.slice(51, 56))
 const videoCols = computed(() => allKeys.value.slice(56))
 
-const otherKeys = computed(() =>
-  Object.keys(localSliders.value).filter(
-    key =>
-      !llamaSynopsisCols.value.includes(key) &&
-      !audioCols.value.includes(key) &&
-      !videoCols.value.includes(key)
-  )
-)
 </script>
 
 <template>
