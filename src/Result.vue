@@ -208,17 +208,7 @@ function showFeatureSimilarities(featureSimilarities) {
   alert(`Similarité par feature :\n${message}`)
 }
 
-// Liste des clés secondaires (hors les 3 principaux)
-const audioKeys = computed(() =>
-  Object.keys(localSliders.value).filter(
-    key => key.toLowerCase().includes('audio') && !['audio'].includes(key)
-  )
-)
-const videoKeys = computed(() =>
-  Object.keys(localSliders.value).filter(
-    key => key.toLowerCase().includes('vidéo') && !['vidéo'].includes(key)
-  )
-)
+
 const allKeys = computed(() => {
   // Prend la première série pour obtenir les colonnes
   const firstSerie = props.characteristics[0]
