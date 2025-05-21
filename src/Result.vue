@@ -231,6 +231,17 @@ function chunkArray(array, size) {
 const audioColsChunks = computed(() => chunkArray(audioCols.value, 10))
 const videoColsChunks = computed(() => chunkArray(videoCols.value, 10))
 const llamaSynopsisColsChunks = computed(() => chunkArray(llamaSynopsisCols.value, 10))
+
+function syncCheckboxGroup(mainKey) {
+  let group = []
+  if (mainKey === 'llama_Synopsis') group = llamaSynopsisCols.value
+  if (mainKey === 'audio') group = audioCols.value
+  if (mainKey === 'vidéo') group = videoCols.value
+  const value = localSliders.value[mainKey]
+  group.forEach(key => {
+    localSliders.value[key] = value
+  })
+}
 </script>
 
 <template>
@@ -247,6 +258,7 @@ const llamaSynopsisColsChunks = computed(() => chunkArray(llamaSynopsisCols.valu
             v-model="localSliders[key]"
             true-value="1"
             false-value="0"
+            @change="syncCheckboxGroup(key)"
           />
           {{ key }}
         </label>
