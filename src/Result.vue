@@ -214,6 +214,24 @@ const secondarySliderKeys = computed(() =>
     key => !['llama_Synopsis', 'audio', 'vidéo'].includes(key)
   )
 )
+const audioKeys = computed(() =>
+  Object.keys(localSliders.value).filter(
+    key => key.toLowerCase().includes('audio') && !['audio'].includes(key)
+  )
+)
+const videoKeys = computed(() =>
+  Object.keys(localSliders.value).filter(
+    key => key.toLowerCase().includes('vidéo') && !['vidéo'].includes(key)
+  )
+)
+const otherKeys = computed(() =>
+  Object.keys(localSliders.value).filter(
+    key =>
+      !['llama_Synopsis', 'audio', 'vidéo'].includes(key) &&
+      !key.toLowerCase().includes('audio') &&
+      !key.toLowerCase().includes('vidéo')
+  )
+)
 </script>
 
 <template>
@@ -235,20 +253,55 @@ const secondarySliderKeys = computed(() =>
         </label>
       </div>
       <!-- Grille pour les autres critères -->
-      <div class="checkbox-grid">
-        <label
-          v-for="key in secondarySliderKeys"
-          :key="key"
-          class="checkbox-item"
-        >
-          <input
-            type="checkbox"
-            v-model="localSliders[key]"
-            true-value="1"
-            false-value="0"
-          />
-          {{ key }}
-        </label>
+      <div class="checkbox-grid-multi">
+        <div>
+          <strong>Audio</strong>
+          <label
+            v-for="key in audioKeys"
+            :key="key"
+            class="checkbox-item"
+          >
+            <input
+              type="checkbox"
+              v-model="localSliders[key]"
+              true-value="1"
+              false-value="0"
+            />
+            {{ key }}
+          </label>
+        </div>
+        <div>
+          <strong>Vidéo</strong>
+          <label
+            v-for="key in videoKeys"
+            :key="key"
+            class="checkbox-item"
+          >
+            <input
+              type="checkbox"
+              v-model="localSliders[key]"
+              true-value="1"
+              false-value="0"
+            />
+            {{ key }}
+          </label>
+        </div>
+        <div>
+          <strong>Autres</strong>
+          <label
+            v-for="key in otherKeys"
+            :key="key"
+            class="checkbox-item"
+          >
+            <input
+              type="checkbox"
+              v-model="localSliders[key]"
+              true-value="1"
+              false-value="0"
+            />
+            {{ key }}
+          </label>
+        </div>
       </div>
       <button @click="validerChanges">Valider les changements</button>
       <button @click="editFeature = false">Annuler</button>
@@ -384,6 +437,27 @@ h3 {
   gap: 1em 2em;
   margin-bottom: 1em;
   justify-items: start;
+}
+
+/* Grille des checkboxes (multi-colonnes) */
+.checkbox-grid-multi {
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.checkbox-grid-multi > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  min-width: 180px;
+}
+
+.checkbox-grid-multi strong {
+  margin-bottom: 0.5em;
+  text-align: center;
+  display: block;
 }
 
 /* Éléments individuels de la checkbox */
