@@ -242,6 +242,24 @@ function syncCheckboxGroup(mainKey) {
     localSliders.value[key] = value
   })
 }
+
+// Synchronise la case principale si au moins une sous-feature est cochée
+watch(
+  localSliders,
+  (newVal) => {
+    // Pour chaque feature principale
+    [
+      { main: 'llama_Synopsis', group: llamaSynopsisCols.value },
+      { main: 'audio', group: audioCols.value },
+      { main: 'vidéo', group: videoCols.value }
+    ].forEach(({ main, group }) => {
+      // Si au moins une sous-feature est cochée, coche la principale, sinon décoche
+      const atLeastOneChecked = group.some(key => newVal[key] === "1" || newVal[key] === 1);
+      localSliders.value[main] = atLeastOneChecked ? "1" : "0";
+    });
+  },
+  { deep: true }
+)
 </script>
 
 <template>
