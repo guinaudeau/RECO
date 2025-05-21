@@ -282,9 +282,9 @@ const otherKeys = computed(() =>
           </label>
         </div>
         <div>
-          <strong>Autres</strong>
+          <strong>llama_Synopsis</strong>
           <label
-            v-for="key in otherKeys"
+            v-for="key in llamaSynopsisCols"
             :key="key"
             class="checkbox-item"
           >
