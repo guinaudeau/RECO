@@ -1,0 +1,24 @@
+<script>
+</script>
+
+<template>
+    <form action="/ma-page-de-traitement" method="post">
+      <ul>
+        <li>
+          <label for="name">Nom&nbsp;:</label>
+          <input type="text" id="name" name="user_name" />
+        </li>
+        <li>
+          <label for="mail">E-mail&nbsp;:</label>
+          <input type="email" id="mail" name="user_email" />
+        </li>
+        <li>
+          <label for="msg">Message&nbsp;:</label>
+          <textarea id="msg" name="user_message"></textarea>
+        </li>
+        <li>
+          <button type="submit">Envoyer</button>
+        </li>
+      </ul>
+    </form>
+</template>

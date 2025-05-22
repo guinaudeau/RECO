@@ -6,6 +6,7 @@ import SelectionPuissance from './SelectionPuissance.vue'
 import Resultat from './Result.vue'
 import AboutReco from './AboutReco.vue'
 import Papa from 'papaparse'
+import Contact from './contact.vue'
 
 const series = ref([]) // Stocker les séries chargées
 const characteristics = ref([]) // Stocker les caractéristiques chargées
@@ -76,7 +77,8 @@ const routes = {
   '/': Home,
   '/SelectionPuissance': SelectionPuissance,
   '/Resultat': Resultat,
-  '/about': AboutReco
+  '/about': AboutReco,
+  '/contact': Contact
 }
 
 const currentPath = ref(window.location.hash || '#/')
@@ -97,27 +99,38 @@ let IsHome = true
 let IsSelection = false
 let IsResult = false
 let IsAbout = false
+let IsContact = false
 function changementVus() {
   if (currentPath.value === '#/') {
     IsHome = true
     IsSelection = false
     IsResult = false
     IsAbout = false
+    IsContact = false
   } else if (currentPath.value === '#/SelectionPuissance') {
     IsHome = false
     IsSelection = true
     IsResult = false
     IsAbout = false
+    IsContact = false
   } else if (currentPath.value === '#/Resultat') {
     IsHome = false
     IsSelection = false
     IsResult = true
     IsAbout = false
+    IsContact = false
   } else if (currentPath.value === '#/about') {
     IsHome = false
     IsSelection = false
     IsResult = false
     IsAbout = true
+    IsContact = false
+  } else if (currentPath.value === '#/contact'){
+    IsHome = false
+    IsSelection = false
+    IsResult = false
+    IsAbout = false
+    IsContact = true
   }
 }
 
@@ -141,6 +154,7 @@ changementVus()
     <a href="#/SelectionPuissance" v-if="!IsSelection"><button v-if="!IsSelection">Personnalisation</button></a>
     <a href="#/Resultat" v-if="!IsResult && !IsAbout"><button v-if="!IsResult && !IsAbout">Résultats</button></a>
     <a href="#/about" v-if="!IsAbout"><button v-if="!IsAbout">À propos</button></a>
+    <a href="#/contact" v-if="!IsContact"><button v-if="!IsContact">nous Contacter</button></a>
   </nav>
   <div v-if="isLoading">Chargement des séries...</div>
   <div v-else>
@@ -160,25 +174,7 @@ changementVus()
       <a href="https://www.cnrs.fr/fr" target="Fenêtre définie"><img src="CNRS.png" alt="logo du CNRS" /></a>
       <a href="https://isjps.pantheonsorbonne.fr/" target="Fenêtre définie"><img src="ISJPS.png" alt="logo du ISJPS" /></a>
       <a href="https://jfli.cnrs.fr/" target="Fenêtre définie"><img src="logo-jfli.png" alt="logo du JFLI" /></a>
-    <form action="/ma-page-de-traitement" method="post">
-      <ul>
-        <li>
-          <label for="name">Nom&nbsp;:</label>
-          <input type="text" id="name" name="user_name" />
-        </li>
-        <li>
-          <label for="mail">E-mail&nbsp;:</label>
-          <input type="email" id="mail" name="user_email" />
-        </li>
-        <li>
-          <label for="msg">Message&nbsp;:</label>
-          <textarea id="msg" name="user_message"></textarea>
-        </li>
-        <li>
-          <button type="submit">Envoyer</button>
-        </li>
-      </ul>
-    </form>
+    
       <p>Pour toute question ou suggestion, n'hésitez pas à nous contacter.</p>
       <p>© 2023 RECO+. Tous droits réservés.</p>
       
