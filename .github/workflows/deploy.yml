@@ -27,6 +27,12 @@ jobs:
     - name: Install vue-router
       run: npm install vue-router
 
+    - name: Install vue cli
+      run: npm install -g @vue/cli
+
+    - name: Install emailjs
+      run: npm install emailjs-com
+
     - name: Install papaparse
       run: npm install papaparse
 
