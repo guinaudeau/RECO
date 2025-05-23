@@ -114,7 +114,7 @@ html.dark .container {
   font-size: 41px;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
-  background: -webkit-linear-gradient(right, #000, #00c7ec, #000, #00c7ec);
+  background: -webkit-linear-gradient(right, #444, #00c7ec, #444, #00c7ec);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

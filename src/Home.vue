@@ -366,12 +366,20 @@ html.dark-mode input[type="text"] {
   color: #e6eaf3;
   border: 1.5px solid #3a4152;
 }
-
+html.dark input[type="email"],
+html.dark-mode input[type="email"] {
+  background: #232834;
+  color: #e6eaf3;
+  border: 1.5px solid #3a4152;
+}
 html.dark input[type="text"]:focus,
 html.dark-mode input[type="text"]:focus {
   border: 1.5px solid #7dcfff;
 }
-
+html.dark input[type="email"]:focus,
+html.dark-mode input[type="email"]:focus {
+  border: 1.5px solid #7dcfff;
+}
 html.dark button,
 html.dark-mode button,
 html.dark button[type="submit"],
