@@ -6,27 +6,35 @@ export default {
     return {
       name: '',
       email: '',
-      message: ''
+      message: '',
+      formTouched: false // Ajouté
+    }
+  },
+  computed: {
+    isFormValid() {
+      return this.name && this.email && this.message;
     }
   },
   methods: {
     sendEmail(e) {
+      this.formTouched = true; // Marque le formulaire comme touché
+      if (!this.isFormValid) return; // Ne rien faire si le formulaire est invalide
+
       try {
         emailjs.sendForm('service_mimb94k', 'template_g50q2tl', e.target,
         'ISM6B8zfLyjqOPXXd', {
           name: this.name,
           email: this.email,
           message: this.message,
-
         })
-
       } catch(error) {
-          console.log({error})
+        console.log({error})
       }
       // Reset form field
       this.name = ''
       this.email = ''
       this.message = ''
+      this.formTouched = false; // Réinitialise
       // Show success message
       alert('Email sent successfully!');
     },
@@ -70,7 +78,13 @@ export default {
           </div>
           <div class="input-data">
             <div class="inner"></div>
-            <input type="submit" value="Send">
+            <input
+              type="submit"
+              value="Send"
+              :disabled="!isFormValid"
+              :class="{'error-btn': formTouched && !isFormValid}"
+            >
+            
           </div>
         </div>
       </form>
@@ -302,5 +316,17 @@ input[type="submit"]:disabled{
 html.dark input[type="submit"]:active{
   border: 5px solid limegreen;
 }
-
+input[type="submit"].error-btn {
+  background: red !important;
+  color: #fff !important;
+  border: 2px solid #900 !important;
+  animation: shake 0.2s 2;
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
 </style>
