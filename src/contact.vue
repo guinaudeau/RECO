@@ -47,6 +47,7 @@ export default {
               v-model="name"
               name="name"
               placeholder="Your Name"
+              required
             >
           </div>
           <div class="input-data">
@@ -55,6 +56,7 @@ export default {
             v-model="email"
             name="email"
             placeholder="Your Email"
+            required
             >
           </div>
           <div class="input-data">
@@ -62,8 +64,9 @@ export default {
               name="message"
               v-model="message"
               cols="30" rows="5"
-              placeholder="Message">
-            </textarea>
+              placeholder="Message"
+              required
+            ></textarea>
           </div>
           <div class="submit-btn">
             <div class="input-data">
