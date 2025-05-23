@@ -263,7 +263,7 @@ textarea {
   padding: 4px 8px;
 }
 html.dark textarea {
-  background-image: linear-gradient(#232834 50%, #252a36 50%);
+  background-image: linear-gradient(#212632 50%, #252a36 50%);
   background-size: 100% 4rem;
   border: 1px solid #222;
   color :#aaa
