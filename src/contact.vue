@@ -40,29 +40,40 @@ export default {
          Contact Form
       </div>
       <form @submit.prevent="sendEmail">
-          <label>Name</label>
-          <input 
-            type="text" 
-            v-model="name"
-            name="name"
-            placeholder="Your Name"
-          >
-          <label>Email</label>
-          <input 
-            type="email" 
+        <div class="form-row">
+          <div class="input-data">
+            <label>Name</label>
+            <input 
+              type="text" 
+              v-model="name"
+              name="name"
+              placeholder="Your Name"
+            >
+          </div>
+          <div class="input-data">
+            <label>Email</label>
+            <input 
+              type="email" 
             v-model="email"
             name="email"
             placeholder="Your Email"
             >
-          <label>Message</label>
-          <textarea 
-            name="message"
-            v-model="message"
-            cols="30" rows="5"
-            placeholder="Message">
-          </textarea>
-
-          <input type="submit" value="Send">
+          </div>
+          <div class="input-data">
+            <label>Message</label>
+            <textarea 
+              name="message"
+              v-model="message"
+              cols="30" rows="5"
+              placeholder="Message">
+            </textarea>
+          </div>
+          <div class="submit-btn">
+            <div class="input-data">
+              <div class="inner"></div>
+              <input type="submit" value="Send">
+            </div>
+          </div>
         </form>
     </div>
 </template>
@@ -108,6 +119,8 @@ html.dark .container {
 }
 html.dark .container .text {
   background: -webkit-linear-gradient(right, #aaa, #00c7ec, #aaa, #00c7ec);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .container form{
   padding: 30px 0 0 0;
