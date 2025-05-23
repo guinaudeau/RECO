@@ -42,7 +42,6 @@ export default {
       <form @submit.prevent="sendEmail">
         <div class="form-row">
           <div class="input-data">
-            <label>Name</label>
             <input 
               type="text" 
               v-model="name"
@@ -51,7 +50,6 @@ export default {
             >
           </div>
           <div class="input-data">
-            <label>Email</label>
             <input 
               type="email" 
             v-model="email"
@@ -60,7 +58,6 @@ export default {
             >
           </div>
           <div class="input-data">
-            <label>Message</label>
             <textarea 
               name="message"
               v-model="message"
@@ -132,12 +129,20 @@ html.dark .container .text {
 }
 form .form-row .input-data{
   width: 100%;
-  height: 40px;
+  height: 40%;
+  display: flex;
   margin: 0 20px;
   position: relative;
 }
-form .form-row .textarea{
-  height: 70px;
+form .form-row .input-data .inner{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  top: -5px;
+  left: -5px;
+  z-index: -1;
+  transition: all 0.3s ease;
 }
 .input-data input,
 .textarea textarea{
@@ -191,38 +196,6 @@ form .form-row .textarea{
 .textarea textarea:focus ~ .underline:before,
 .textarea textarea:valid ~ .underline:before{
   transform: scale(1);
-}
-.submit-btn .input-data{
-  overflow: hidden;
-  height: 45px!important;
-  width: 25%!important;
-}
-.submit-btn .input-data .inner{
-  height: 100%;
-  width: 300%;
-  position: absolute;
-  left: -100%;
-  background: -webkit-linear-gradient(right,#000, #00c7ec, #000, #00c7ec);
-  
-  transition: all 0.4s;
-}
-html.dark .submit-btn .input-data .inner {
-  background: -webkit-linear-gradient(right,#aaa, #00c7ec, #aaa, #00c7ec);
-}
-.submit-btn .input-data:hover .inner{
-  left: 0;
-}
-.submit-btn .input-data input{
-  background: none;
-  border: none;
-  color: #000;
-  font-size: 17px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  position: relative;
-  z-index: 2;
 }
 @media (max-width: 700px) {
   .container .text{
