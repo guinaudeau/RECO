@@ -300,7 +300,7 @@ input[type="submit"]:disabled{
   cursor: not-allowed;
 }
 html.dark input[type="submit"]:active{
-  border: 1px solid limegreen;
+  border: 5px solid limegreen;
 }
 
 </style>
