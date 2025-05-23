@@ -82,7 +82,7 @@ body{
   min-height: 100vh;
   padding: 10px;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(115deg, #56d8e4 10%, #9f01ea 90%);
+  background: linear-gradient(115deg, #aaa 10%, #00c7ec 90%);
 }
 .container{
   max-width: auto;
@@ -96,7 +96,7 @@ body{
   font-size: 41px;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
-  background: -webkit-linear-gradient(right, #56d8e4, #9f01ea, #56d8e4, #9f01ea);
+  background: -webkit-linear-gradient(right, #aaa, #00c7ec, #aaa, #00c7ec);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -129,7 +129,7 @@ form .form-row .textarea{
 .input-data input:valid ~ label, .textarea textarea:valid ~ label{
   transform: translateY(-20px);
   font-size: 14px;
-  color: #3498db;
+  color: #aaa;
 }
 .textarea textarea{
   resize: none;
@@ -145,7 +145,7 @@ form .form-row .textarea{
 .textarea label{
   width: 100%;
   bottom: 40px;
-  background: #fff;
+  background: #000;
 }
 .input-data .underline{
   position: absolute;
@@ -158,7 +158,7 @@ form .form-row .textarea{
   content: "";
   height: 2px;
   width: 100%;
-  background: #3498db;
+  background: #aaa;
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.3s ease;
@@ -179,7 +179,7 @@ form .form-row .textarea{
   width: 300%;
   position: absolute;
   left: -100%;
-  background: -webkit-linear-gradient(right, #56d8e4, #9f01ea, #56d8e4, #9f01ea);
+  background: -webkit-linear-gradient(right,#aaa, #00c7ec, #aaa, #00c7ec);
   transition: all 0.4s;
 }
 .submit-btn .input-data:hover .inner{
@@ -188,7 +188,7 @@ form .form-row .textarea{
 .submit-btn .input-data input{
   background: none;
   border: none;
-  color: #fff;
+  color: #000;
   font-size: 17px;
   font-weight: 500;
   text-transform: uppercase;
