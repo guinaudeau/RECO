@@ -228,6 +228,9 @@ html.dark .inner{
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 textarea {
   background-image: linear-gradient(#F1F1F1 50%, #F9F9F9 50%);
