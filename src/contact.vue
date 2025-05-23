@@ -37,7 +37,7 @@ export default {
 <template>
     <div class="container">
       <div class="text">
-         Contact Form
+         Contact Formulaire
       </div>
       <form @submit.prevent="sendEmail">
         <div class="form-row">
@@ -74,7 +74,8 @@ export default {
               <input type="submit" value="Send">
             </div>
           </div>
-        </form>
+        </div>
+      </form>
     </div>
 </template>
 <style scoped>
