@@ -7,7 +7,7 @@ export default {
       name: '',
       email: '',
       message: '',
-      formTouched: false // Ajouté
+      formTouched: false
     }
   },
   computed: {
@@ -30,11 +30,10 @@ export default {
       } catch(error) {
         console.log({error})
       }
-      // Reset form field
       this.name = ''
       this.email = ''
       this.message = ''
-      this.formTouched = false; // Réinitialise
+      this.formTouched = false; 
       // Show success message
       alert('Email sent successfully!');
     },
@@ -81,6 +80,7 @@ export default {
             <input
               type="submit"
               value="Send"
+              :disabled="!isFormValid"
               :class="{'error-btn': formTouched && !isFormValid}"
             >
             
@@ -105,7 +105,7 @@ body{
   min-height: 100vh;
   padding: 10px;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(115deg, #000 10%, #00c7ec 90%);
+  background: linear-gradient(115deg, #444 10%, #00c7ec 90%);
 }
 html.dark body {
   background: linear-gradient(115deg, #aaa 10%, #00c7ec 90%);
