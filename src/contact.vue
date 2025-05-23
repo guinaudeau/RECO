@@ -137,11 +137,17 @@ form .form-row .input-data{
   margin: 0 20px;
   position: relative;
 }
-form .form-row .input-data .inner{
+html.dark .inner{
+  background: #000;
+  color: #aaa;
+}
+.inner{
   position: absolute;
   height: 100%;
   width: 100%;
-  background: #000;
+  background: #00c7ec;
+  color:#000;
+  border-radius: 5px;
   top: -5px;
   left: -5px;
   z-index: -1;
@@ -184,16 +190,7 @@ form .form-row .input-data .inner{
   height: 2px;
   width: 100%;
 }
-.inner{
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background: #00c7ec;
-  top: -5px;
-  left: -5px;
-  z-index: -1;
-  transition: all 0.3s ease;
-}
+
 .input-data .underline:before{
   position: absolute;
   content: "";
@@ -246,6 +243,8 @@ html.dark textarea {
   background-image: linear-gradient(#090909 50%, #010101 50%);
   background-size: 100% 4rem;
   border: 1px solid #222;
+  color :#aaa
 
 }
+
 </style>
