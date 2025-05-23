@@ -289,7 +289,7 @@ html.dark input[type="submit"]:hover{
   color: #aaa;
   border: 1px solid #00c7ec;
 }
-input[type="submit"]:{
+input[type="submit"]:active{
   background: limegreen;
   transform: scaleX(1.1);
   transition: all 0.3s ease;
