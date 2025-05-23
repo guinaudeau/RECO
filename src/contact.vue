@@ -40,36 +40,31 @@ export default {
          Contact Form
       </div>
       <form @submit.prevent="sendEmail">
-         <div class="form-row">
-            <div class="input-data">
-               <input type="text" v-model="name" required>
-               <div class="underline"></div>
-               <label for="">votre nom</label>
-            </div>
-         </div>
-         <div class="form-row">
-            <div class="input-data">
-               <input type="text" v-model="email" required>
-               <div class="underline"></div>
-               <label for="">votre email</label>
-            </div>
-         </div>
-             <div class="form-row">
-                <div class="input-data textarea">
-                   <textarea rows="8" cols="80" v-model="message" required></textarea>
-                   <br />
-                   <div class="underline"></div>
-                   <label for="">votre message</label>
-                </div>
-             </div>
-             <div class="form-row submit-btn">
-                <div class="input-data">
-                   <div class="inner"></div>
-                   <input type="submit" value="submit">
-                </div>
-             </div>
-          </form>
-       </div>
+          <label>Name</label>
+          <input 
+            type="text" 
+            v-model="name"
+            name="name"
+            placeholder="Your Name"
+          >
+          <label>Email</label>
+          <input 
+            type="email" 
+            v-model="email"
+            name="email"
+            placeholder="Your Email"
+            >
+          <label>Message</label>
+          <textarea 
+            name="message"
+            v-model="message"
+            cols="30" rows="5"
+            placeholder="Message">
+          </textarea>
+
+          <input type="submit" value="Send">
+        </form>
+    </div>
 </template>
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
