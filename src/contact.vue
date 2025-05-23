@@ -294,5 +294,13 @@ input[type="submit"]:active{
   transform: scaleX(1.1);
   transition: all 0.3s ease;
 }
+input[type="submit"]:disabled{
+  background: #aaa;
+  color: #fff;
+  cursor: not-allowed;
+}
+html.dark input[type="submit"]:active{
+  border: 1px solid limegreen;
+}
 
 </style>
