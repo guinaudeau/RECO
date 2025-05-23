@@ -14,7 +14,7 @@ export default {
       try {
         emailjs.sendForm('service_mimb94k', 'template_g50q2tl', e.target,
         'ISM6B8zfLyjqOPXXd', {
-          name: this.firstName + ' ' + this.lastName,
+          name: this.name,
           email: this.email,
           message: this.message,
 
@@ -24,10 +24,11 @@ export default {
           console.log({error})
       }
       // Reset form field
-      this.firstName = ''
-      this.lastName = ''
+      this.name = ''
       this.email = ''
       this.message = ''
+      // Show success message
+      alert('Email sent successfully!');
     },
   }
 }
@@ -41,21 +42,16 @@ export default {
       <form @submit.prevent="sendEmail">
          <div class="form-row">
             <div class="input-data">
-               <input type="text" v-model="firstName" required>
+               <input type="text" v-model="name" required>
                <div class="underline"></div>
-               <label for="">First Name</label>
-            </div>
-            <div class="input-data">
-               <input type="text" v-model="lastName" required>
-               <div class="underline"></div>
-               <label for="">Last Name</label>
+               <label for="">votre nom</label>
             </div>
          </div>
          <div class="form-row">
             <div class="input-data">
                <input type="text" v-model="email" required>
                <div class="underline"></div>
-               <label for="">Email Address</label>
+               <label for="">votre email</label>
             </div>
          </div>
              <div class="form-row">
@@ -63,7 +59,7 @@ export default {
                    <textarea rows="8" cols="80" v-model="message" required></textarea>
                    <br />
                    <div class="underline"></div>
-                   <label for="">Write your message</label>
+                   <label for="">votre message</label>
                 </div>
              </div>
              <div class="form-row submit-btn">
