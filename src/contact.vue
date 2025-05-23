@@ -181,6 +181,16 @@ form .form-row .input-data .inner{
   height: 2px;
   width: 100%;
 }
+.inner{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #00c7ec;
+  top: -5px;
+  left: -5px;
+  z-index: -1;
+  transition: all 0.3s ease;
+}
 .input-data .underline:before{
   position: absolute;
   content: "";
