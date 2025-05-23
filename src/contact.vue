@@ -81,7 +81,6 @@ export default {
             <input
               type="submit"
               value="Send"
-              :disabled="!isFormValid"
               :class="{'error-btn': formTouched && !isFormValid}"
             >
             
