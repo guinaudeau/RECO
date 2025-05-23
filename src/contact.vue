@@ -214,8 +214,11 @@ form .form-row .input-data .inner{
     width: 40%!important;
   }
 }
-@import "compass/css3";
-
+.submit-btn{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 textarea {
   background-image: linear-gradient(#F1F1F1 50%, #F9F9F9 50%);
   background-size: 100% 4rem;
