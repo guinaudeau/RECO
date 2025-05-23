@@ -214,4 +214,22 @@ form .form-row .input-data .inner{
     width: 40%!important;
   }
 }
+@import "compass/css3";
+
+textarea {
+  background-image: linear-gradient(#F1F1F1 50%, #F9F9F9 50%);
+  background-size: 100% 4rem;
+  border: 1px solid #CCC;
+  width: 100%;
+  height: 400px;
+  line-height: 2rem;
+  margin: 0 auto;
+  padding: 4px 8px;
+}
+html.dark textarea {
+  background-image: linear-gradient(#090909 50%, #010101 50%);
+  background-size: 100% 4rem;
+  border: 1px solid #222;
+
+}
 </style>
