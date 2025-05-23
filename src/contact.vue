@@ -82,23 +82,32 @@ body{
   min-height: 100vh;
   padding: 10px;
   font-family: 'Poppins', sans-serif;
+  background: linear-gradient(115deg, #000 10%, #00c7ec 90%);
+}
+html.dark body {
   background: linear-gradient(115deg, #aaa 10%, #00c7ec 90%);
 }
 .container{
   max-width: auto;
-  background: #000;
+  background: #fff0f0;
   width: 100%;
   padding: 25px 40px 10px 40px;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+html.dark .container {
+  background: #000;
 }
 .container .text{
   text-align: center;
   font-size: 41px;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
-  background: -webkit-linear-gradient(right, #aaa, #00c7ec, #aaa, #00c7ec);
+  background: -webkit-linear-gradient(right, #000, #00c7ec, #000, #00c7ec);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+html.dark .container .text {
+  background: -webkit-linear-gradient(right, #aaa, #00c7ec, #aaa, #00c7ec);
 }
 .container form{
   padding: 30px 0 0 0;
@@ -179,8 +188,12 @@ form .form-row .textarea{
   width: 300%;
   position: absolute;
   left: -100%;
-  background: -webkit-linear-gradient(right,#aaa, #00c7ec, #aaa, #00c7ec);
+  background: -webkit-linear-gradient(right,#000, #00c7ec, #000, #00c7ec);
+  
   transition: all 0.4s;
+}
+html.dark .submit-btn .input-data .inner {
+  background: -webkit-linear-gradient(right,#aaa, #00c7ec, #aaa, #00c7ec);
 }
 .submit-btn .input-data:hover .inner{
   left: 0;
