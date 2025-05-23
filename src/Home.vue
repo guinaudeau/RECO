@@ -132,8 +132,21 @@ input[type="text"] {
   background: #f8fafd;
   transition: border 0.2s;
 }
-
 input[type="text"]:focus {
+  border: 1.5px solid #7dcfff;
+  outline: none;
+}
+
+input[type="email"] {
+  padding: 8px 14px;
+  border: 1.5px solid #dbe2ea;
+  border-radius: 6px;
+  font-size: 1.1em;
+  background: #f8fafd;
+  transition: border 0.2s;
+}
+
+input[type="email"]:focus {
   border: 1.5px solid #7dcfff;
   outline: none;
 }
