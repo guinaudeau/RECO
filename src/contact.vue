@@ -232,6 +232,11 @@ html.dark .inner{
   height: 100%;
   position: relative;
 }
+html.dark .submit-btn{
+  background: #232834;
+  border : 1px solid #00c7ec;
+  color: #aaa;
+}
 textarea {
   background-image: linear-gradient(#F1F1F1 50%, #F9F9F9 50%);
   background-size: 100% 4rem;
