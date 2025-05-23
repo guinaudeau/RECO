@@ -157,8 +157,7 @@ changementVus()
     <a href="#/contact" v-if="!IsContact"><button v-if="!IsContact">nous Contacter</button></a>
   </nav>
   <div v-if="isLoading">Chargement des séries...</div>
-  <div v-else>
-    <keep-alive>
+  <keep-alive v-else>
       <component
         :is="currentView"
         :series="series"
@@ -166,8 +165,7 @@ changementVus()
         :characteristics="characteristics"
         :characteristics-columns="characteristicsColumns"
       />
-    </keep-alive>
-  </div>
+  </keep-alive>
   <footer class="fixed_footer">
     <div class="content">
       <p>projet réalisé en partenaria avec :</p>
