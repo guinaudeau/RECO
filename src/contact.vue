@@ -33,7 +33,8 @@ export default {
 
 <template>
     <div class="container">
-        <form>
+        <form @submit.prevent="sendEmail">
+          <h1>Contact Us</h1>
           <label>Name</label>
           <input 
             type="text" 
@@ -60,44 +61,3 @@ export default {
         </form>
     </div>
 </template>
-<style scoped>
-* {box-sizing: border-box;}
-
-.container {
-  display: block;
-  margin:auto;
-  text-align: center;
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-  width: 50%;
-}
-
-label {
-  float: left;
-}
-
-input[type=text], [type=email], textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: vertical;
-}
-
-input[type=submit] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-</style>
