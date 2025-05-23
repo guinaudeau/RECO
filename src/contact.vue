@@ -258,5 +258,43 @@ html.dark textarea {
   color :#aaa
 
 }
+input[type="submit"]{
+  background: #00c7ec;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+html.dark input[type="submit"]{
+  background: #232834;
+  color: #aaa;
+  border: 1px solid #00c7ec;
+  padding: 10px 20px;
+}
+input[type="submit"]:invalid{
+  background: red;
+  border: 5px solid black;
+  transform: scaleX(1.1);
+  transition: all 0.3s ease;
+}
+input[type="submit"]:hover{
+  background: #00c7ec;
+  color: #fff;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+html.dark input[type="submit"]:hover{
+  background: #232834;
+  color: #aaa;
+  border: 1px solid #00c7ec;
+}
+input[type="submit"]:valid{
+  background: limegreen;
+  transform: scaleX(1.1);
+  transition: all 0.3s ease;
+}
 
 </style>
