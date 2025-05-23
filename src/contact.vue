@@ -237,6 +237,10 @@ html.dark .submit-btn{
   border : 1px solid #00c7ec;
   color: #aaa;
 }
+html.dark .submit-btn .input-data button::after{
+  background: #00c7ec;
+  border : 1px solid limegreen;
+}
 textarea {
   background-image: linear-gradient(#F1F1F1 50%, #F9F9F9 50%);
   background-size: 100% 4rem;
