@@ -68,11 +68,9 @@ export default {
               required
             ></textarea>
           </div>
-          <div class="submit-btn">
-            <div class="input-data">
-              <div class="inner"></div>
-              <input type="submit" value="Send">
-            </div>
+          <div class="input-data">
+            <div class="inner"></div>
+            <input type="submit" value="Send">
           </div>
         </div>
       </form>
@@ -291,7 +289,7 @@ html.dark input[type="submit"]:hover{
   color: #aaa;
   border: 1px solid #00c7ec;
 }
-input[type="submit"]:valid{
+input[type="submit"]:{
   background: limegreen;
   transform: scaleX(1.1);
   transition: all 0.3s ease;
