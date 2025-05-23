@@ -368,7 +368,9 @@ html.dark nav button{
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px; /* Espacement entre le titre et le bouton */
+  flex-direction: row;
+  width: 100%;
+  height: auto;
 }
 
 .dark-mode-toggle {
@@ -376,8 +378,6 @@ html.dark nav button{
   font-size: 1.7em;
   border: none;
   border-radius: 50%;
-  background-color: #fff;
-  color: #ffb300;
   cursor: pointer;
   width: 48px;
   height: 48px;
@@ -386,19 +386,6 @@ html.dark nav button{
   justify-content: center;
   transition: background 0.3s, color 0.3s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-}
-
-.dark-mode-toggle:hover {
-  background-color: #ffe082;
-}
-
-html.dark .dark-mode-toggle {
-  background-color: #22223b;
-  color: #ffd700;
-}
-
-html.dark .dark-mode-toggle:hover {
-  background-color: #444;
 }
 
 /* Responsive pour le header et la nav */

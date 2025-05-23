@@ -128,6 +128,11 @@ html.dark .container {
   background: -webkit-linear-gradient(right, #444, #00c7ec, #444, #00c7ec);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin: 0 0 20px 0;
+  padding: 0 0 20px 0;
+  text-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  flex-direction: column;
 }
 html.dark .container .text {
   background: -webkit-linear-gradient(right, #aaa, #00c7ec, #aaa, #00c7ec);
@@ -147,6 +152,12 @@ form .form-row .input-data{
   display: flex;
   margin: 0 20px;
   position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
 }
 html.dark .inner{
   background: #000;
@@ -182,18 +193,6 @@ html.dark .inner{
 .textarea textarea{
   resize: none;
   padding-top: 10px;
-}
-.input-data label{
-  position: absolute;
-  pointer-events: none;
-  bottom: 10px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-.textarea label{
-  width: 100%;
-  bottom: 40px;
-  background: #000;
 }
 .input-data .underline{
   position: absolute;
@@ -253,9 +252,9 @@ html.dark .submit-btn .input-data button::after{
   border : 1px solid limegreen;
 }
 textarea {
-  background-image: linear-gradient(#F1F1F1 50%, #F9F9F9 50%);
+  background-image: linear-gradient(#EFEFEF 50%, #F9F9F9 50%);
   background-size: 100% 4rem;
-  border: 1px solid #CCC;
+  border: 2px solid #CCC;
   width: 100%;
   height: 400px;
   line-height: 2rem;
@@ -265,7 +264,7 @@ textarea {
 html.dark textarea {
   background-image: linear-gradient(#212632 50%, #252a36 50%);
   background-size: 100% 4rem;
-  border: 1px solid #222;
+  border: 2px solid #222;
   color :#aaa
 
 }
