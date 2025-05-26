@@ -65,13 +65,6 @@ export default {
               placeholder="Email"
               required
             >
-            <input 
-              list="subject"
-              v-model="subject"
-              name="subject"
-              placeholder="Subject"
-              required
-            >
           </div>
           <div class="input-data">
             <textarea 
@@ -81,6 +74,13 @@ export default {
               placeholder="Message"
               required
             ></textarea>
+            <input 
+              list="subject"
+              v-model="subject"
+              name="subject"
+              placeholder="Subject"
+              required
+            >
           </div>
           <div class="input-data">
 

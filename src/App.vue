@@ -193,6 +193,22 @@ body{
   margin:0;
   padding:0;
 }
+h2{
+  margin:0;
+  padding:0;
+  font-size:1.5em;
+  font-weight:bold;
+  color:#222;
+  text-align:center;
+  margin-bottom:20px;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  text-decoration: underline;
+}
+html.dark h2 {
+  color: #00c7ec;
+}
 .fixed_footer {
   padding:50px 0;
   color:#f0f9ff;
