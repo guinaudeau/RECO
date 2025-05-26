@@ -265,7 +265,7 @@ body{
   font-size:20px;
   max-width:200px;
   height:auto;
-  padding:0 8px;
+  padding:0;
   display:inline-block;
   text-align:center;
   border-radius:50%;
@@ -294,7 +294,7 @@ body{
   width: 100%;
   background: #fff;
   border-bottom: 0.5px solid #34495e;
-  padding: 0 16px;
+  padding: 0;
   min-height: 70px;
   position: relative;
 }
@@ -376,7 +376,7 @@ html.dark .menu span {
     flex-wrap: wrap;
     gap: 8px;
     min-height: 56px;
-    padding: 0 8px;
+    padding: 0;
   }
   .header-title {
     font-size: 1.3em;
