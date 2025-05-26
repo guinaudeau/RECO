@@ -83,7 +83,6 @@ export default {
               <option value="feature-request"></option>
               <option value="other"></option>
             </datalist>
-            <div class="underline"></div> 
           </div>
           <div class="input-data">
             <textarea 
@@ -102,9 +101,7 @@ export default {
               :disabled="!isFormValid"
               :class="{'error-btn': formTouched && !isFormValid}"
             >
-            <div >
               <input type="reset" value="Reset" @click="formTouched = false">
-            </div>
           </div>
           
         </div>
