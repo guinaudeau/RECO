@@ -53,17 +53,26 @@ export default {
               type="text" 
               v-model="name"
               name="name"
-              placeholder="Your Name"
+              placeholder="Name"
               required
             >
           </div>
           <div class="input-data">
             <input 
               type="email" 
-            v-model="email"
-            name="email"
-            placeholder="Your Email"
-            required
+              v-model="email"
+              name="email"
+              placeholder="Email"
+              required
+            >
+          </div>
+          <div class="input-data">
+            <input 
+              type="text"
+              v-model="subject"
+              name="subject"
+              placeholder="Subject"
+              required
             >
           </div>
           <div class="input-data">
@@ -79,7 +88,7 @@ export default {
             <div class="inner"></div>
             <input
               type="submit"
-              value="Send"
+              value="envoier"
               :disabled="!isFormValid"
               :class="{'error-btn': formTouched && !isFormValid}"
             >
