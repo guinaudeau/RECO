@@ -42,7 +42,6 @@ export default {
   }
 }
 </script>
-
 <template>
     <div class="container">
       <div class="text">
@@ -67,13 +66,6 @@ export default {
             >
           </div>
           <div class="input-data">
-            <textarea 
-              name="message"
-              v-model="message"
-              cols="30" rows="5"
-              placeholder="Message"
-              required
-            ></textarea>
             <input 
               list="subject"
               v-model="subject"
@@ -81,6 +73,14 @@ export default {
               placeholder="Subject"
               required
             >
+            <textarea 
+              name="message"
+              v-model="message"
+              cols="30" rows="5"
+              placeholder="Message"
+              required
+            ></textarea>
+            
           </div>
           <div class="input-data">
 
@@ -177,6 +177,11 @@ form .form-row .input-data *{
   transition: all 0.3s ease;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+}
+html.dark form .form-row .input-data *{
+  background: #232834;
+  color: #e6eaf3;
+  border: 1.5px solid #3a4152;
 }
 html.dark .inner{
   background: #000;
