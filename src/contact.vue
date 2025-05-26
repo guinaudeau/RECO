@@ -92,8 +92,11 @@ export default {
               :disabled="!isFormValid"
               :class="{'error-btn': formTouched && !isFormValid}"
             >
-            
+            <div >
+              <input type="reset" value="Reset" @click="formTouched = false">
+            </div>
           </div>
+          
         </div>
       </form>
     </div>
