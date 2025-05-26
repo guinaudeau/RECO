@@ -193,10 +193,25 @@ body{
   margin:0;
   padding:0;
 }
+h1{
+  margin:0;
+  padding:0;
+  font-size:2.5em;
+  font-weight:bold;
+  color:#222;
+  text-align:center;
+  margin-bottom:20px;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+html.dark h1 {
+  color: #00c7ec;
+}
 h2{
   margin:0;
   padding:0;
-  font-size:1.5em;
+  font-size:2em;
   font-weight:bold;
   color:#222;
   text-align:center;
