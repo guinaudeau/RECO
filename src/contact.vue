@@ -161,6 +161,30 @@ html.dark .container .text {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.container input[type="list"]{
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-size: 17px;
+  border-bottom: 2px solid rgba(0,0,0, 0.12);
+} 
+html.dark .container input[type="list"]{
+  background: #232834;
+  color: #00c7ec;
+  border-bottom: 2px solid rgba(0,0,0, 0.12);
+}
+.container input[type="reset"]{
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-size: 17px;
+  border-bottom: 2px solid rgba(0,0,0, 0.12);
+} 
+html.dark .container input[type="reset"]{
+  background: #232834;
+  color: #00c7ec;
+  border-bottom: 2px solid rgba(0,0,0, 0.12);
+}
 .container form{
   padding: 30px 0 0 0;
 }
