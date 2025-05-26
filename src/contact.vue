@@ -175,8 +175,13 @@ form .form-row .input-data *{
   width: 100%;
   height: 100%;
   transition: all 0.3s ease;
-  border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+  padding: 8px 14px;
+  border: 1.5px solid #dbe2ea;
+  border-radius: 6px;
+  font-size: 1.1em;
+  background: #f8fafd;
+  transition: border .2s;
 }
 html.dark form .form-row .input-data *{
   background: #232834;
