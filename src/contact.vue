@@ -7,12 +7,13 @@ export default {
       name: '',
       email: '',
       message: '',
+      subject: '',
       formTouched: false
     }
   },
   computed: {
     isFormValid() {
-      return this.name && this.email && this.message;
+      return this.name && this.email && this.message && this.subject;
     }
   },
   methods: {
@@ -26,6 +27,7 @@ export default {
           name: this.name,
           email: this.email,
           message: this.message,
+          subject: this.subject,
         })
       } catch(error) {
         console.log({error})
@@ -33,6 +35,7 @@ export default {
       this.name = ''
       this.email = ''
       this.message = ''
+      this.subject = ''
       this.formTouched = false; 
       // Show success message
       alert('Email sent successfully!');
@@ -68,12 +71,19 @@ export default {
           </div>
           <div class="input-data">
             <input 
-              type="text"
+              list="subject"
               v-model="subject"
               name="subject"
               placeholder="Subject"
               required
             >
+            <datalist id="subject">
+              <option value="bug"></option>
+              <option value="feedback"></option>
+              <option value="feature-request"></option>
+              <option value="other"></option>
+            </datalist>
+            <div class="underline"></div> 
           </div>
           <div class="input-data">
             <textarea 
