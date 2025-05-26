@@ -37,7 +37,6 @@ export default {
       this.message = ''
       this.subject = ''
       this.formTouched = false; 
-      // Show success message
       alert('Email sent successfully!');
     },
   }
@@ -59,8 +58,6 @@ export default {
               placeholder="Name"
               required
             >
-          </div>
-          <div class="input-data">
             <input 
               type="email" 
               v-model="email"
@@ -68,8 +65,6 @@ export default {
               placeholder="Email"
               required
             >
-          </div>
-          <div class="input-data">
             <input 
               list="subject"
               v-model="subject"
@@ -77,12 +72,6 @@ export default {
               placeholder="Subject"
               required
             >
-            <datalist id="subject">
-              <option value="bug"></option>
-              <option value="feedback"></option>
-              <option value="feature-request"></option>
-              <option value="other"></option>
-            </datalist>
           </div>
           <div class="input-data">
             <textarea 
@@ -94,6 +83,7 @@ export default {
             ></textarea>
           </div>
           <div class="input-data">
+
             <div class="inner"></div>
             <input
               type="submit"
@@ -103,10 +93,15 @@ export default {
             >
               <input type="reset" value="Reset" @click="formTouched = false">
           </div>
-          
         </div>
       </form>
     </div>
+    <datalist id="subject">
+      <option value="bug"></option>
+      <option value="feedback"></option>
+      <option value="feature-request"></option>
+      <option value="other"></option>
+    </datalist>
 </template>
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
@@ -158,30 +153,6 @@ html.dark .container .text {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.container input[type="list"]{
-  width: 100%;
-  height: 100%;
-  border: none;
-  font-size: 17px;
-  border-bottom: 2px solid rgba(0,0,0, 0.12);
-} 
-html.dark .container input[type="list"]{
-  background: #232834;
-  color: #00c7ec;
-  border-bottom: 2px solid rgba(0,0,0, 0.12);
-}
-.container input[type="reset"]{
-  width: 100%;
-  height: 100%;
-  border: none;
-  font-size: 17px;
-  border-bottom: 2px solid rgba(0,0,0, 0.12);
-} 
-html.dark .container input[type="reset"]{
-  background: #232834;
-  color: #00c7ec;
-  border-bottom: 2px solid rgba(0,0,0, 0.12);
-}
 .container form{
   padding: 30px 0 0 0;
 }
@@ -189,7 +160,7 @@ html.dark .container input[type="reset"]{
   display: flex;
   margin: 32px 0;
 }
-form .form-row .input-data{
+form .form-row .input-data {
   width: 100%;
   height: 40%;
   display: flex;
@@ -198,6 +169,11 @@ form .form-row .input-data{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+}
+form .form-row .input-data *{
+  width: 100%;
+  height: 100%;
   transition: all 0.3s ease;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
@@ -223,6 +199,7 @@ html.dark .inner{
   display: block;
   width: 100%;
   height: 100%;
+  margin: 0 0 100px 0;
   border: none;
   font-size: 17px;
   border-bottom: 2px solid rgba(0,0,0, 0.12);
@@ -277,19 +254,6 @@ html.dark .inner{
     width: 40%!important;
   }
 }
-.submit-btn{
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-html.dark .submit-btn{
-  background: #232834;
-  border : 1px solid #00c7ec;
-  color: #aaa;
-}
 html.dark .submit-btn .input-data button::after{
   background: #00c7ec;
   border : 1px solid limegreen;
@@ -326,12 +290,6 @@ html.dark input[type="submit"]{
   color: #aaa;
   border: 1px solid #00c7ec;
   padding: 10px 20px;
-}
-input[type="submit"]:invalid{
-  background: red;
-  border: 5px solid black;
-  transform: scaleX(1.1);
-  transition: all 0.3s ease;
 }
 input[type="submit"]:hover{
   background: #00c7ec;
