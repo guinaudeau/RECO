@@ -313,9 +313,10 @@ html.dark h2 {
 .fixed_footer .copyright {
   text-align:center;
   padding-top:24px;
-  opacity:0.3;
+  opacity:0.5;
   font-size:13px;
   margin-bottom:0;
+  color: #f0f9ff;
 }
 .header-bar {
   display: flex;
