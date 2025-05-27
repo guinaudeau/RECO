@@ -412,16 +412,16 @@ html.dark-mode p {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 24px 20px;
   margin: 30px auto 10px auto;
-  background: #f8fafd;
+  background: #badaff;
   border-radius: 18px;
-  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
   padding: 24px;
 }
 
 .serie-card {
-  background: #fff;
+  background: #badaff;
   border-radius: 14px;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
   padding: 18px 12px 12px 12px;
   text-align: center;
   min-width: 0;
