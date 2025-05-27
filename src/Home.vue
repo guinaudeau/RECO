@@ -1,9 +1,13 @@
 <template>
+  <div class="contenu">
+    <h1>Bienvenue sur la page d'accueil</h1>
+    <p>Cette page affiche une liste de séries avec des options de recherche et de sélection.</p>
+    <p>cocher la série pour la sélectionner puis clicker sur resultat pour voir les seris similaires</p>
   <h2>Liste des séries</h2>
   <form @submit.prevent="searchQuery">
-    <button type="reset" @click="series = props.series">annuler</button>
     <input type="text" v-model="rechercher" placeholder="Rechercher une série" />
     <button type="submit">Rechercher</button>
+    <button type="reset" @click="series = props.series">annuler</button>
   </form>
 
   <div class="series-grid">
@@ -16,10 +20,7 @@
       <button @click="showDescription(serie)">Voir description</button>
     </div>
   </div>
-
-  <p>Nombre de séries : {{ series.length }}</p>
-  <p>Nombre de séries cochées : {{ series.filter(serie => serie.checked).length }}</p>
-  <p>Nombre de séries non cochées : {{ series.filter(serie => !serie.checked).length }}</p>
+</div>
 </template>
 
 <script setup>
@@ -40,6 +41,7 @@ const searchQuery = () => {
   series.value = filteredSeries
   if (filteredSeries.length === 0) {
     alert("Aucune série trouvée.")
+    return
   }
 }
 

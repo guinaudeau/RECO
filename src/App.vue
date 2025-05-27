@@ -224,6 +224,12 @@ h2{
 html.dark h2 {
   color: #00c7ec;
 }
+.contenu{
+  background-color:#f0f9ff;
+}
+html.dark .contenu {
+  background-color: #181c23;
+}
 .fixed_footer {
   padding:50px 0;
   color:#f0f9ff;

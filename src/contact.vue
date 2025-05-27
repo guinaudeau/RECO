@@ -43,6 +43,7 @@ export default {
 }
 </script>
 <template>
+  <div class="contenu">
     <div class="container">
       <div class="text">
          Contact Formulaire
@@ -96,6 +97,7 @@ export default {
         </div>
       </form>
     </div>
+  </div>
     <datalist id="subject">
       <option value="bug"></option>
       <option value="feedback"></option>
@@ -126,13 +128,13 @@ html.dark body {
 }
 .container{
   max-width: auto;
-  background: #fff0f0;
+  background: #f0f9ff;
   width: 100%;
   padding: 25px 40px 10px 40px;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 }
 html.dark .container {
-  background: #000;
+  background: #181c23;
 }
 .container .text{
   text-align: center;
