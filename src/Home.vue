@@ -1,6 +1,7 @@
 <template>
   <h2>Liste des séries</h2>
   <form @submit.prevent="searchQuery">
+    <button type="reset" @click="series = props.series">annuler</button>
     <input type="text" v-model="rechercher" placeholder="Rechercher une série" />
     <button type="submit">Rechercher</button>
   </form>
@@ -37,6 +38,9 @@ const searchQuery = () => {
     )
   )
   series.value = filteredSeries
+  if (filteredSeries.length === 0) {
+    alert("Aucune série trouvée.")
+  }
 }
 
 // Fonction pour afficher la description d'une série
