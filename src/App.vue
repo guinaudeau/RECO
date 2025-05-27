@@ -211,15 +211,17 @@ html.dark h1 {
 h2{
   margin:0;
   padding:0;
-  font-size:2em;
+  font-size: 2.2em;
   font-weight:bold;
   color:#222;
   text-align:center;
   margin-bottom:20px;
+  margin-top: 20px;
   font-family: 'Poppins', sans-serif;
   text-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
   text-decoration: underline;
+  letter-spacing: 1px;
 }
 html.dark h2 {
   color: #00c7ec;

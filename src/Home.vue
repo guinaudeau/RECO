@@ -112,16 +112,6 @@ td:hover {
   transition: transform 0.3s;
 }
 
-h2 {
-  color: #2d3a4a;
-  background: none;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 2.2em;
-  letter-spacing: 1px;
-  font-weight: 700;
-}
-
 form {
   display: flex;
   justify-content: center;
