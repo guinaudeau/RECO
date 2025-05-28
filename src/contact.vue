@@ -355,4 +355,10 @@ input[type="submit"].error-btn {
   transition: all 0.3s ease;
   border: 2px solid #900;
 }
+.input-data input[type="reset"]:active{
+  background: #900;
+  color: #fff;
+  transform: scaleX(1.1);
+  transition: all 0.3s ease;
+}
 </style>
