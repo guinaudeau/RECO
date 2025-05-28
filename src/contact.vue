@@ -339,4 +339,14 @@ input[type="submit"].error-btn {
   75% { transform: translateX(-4px); }
   100% { transform: translateX(0); }
 }
+input[type="reset"]{
+  background: #c9c9c9;
+  color: #000;
+  border: 2px solid #900;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+} 
 </style>
