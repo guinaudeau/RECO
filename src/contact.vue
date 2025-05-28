@@ -363,7 +363,7 @@ input[type="submit"].error-btn {
 }
 
 html.dark .input-data input[type="reset"]:active{
-  background: #b00;
+  background: #e00;
   color: #000;
   transform: scaleX(1.1);
   transition: all 0.3s ease;
@@ -372,6 +372,6 @@ html.dark .input-data input[type="reset"]:hover{
   color: #000;
   transform: scale(1.05);
   transition: all 0.3s ease;
-  border: 2px solid #b00;
+  border: 2px solid #e00;
 }
 </style>
