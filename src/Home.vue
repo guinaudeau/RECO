@@ -77,16 +77,16 @@ table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 20px 10px;
-  background: #f8fafd;
+  background: #c4e0ff;
   border-radius: 18px;
-  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
   margin: 30px auto 10px auto;
 }
 
 td {
-  background: #fff;
+  background: #cae3ff;
   border-radius: 14px;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
   padding: 18px 12px 12px 12px;
   vertical-align: top;
   text-align: center;
@@ -95,7 +95,7 @@ td {
 }
 
 td:hover {
-  box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10);
+  box-shadow: 0 6px 24px 0 rgba(0,0,0,0.25);
 }
 
 .serie-image {
