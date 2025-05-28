@@ -182,7 +182,6 @@ form .form-row .input-data *{
   border: 1.5px solid #dbe2ea;
   border-radius: 6px;
   font-size: 1.1em;
-  background: #f8fafd;
   transition: border .2s;
 }
 html.dark form .form-row .input-data *{

@@ -245,123 +245,125 @@ function syncCheckboxGroup(mainKey) {
 </script>
 
 <template>
-  <h2>Résultats des séries sélectionnées</h2>
-  <div id="personnalisation">
-    <button @click="openEdit" v-if="!editFeature">personnaliser le resultat</button>
-    <div v-if="editFeature">
-      <button @click="validerChanges">Valider les changements</button>
-      <h3>Personnalisation des critères</h3>
-      <!-- Ligne dédiée pour les 3 critères principaux -->
-      <div class="main-checkbox-row">
-        <label v-for="key in ['llama_Synopsis', 'audio', 'vidéo']" :key="key" class="checkbox-item">
-          <input
-            type="checkbox"
-            v-model="localSliders[key]"
-            true-value="1"
-            false-value="0"
-            @change="syncCheckboxGroup(key)"
-          />
-          {{ key }}
-        </label>
+  <div class="contenu">
+    <h2>Résultats des séries sélectionnées</h2>
+    <div id="personnalisation">
+      <button @click="openEdit" v-if="!editFeature">personnaliser le resultat</button>
+      <div v-if="editFeature">
+        <button @click="validerChanges">Valider les changements</button>
+        <h3>Personnalisation des critères</h3>
+        <!-- Ligne dédiée pour les 3 critères principaux -->
+        <div class="main-checkbox-row">
+          <label v-for="key in ['llama_Synopsis', 'audio', 'vidéo']" :key="key" class="checkbox-item">
+            <input
+              type="checkbox"
+              v-model="localSliders[key]"
+              true-value="1"
+              false-value="0"
+              @change="syncCheckboxGroup(key)"
+            />
+            {{ key }}
+          </label>
+        </div>
+        <!-- Grille pour les autres critères -->
+        <div class="checkbox-grid-multi">
+          <div>
+            <strong>Audio</strong>
+            <div class="checkbox-col" v-for="(chunk, idx) in audioColsChunks" :key="'audio-col-' + idx">
+              <label
+                v-for="key in chunk"
+                :key="key"
+                class="checkbox-item"
+              >
+                <input
+                  type="checkbox"
+                  v-model="localSliders[key]"
+                  true-value="1"
+                  false-value="0"
+                />
+                {{ key }}
+              </label>
+            </div>
+          </div>
+          <div>
+            <strong>Vidéo</strong>
+            <div class="checkbox-col" v-for="(chunk, idx) in videoColsChunks" :key="'video-col-' + idx">
+              <label
+                v-for="key in chunk"
+                :key="key"
+                class="checkbox-item"
+              >
+                <input
+                  type="checkbox"
+                  v-model="localSliders[key]"
+                  true-value="1"
+                  false-value="0"
+                />
+                {{ key }}
+              </label>
+            </div>
+          </div>
+          <div>
+            <strong>llama_Synopsis</strong>
+            <div class="checkbox-col" v-for="(chunk, idx) in llamaSynopsisColsChunks" :key="'llama-col-' + idx">
+              <label
+                v-for="key in chunk"
+                :key="key"
+                class="checkbox-item"
+              >
+                <input
+                  type="checkbox"
+                  v-model="localSliders[key]"
+                  true-value="1"
+                  false-value="0"
+                />
+                {{ key }}
+              </label>
+            </div>
+          </div>
+        </div>
+        <button @click="validerChanges">Valider les changements</button>
+        <button @click="editFeature = false">Annuler</button>
       </div>
-      <!-- Grille pour les autres critères -->
-      <div class="checkbox-grid-multi">
-        <div>
-          <strong>Audio</strong>
-          <div class="checkbox-col" v-for="(chunk, idx) in audioColsChunks" :key="'audio-col-' + idx">
-            <label
-              v-for="key in chunk"
-              :key="key"
-              class="checkbox-item"
-            >
-              <input
-                type="checkbox"
-                v-model="localSliders[key]"
-                true-value="1"
-                false-value="0"
-              />
-              {{ key }}
-            </label>
-          </div>
-        </div>
-        <div>
-          <strong>Vidéo</strong>
-          <div class="checkbox-col" v-for="(chunk, idx) in videoColsChunks" :key="'video-col-' + idx">
-            <label
-              v-for="key in chunk"
-              :key="key"
-              class="checkbox-item"
-            >
-              <input
-                type="checkbox"
-                v-model="localSliders[key]"
-                true-value="1"
-                false-value="0"
-              />
-              {{ key }}
-            </label>
-          </div>
-        </div>
-        <div>
-          <strong>llama_Synopsis</strong>
-          <div class="checkbox-col" v-for="(chunk, idx) in llamaSynopsisColsChunks" :key="'llama-col-' + idx">
-            <label
-              v-for="key in chunk"
-              :key="key"
-              class="checkbox-item"
-            >
-              <input
-                type="checkbox"
-                v-model="localSliders[key]"
-                true-value="1"
-                false-value="0"
-              />
-              {{ key }}
-            </label>
-          </div>
-        </div>
-      </div>
-      <button @click="validerChanges">Valider les changements</button>
-      <button @click="editFeature = false">Annuler</button>
     </div>
-  </div>
-  <table v-if="typeAffichage===1" class="similarities-table">
-    <caption>Tableau des similarités</caption>
-    <thead>
-      <tr>
-        <th>Série</th>
-        <th>Image</th>
-        <th>Description</th>
-        <th>Score de Similarité</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in similaritiesTable" :key="item.name">
-        <td>{{ item.name }}</td>
-        <td>
-          <img :src="item.image" alt="Image de la série" class="serie-image" />
-        </td>
-        <td>{{ item.description }}</td>
-        <td>{{ (item.similarity * 100).toFixed(2) }}%</td>
-        <td>
-          <button @click="showFeatureSimilarities(item.featureSimilarities)">Voir Similarité par Feature</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <table v-if="typeAffichage===1" class="similarities-table">
+      <caption>Tableau des similarités</caption>
+      <thead>
+        <tr>
+          <th>Série</th>
+          <th>Image</th>
+          <th>Description</th>
+          <th>Score de Similarité</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in similaritiesTable" :key="item.name">
+          <td>{{ item.name }}</td>
+          <td>
+            <img :src="item.image" alt="Image de la série" class="serie-image" />
+          </td>
+          <td>{{ item.description }}</td>
+          <td>{{ (item.similarity * 100).toFixed(2) }}%</td>
+          <td>
+            <button @click="showFeatureSimilarities(item.featureSimilarities)">Voir Similarité par Feature</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  <!-- Affichage des résultats de la comparaison -->
-  <div v-else-if="typeAffichage === 2 && comparisonResult" class="comparison-result">
-    <h3>Comparaison entre {{ comparisonResult.serie1Name }} et {{ comparisonResult.serie2Name }}</h3>
-    <p><strong>Similarité globale pondérée :</strong> {{ (comparisonResult.weightedSimilarity * 100).toFixed(2) }}%</p>
-    <ul>
-      <li v-for="feature in comparisonResult.featureSimilarities || []" :key="feature.key">
-        <strong>{{ feature.key }} :</strong> {{ (feature.similarity * 100).toFixed(2) }}% (Pondération : {{ feature.weight }})
-      </li>
-    </ul>
+    <!-- Affichage des résultats de la comparaison -->
+    <div v-else-if="typeAffichage === 2 && comparisonResult" class="comparison-result">
+      <h3>Comparaison entre {{ comparisonResult.serie1Name }} et {{ comparisonResult.serie2Name }}</h3>
+      <p><strong>Similarité globale pondérée :</strong> {{ (comparisonResult.weightedSimilarity * 100).toFixed(2) }}%</p>
+      <ul>
+        <li v-for="feature in comparisonResult.featureSimilarities || []" :key="feature.key">
+          <strong>{{ feature.key }} :</strong> {{ (feature.similarity * 100).toFixed(2) }}% (Pondération : {{ feature.weight }})
+        </li>
+      </ul>
+    </div>
+    <p v-else>Aucune série trouvée.</p>
   </div>
-  <p v-else>Aucune série trouvée.</p>
 </template>
 
 <style>
