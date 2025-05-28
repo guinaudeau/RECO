@@ -361,4 +361,17 @@ input[type="submit"].error-btn {
   transform: scaleX(1.1);
   transition: all 0.3s ease;
 }
+
+html.dark .input-data input[type="reset"]:active{
+  background: #b00;
+  color: #000;
+  transform: scaleX(1.1);
+  transition: all 0.3s ease;
+}
+html.dark .input-data input[type="reset"]:hover{
+  color: #000;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+  border: 2px solid #b00;
+}
 </style>
