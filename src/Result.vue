@@ -98,7 +98,7 @@ const featureKeys = [
 
 // Fonction pour récupérer les caractéristiques d'une série selon le mapping
 function getFeatures(serieName, featureKeys) {
-  const serie = props.characteristics.find(item => item.name === serieName)
+  const serie = props.characteristics.find(item => item["Serie"] === serieName)
   if (!serie) return featureKeys.map(() => [])
 
   return featureKeys.flatMap(key => {
