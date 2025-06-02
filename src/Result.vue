@@ -8,10 +8,11 @@ const similaritiesTable = ref([]) // Tableau des similarités
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
 let editFeature = ref(false) // État pour afficher/masquer la personnalisation
 
-// Initialiser tous les sliders à "1" (tout coché par défaut)
+// Initialiser tous les sliders à "1" (tout coché par défaut, y compris les features principales)
 function getDefaultSliders() {
   const sliders = {}
   featureKeys.forEach(key => {
+    sliders[key] = "1" // coche la feature principale
     (featureColumns[key] || []).forEach(col => {
       sliders[col] = "1"
     })
@@ -24,7 +25,7 @@ const localSliders = ref(Object.keys(props.sliders || {}).length ? { ...props.sl
 
 // Quand on ouvre la personnalisation, synchroniser la copie locale
 function openEdit() {
-  localSliders.value = { ...props.sliders }
+  localSliders.value = Object.keys(props.sliders || {}).length ? { ...props.sliders } : getDefaultSliders()
   editFeature.value = true
 }
 
@@ -108,13 +109,15 @@ const featureKeys = [
 
 // Fonction pour activer/désactiver toutes les sous-features d'un groupe
 function toggleFeatureGroup(key, checked) {
+  localSliders.value[key] = checked ? "1" : "0" // coche/décoche la principale
   (featureColumns[key] || []).forEach(col => {
     localSliders.value[col] = checked ? "1" : "0"
   })
 }
 
-// Fonction pour savoir si toutes les sous-features sont cochées
+// Fonction pour savoir si toutes les sous-features ET la principale sont cochées
 function isFeatureGroupChecked(key) {
+  if (localSliders.value[key] !== "1") return false
   const cols = featureColumns[key] || []
   if (cols.length === 0) return false
   return cols.every(col => localSliders.value[col] === "1")
