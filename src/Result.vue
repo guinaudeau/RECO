@@ -245,7 +245,7 @@ function chunkArray(array, size) {
   return result
 }
 
-const audioColsChunks = computed(() => chunkArray(audioCols.value, 10))
+/*const audioColsChunks = computed(() => chunkArray(audioCols.value, 10))
 const videoColsChunks = computed(() => chunkArray(videoCols.value, 10))
 const llamaSynopsisColsChunks = computed(() => chunkArray(llamaSynopsisCols.value, 10))
 
@@ -259,6 +259,7 @@ function syncCheckboxGroup(mainKey) {
     localSliders.value[key] = value
   })
 }
+*/
 </script>
 
 <template>
@@ -269,19 +270,10 @@ function syncCheckboxGroup(mainKey) {
       <div v-if="editFeature">
         <button @click="validerChanges">Valider les changements</button>
         <h3>Personnalisation des critères</h3>
-        <!-- Ligne dédiée pour les 3 critères principaux -->
+        <!-- Ligne dédiée pour les 3 critères principaux 
         <div class="main-checkbox-row">
-          <label v-for="key in ['llama_Synopsis', 'audio', 'vidéo']" :key="key" class="checkbox-item">
-            <input
-              type="checkbox"
-              v-model="localSliders[key]"
-              true-value="1"
-              false-value="0"
-              @change="syncCheckboxGroup(key)"
-            />
-            {{ key }}
-          </label>
-        </div>
+
+        </div> -->
         <!-- Grille pour les critères principaux -->
         <div class="checkbox-grid-multi">
           <div v-for="key in featureKeys" :key="key">
