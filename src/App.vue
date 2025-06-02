@@ -49,7 +49,7 @@ onMounted(async () => {
 // Fonction pour charger les données de characteristics.csv
 async function loadCharacteristics() {
   return new Promise((resolve, reject) => {
-    Papa.parse('/RECO/data/characteristics.csv', {
+    Papa.parse('/RECO/data/caracteristiques_deepseek_AD_normalise.csv', {
       download: true,
       header: true,
       complete: (results) => resolve(results.data),

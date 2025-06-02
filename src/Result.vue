@@ -56,31 +56,56 @@ function cosineSimilarity(A, B) {
   return isNaN(result) ? 0 : result;
 }
 
-// Fonction pour récupérer les caractéristiques d'une série
+// Mapping des features vers les colonnes du CSV
+const featureColumns = {
+  plot: [
+    "Plot complexity", "Language level", "Character development", "Originality of the plot", "Themes of good and evil",
+    "Deception", "Personal emancipation trajectories", "Collective struggles", "Found families theme",
+    "Shakespearean human issues", "Brutal realism"
+  ],
+  content: [
+    "Wokeness", "Historical restitution accuracy", "Multiple characters", "Disabilities", "Politics",
+    "Security issues", "Environmental issues", "Investigation", "Thought-provoking series", "Religion", "Travel"
+  ],
+  character: [
+    "Female characters", "Diversity", "Multigenerational", "Animals"
+  ],
+  representation: [
+    "Graphic nature", "Sexual violence", "Violence", "Vulgar dialogues"
+  ],
+  visuals: [
+    "Urban atmosphere", "Rurality", "Wilderness", "Space", "Diversity of locations"
+  ],
+  comedy: [
+    "Humor", "Dark humor", "Satire"
+  ],
+  emotion: [
+    "Nostalgia factor", "Romantic elements", "Feel good", "Dark", "Cute"
+  ],
+  artistic: [
+    "Presence of music", "Language diversity", "Cultural references", "Food"
+  ],
+  structural: [
+    "Suspense", "Action elements", "Everyday life"
+  ]
+}
+
+// Nouvelle liste de features principales
+const featureKeys = [
+  "plot", "content", "character", "representation", "visuals",
+  "comedy", "emotion", "artistic", "structural"
+]
+
+// Fonction pour récupérer les caractéristiques d'une série selon le mapping
 function getFeatures(serieName, featureKeys) {
   const serie = props.characteristics.find(item => item.name === serieName)
   if (!serie) return featureKeys.map(() => [])
 
-  // Récupérer les clés de colonnes du CSV
-  const allKeys = Object.keys(serie)
-
-  // Définir les plages d'index pour chaque feature
-  const llamaSynopsisCols = allKeys.slice(1, 51)
-  const audioCols = allKeys.slice(51, 56)
-  const videoCols = allKeys.slice(56)
-
-  // Pour chaque feature, retourne le vecteur pondéré par les sliders
   return featureKeys.flatMap(key => {
-    if (key === 'llama_Synopsis') {
-      return llamaSynopsisCols.map(col => (parseFloat(serie[col]) || 0) * (parseFloat(props.sliders[col]) || 0))
-    }
-    if (key === 'audio') {
-      return audioCols.map(col => (parseFloat(serie[col]) || 0) * (parseFloat(props.sliders[col]) || 0))
-    }
-    if (key === 'vidéo') {
-      return videoCols.map(col => (parseFloat(serie[col]) || 0) * (parseFloat(props.sliders[col]) || 0))
-    }
-    return []
+    const cols = featureColumns[key] || []
+    return cols.map(col =>
+      (parseFloat(serie[col]) || 0) * (parseFloat(props.sliders[col]) || 1)
+    )
   })
 }
 
@@ -89,23 +114,20 @@ function calculerSimilaritesPourUneSerie(serie_name) {
   const selectedSerie = props.series.find(serie => serie.name === serie_name)
   if (!selectedSerie) return
 
-  const featureKeys = ['llama_Synopsis', 'audio', 'vidéo'] // Clés des caractéristiques utilisées pour le calcul
-
   similaritiesTable.value = props.series
     .filter(serie => serie.name !== serie_name)
     .map(serie => {
       const featureSimilarities = featureKeys.map(key => {
-        const weight = parseFloat(props.sliders[key]) || 0
-        if (weight === 0) return null // Ignorer la feature si poids 0
+        // Poids global pour la feature (somme des sliders des colonnes)
+        const weight = (featureColumns[key] || []).reduce(
+          (sum, col) => sum + (parseFloat(props.sliders[col]) || 0), 0
+        )
+        if (weight === 0) return null
         const featureVectorA = getFeatures(selectedSerie.name, [key])
         const featureVectorB = getFeatures(serie.name, [key])
         const similarity = cosineSimilarity(featureVectorA, featureVectorB)
-        return {
-          key,
-          similarity,
-          weight
-        }
-      }).filter(Boolean) // Retirer les null
+        return { key, similarity, weight }
+      }).filter(Boolean)
 
       const weightedSimilarity = featureSimilarities.length > 0
         ? featureSimilarities.reduce(
@@ -117,31 +139,26 @@ function calculerSimilaritesPourUneSerie(serie_name) {
       return {
         name: serie.name,
         similarity: weightedSimilarity,
-        featureSimilarities: featureSimilarities,
+        featureSimilarities,
         image: serie.image,
         description: serie.description
       }
     })
-    
 
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity) // Trier par similarité décroissante
 }
 
 // Fonction pour calculer la similarité entre deux séries
 function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
-  const featureKeys = ['llama_Synopsis', 'audio', 'vidéo'] // Clés des caractéristiques utilisées pour le calcul
-
   const featureSimilarities = featureKeys.map(key => {
-    const weight = parseFloat(props.sliders[key]) || 0
+    const weight = (featureColumns[key] || []).reduce(
+      (sum, col) => sum + (parseFloat(props.sliders[col]) || 0), 0
+    )
     if (weight === 0) return null
     const featureVectorA = getFeatures(serie1Name, [key])
     const featureVectorB = getFeatures(serie2Name, [key])
     const similarity = cosineSimilarity(featureVectorA, featureVectorB)
-    return {
-      key,
-      similarity,
-      weight
-    }
+    return { key, similarity, weight }
   }).filter(Boolean)
 
   const weightedSimilarity = featureSimilarities.length > 0

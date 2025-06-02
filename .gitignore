@@ -23,3 +23,4 @@ pnpm-debug.log*
 *.sw?
 src/data/SimilariteSerie.ipynb
 public/data/.~lock.characteristics.csv#
+public/data/.~lock.caracteristiques_deepseek_AD_normalise.csv#
