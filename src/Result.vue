@@ -38,7 +38,7 @@ watch(
   { deep: true }
 )
 
-// Fonction pour calculer la similarité entre deux vecteurs
+// Fonction pour calculer la similarité entre deux vecteurs (pas de pondération)
 function cosineSimilarity(A, B) {
   let dotproduct = 0;
   let mA = 0;
@@ -90,26 +90,40 @@ const featureColumns = {
   ]
 }
 
-// Nouvelle liste de features principales
 const featureKeys = [
   "plot", "content", "character", "representation", "visuals",
   "comedy", "emotion", "artistic", "structural"
 ]
 
-// Fonction pour récupérer les caractéristiques d'une série selon le mapping
+// Fonction pour activer/désactiver toutes les sous-features d'un groupe
+function toggleFeatureGroup(key, checked) {
+  (featureColumns[key] || []).forEach(col => {
+    localSliders.value[col] = checked ? "1" : "0"
+  })
+}
+
+// Fonction pour savoir si toutes les sous-features sont cochées
+function isFeatureGroupChecked(key) {
+  const cols = featureColumns[key] || []
+  if (cols.length === 0) return false
+  return cols.every(col => localSliders.value[col] === "1")
+}
+
+// Fonction pour récupérer les caractéristiques d'une série selon le mapping (pas de pondération)
 function getFeatures(serieName, featureKeys) {
   const serie = props.characteristics.find(item => item["Serie"] === serieName)
   if (!serie) return featureKeys.map(() => [])
 
   return featureKeys.flatMap(key => {
     const cols = featureColumns[key] || []
-    return cols.map(col =>
-      (parseFloat(serie[col]) || 0) * (parseFloat(props.sliders[col]) || 1)
-    )
+    // On ne prend en compte que les sous-features activées
+    return cols
+      .filter(col => localSliders.value[col] === "1")
+      .map(col => parseFloat(serie[col]) || 0)
   })
 }
 
-// Fonction pour calculer les similarités pour une série donnée
+// Fonction pour calculer les similarités pour une série donnée (moyenne simple)
 function calculerSimilaritesPourUneSerie(serie_name) {
   const selectedSerie = props.series.find(serie => serie.name === serie_name)
   if (!selectedSerie) return
@@ -118,27 +132,23 @@ function calculerSimilaritesPourUneSerie(serie_name) {
     .filter(serie => serie.name !== serie_name)
     .map(serie => {
       const featureSimilarities = featureKeys.map(key => {
-        // Poids global pour la feature (somme des sliders des colonnes)
-        const weight = (featureColumns[key] || []).reduce(
-          (sum, col) => sum + (parseFloat(props.sliders[col]) || 0), 0
-        )
-        if (weight === 0) return null
+        const cols = featureColumns[key] || []
+        const activeCols = cols.filter(col => localSliders.value[col] === "1")
+        if (activeCols.length === 0) return null
         const featureVectorA = getFeatures(selectedSerie.name, [key])
         const featureVectorB = getFeatures(serie.name, [key])
         const similarity = cosineSimilarity(featureVectorA, featureVectorB)
-        return { key, similarity, weight }
+        return { key, similarity, count: activeCols.length }
       }).filter(Boolean)
 
-      const weightedSimilarity = featureSimilarities.length > 0
-        ? featureSimilarities.reduce(
-            (sum, feature) => sum + feature.similarity * feature.weight,
-            0
-          ) / featureSimilarities.reduce((sum, feature) => sum + feature.weight, 0)
+      // Moyenne simple des similarités de features actives
+      const meanSimilarity = featureSimilarities.length > 0
+        ? featureSimilarities.reduce((sum, feature) => sum + feature.similarity, 0) / featureSimilarities.length
         : 0
 
       return {
         name: serie.name,
-        similarity: weightedSimilarity,
+        similarity: meanSimilarity,
         featureSimilarities,
         image: serie.image,
         description: serie.description
@@ -148,31 +158,27 @@ function calculerSimilaritesPourUneSerie(serie_name) {
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity) // Trier par similarité décroissante
 }
 
-// Fonction pour calculer la similarité entre deux séries
+// Fonction pour calculer la similarité entre deux séries (moyenne simple)
 function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
   const featureSimilarities = featureKeys.map(key => {
-    const weight = (featureColumns[key] || []).reduce(
-      (sum, col) => sum + (parseFloat(props.sliders[col]) || 0), 0
-    )
-    if (weight === 0) return null
+    const cols = featureColumns[key] || []
+    const activeCols = cols.filter(col => localSliders.value[col] === "1")
+    if (activeCols.length === 0) return null
     const featureVectorA = getFeatures(serie1Name, [key])
     const featureVectorB = getFeatures(serie2Name, [key])
     const similarity = cosineSimilarity(featureVectorA, featureVectorB)
-    return { key, similarity, weight }
+    return { key, similarity, count: activeCols.length }
   }).filter(Boolean)
 
-  const weightedSimilarity = featureSimilarities.length > 0
-    ? featureSimilarities.reduce(
-        (sum, feature) => sum + feature.similarity * feature.weight,
-        0
-      ) / featureSimilarities.reduce((sum, feature) => sum + feature.weight, 0)
+  const meanSimilarity = featureSimilarities.length > 0
+    ? featureSimilarities.reduce((sum, feature) => sum + feature.similarity, 0) / featureSimilarities.length
     : 0
 
   // Stocker le résultat dans comparisonResult
   comparisonResult.value = {
     serie1Name,
     serie2Name,
-    weightedSimilarity,
+    weightedSimilarity: meanSimilarity,
     featureSimilarities
   }
 }
@@ -189,8 +195,6 @@ onActivated(async () => {
       window.location.hash = '#/'
       return
     }
-    console.log('Séries sélectionnées :', selectedSeries)
-    console.log(selectedSeries.length)
     if (selectedSeries.length === 1) {
       typeAffichage.value = 1
       // Calculer les similarités pour la première série cochée
@@ -201,17 +205,6 @@ onActivated(async () => {
       calculerSimilaritesEntreDeuxSeries(selectedSeries[0].name, selectedSeries[1].name)
       typeAffichage.value = 2
     }
-    
-    /* teste pour faire un calcul sur toutes les séries cochées
-    else {
-      // Calculer les similarités pour toutes les séries cochées
-      props.series.forEach(serie => {
-        if (serie.checked) {
-          calculerSimilaritesPourUneSerie(serie.name)
-        }
-      })
-    }
-    */
   } catch (error) {
     console.error('Erreur lors du chargement des caractéristiques :', error)
   }
@@ -220,7 +213,7 @@ onActivated(async () => {
 // Fonction pour afficher la similarité pour chaque feature
 function showFeatureSimilarities(featureSimilarities) {
   const message = featureSimilarities
-    .map(feature => `${feature.key} : ${(feature.similarity * 100).toFixed(2)}% (Pondération : ${feature.weight})`)
+    .map(feature => `${feature.key} : ${(feature.similarity * 100).toFixed(2)}%`)
     .join('\n')
   alert(`Similarité par feature :\n${message}`)
 }
@@ -270,61 +263,28 @@ function syncCheckboxGroup(mainKey) {
       <div v-if="editFeature">
         <button @click="validerChanges">Valider les changements</button>
         <h3>Personnalisation des critères</h3>
-        <!-- Ligne dédiée pour les 3 critères principaux 
-        <div class="main-checkbox-row">
-
-        </div> -->
-        <!-- Grille pour les critères principaux, répartie sur 2 lignes de 4 -->
+        <!-- Grille pour les critères principaux, répartie sur 3 par ligne -->
         <div class="checkbox-grid-multi">
-          <!-- Première ligne (4 premiers groupes) -->
-          <div class="checkbox-row">
-            <div v-for="key in featureKeys.slice(0, 4)" :key="key">
-              <strong>{{ key }}</strong>
+          <div
+            class="checkbox-row"
+            v-for="row in Math.ceil(featureKeys.length / 3)"
+            :key="row"
+          >
+            <div
+              v-for="key in featureKeys.slice((row - 1) * 3, row * 3)"
+              :key="key"
+            >
+              <label class="feature-title-checkbox">
+                <input
+                  type="checkbox"
+                  :checked="isFeatureGroupChecked(key)"
+                  @change="toggleFeatureGroup(key, $event.target.checked)"
+                />
+                <strong>{{ key }}</strong>
+              </label>
               <div class="checkbox-col">
                 <label
                   v-for="col in featureColumns[key]"
-                  :key="col"
-                  class="checkbox-item"
-                >
-                  <input
-                    type="checkbox"
-                    v-model="localSliders[col]"
-                    true-value="1"
-                    false-value="0"
-                  />
-                  {{ col }}
-                </label>
-              </div>
-            </div>
-          </div>
-          <!-- Deuxième ligne (4 suivants) -->
-          <div class="checkbox-row">
-            <div v-for="key in featureKeys.slice(4, 8)" :key="key">
-              <strong>{{ key }}</strong>
-              <div class="checkbox-col">
-                <label
-                  v-for="col in featureColumns[key]"
-                  :key="col"
-                  class="checkbox-item"
-                >
-                  <input
-                    type="checkbox"
-                    v-model="localSliders[col]"
-                    true-value="1"
-                    false-value="0"
-                  />
-                  {{ col }}
-                </label>
-              </div>
-            </div>
-          </div>
-          <!-- Dernier groupe si il y en a un 9ème -->
-          <div class="checkbox-row" v-if="featureKeys.length > 8">
-            <div>
-              <strong>{{ featureKeys[8] }}</strong>
-              <div class="checkbox-col">
-                <label
-                  v-for="col in featureColumns[featureKeys[8]]"
                   :key="col"
                   class="checkbox-item"
                 >
@@ -373,10 +333,10 @@ function syncCheckboxGroup(mainKey) {
     <!-- Affichage des résultats de la comparaison -->
     <div v-else-if="typeAffichage === 2 && comparisonResult" class="comparison-result">
       <h3>Comparaison entre {{ comparisonResult.serie1Name }} et {{ comparisonResult.serie2Name }}</h3>
-      <p><strong>Similarité globale pondérée :</strong> {{ (comparisonResult.weightedSimilarity * 100).toFixed(2) }}%</p>
+      <p><strong>Similarité globale :</strong> {{ (comparisonResult.weightedSimilarity * 100).toFixed(2) }}%</p>
       <ul>
         <li v-for="feature in comparisonResult.featureSimilarities || []" :key="feature.key">
-          <strong>{{ feature.key }} :</strong> {{ (feature.similarity * 100).toFixed(2) }}% (Pondération : {{ feature.weight }})
+          <strong>{{ feature.key }} :</strong> {{ (feature.similarity * 100).toFixed(2) }}%
         </li>
       </ul>
     </div>
@@ -499,6 +459,13 @@ h3 {
   min-width: 180px;
   flex: 1 1 180px;
   max-width: 250px;
+}
+
+.feature-title-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 @media (max-width: 1100px) {
