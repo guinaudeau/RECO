@@ -30,16 +30,40 @@ const voirPlus = ref(false)
   <h2>Personnalisation des critères</h2>
   <ul>
     <li>
-      Vidéo : {{ localSliders.vidéo }}
-      <input type="range" v-model="localSliders.vidéo" min="0" max="2" step="0.01" value="1"/>
+      plot : {{ localSliders.plot }}
+      <input type="range" v-model="localSliders.plot" min="0" max="2" step="0.01" value="1"/>
     </li>
     <li>
-      Scénario : {{ localSliders.llama_Synopsis }}
-      <input type="range" v-model="localSliders.llama_Synopsis" min="0" max="2" step="0.01" value="1" />
+      content : {{ localSliders.content }}
+      <input type="range" v-model="localSliders.content" min="0" max="2" step="0.01" value="1" />
     </li>
     <li>
-      Audio : {{ localSliders.audio }}
-      <input type="range" v-model="localSliders.audio" min="0" max="2" step="0.01" value="1" />
+      character : {{ localSliders.character }}
+      <input type="range" v-model="localSliders.character" min="0" max="2" step="0.01" value="1" />
+    </li>
+    <li>
+      representation : {{ localSliders.representation }}
+      <input type="range" v-model="localSliders.representation" min="0" max="2" step="0.01" value="1" />
+    </li>
+    <li>
+      visuals : {{ localSliders.visuals }}
+      <input type="range" v-model="localSliders.visuals" min="0" max="2" step="0.01" value="1" />
+    </li>
+    <li>
+      comedy : {{ localSliders.comedy }}
+      <input type="range" v-model="localSliders.comedy" min="0" max="2" step="0.01" value="1" />
+    </li>
+    <li>
+      emotion : {{ localSliders.emotion }}
+      <input type="range" v-model="localSliders.emotion" min="0" max="2" step="0.01" value="1" />
+    </li>
+    <li>
+      artistic : {{ localSliders.artistic }}
+      <input type="range" v-model="localSliders.artistic" min="0" max="2" step="0.01" value="1" />
+    </li>
+    <li>
+      structural : {{ localSliders.structural }}
+      <input type="range" v-model="localSliders.structural" min="0" max="2" step="0.01" value="1" />
     </li>
   </ul>
   <button @click="voirPlus = !voirPlus" id="buttonvoirPlus">
