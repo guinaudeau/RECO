@@ -291,7 +291,9 @@ function syncCheckboxGroup(mainKey) {
               <label class="feature-title-checkbox">
                 <input
                   type="checkbox"
-                  :checked="isFeatureGroupChecked(key)"
+                  v-model="localSliders[key]"
+                  true-value="1"
+                  false-value="0"
                   @change="toggleFeatureGroup(key, $event.target.checked)"
                 />
                 <strong>{{ key }}</strong>
