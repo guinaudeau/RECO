@@ -8,8 +8,19 @@ const similaritiesTable = ref([]) // Tableau des similarités
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
 let editFeature = ref(false) // État pour afficher/masquer la personnalisation
 
-// Copie locale pour l'édition
-const localSliders = ref({ ...props.sliders })
+// Initialiser tous les sliders à "1" (tout coché par défaut)
+function getDefaultSliders() {
+  const sliders = {}
+  featureKeys.forEach(key => {
+    (featureColumns[key] || []).forEach(col => {
+      sliders[col] = "1"
+    })
+  })
+  return sliders
+}
+
+// Copie locale pour l'édition (tout coché par défaut si vide)
+const localSliders = ref(Object.keys(props.sliders || {}).length ? { ...props.sliders } : getDefaultSliders())
 
 // Quand on ouvre la personnalisation, synchroniser la copie locale
 function openEdit() {
