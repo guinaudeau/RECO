@@ -1,6 +1,6 @@
 <script setup>
-import { defineProps, ref, onActivated, defineEmits, watch, computed } from 'vue'
-
+import { defineProps, ref, onActivated, defineEmits, watch } from 'vue'
+//import {computed } from 'vue'
 const emit = defineEmits(['update:sliders'])
 
 const props = defineProps(['series', 'sliders', 'characteristics']) // Recevoir les séries et sliders via props
