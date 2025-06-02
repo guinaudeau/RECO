@@ -21,11 +21,11 @@ function getDefaultSliders() {
 }
 
 // Copie locale pour l'édition (tout coché par défaut si vide)
-const localSliders = ref(Object.keys(props.sliders || {}).length ? { ...props.sliders } : getDefaultSliders())
+const localSliders = ref(Object.keys(props.sliders || {}).length ? { ...props.sliders }:getDefaultSliders())
 
 // Quand on ouvre la personnalisation, synchroniser la copie locale
 function openEdit() {
-  localSliders.value = Object.keys(props.sliders || {}).length ? { ...props.sliders } : getDefaultSliders()
+  localSliders.value = Object.keys(props.sliders || {}).length ? { ...props.sliders }:getDefaultSliders()
   editFeature.value = true
 }
 
@@ -116,12 +116,12 @@ function toggleFeatureGroup(key, checked) {
 }
 
 // Fonction pour savoir si toutes les sous-features ET la principale sont cochées
-function isFeatureGroupChecked(key) {
-  if (localSliders.value[key] !== "1") return false
-  const cols = featureColumns[key] || []
-  if (cols.length === 0) return false
-  return cols.every(col => localSliders.value[col] === "1")
-}
+// function isFeatureGroupChecked(key) {
+//   if (localSliders.value[key] !== "1") return false
+//   const cols = featureColumns[key] || []
+//   if (cols.length === 0) return false
+//   return cols.every(col => localSliders.value[col] === "1")
+// }
 
 // Fonction pour récupérer les caractéristiques d'une série selon le mapping (pas de pondération)
 function getFeatures(serieName, featureKeys) {
