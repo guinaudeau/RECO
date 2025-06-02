@@ -282,59 +282,23 @@ function syncCheckboxGroup(mainKey) {
             {{ key }}
           </label>
         </div>
-        <!-- Grille pour les autres critères -->
+        <!-- Grille pour les critères principaux -->
         <div class="checkbox-grid-multi">
-          <div>
-            <strong>Audio</strong>
-            <div class="checkbox-col" v-for="(chunk, idx) in audioColsChunks" :key="'audio-col-' + idx">
+          <div v-for="key in featureKeys" :key="key">
+            <strong>{{ key }}</strong>
+            <div class="checkbox-col">
               <label
-                v-for="key in chunk"
-                :key="key"
+                v-for="col in featureColumns[key]"
+                :key="col"
                 class="checkbox-item"
               >
                 <input
                   type="checkbox"
-                  v-model="localSliders[key]"
+                  v-model="localSliders[col]"
                   true-value="1"
                   false-value="0"
                 />
-                {{ key }}
-              </label>
-            </div>
-          </div>
-          <div>
-            <strong>Vidéo</strong>
-            <div class="checkbox-col" v-for="(chunk, idx) in videoColsChunks" :key="'video-col-' + idx">
-              <label
-                v-for="key in chunk"
-                :key="key"
-                class="checkbox-item"
-              >
-                <input
-                  type="checkbox"
-                  v-model="localSliders[key]"
-                  true-value="1"
-                  false-value="0"
-                />
-                {{ key }}
-              </label>
-            </div>
-          </div>
-          <div>
-            <strong>llama_Synopsis</strong>
-            <div class="checkbox-col" v-for="(chunk, idx) in llamaSynopsisColsChunks" :key="'llama-col-' + idx">
-              <label
-                v-for="key in chunk"
-                :key="key"
-                class="checkbox-item"
-              >
-                <input
-                  type="checkbox"
-                  v-model="localSliders[key]"
-                  true-value="1"
-                  false-value="0"
-                />
-                {{ key }}
+                {{ col }}
               </label>
             </div>
           </div>
