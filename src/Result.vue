@@ -274,24 +274,69 @@ function syncCheckboxGroup(mainKey) {
         <div class="main-checkbox-row">
 
         </div> -->
-        <!-- Grille pour les critères principaux -->
+        <!-- Grille pour les critères principaux, répartie sur 2 lignes de 4 -->
         <div class="checkbox-grid-multi">
-          <div v-for="key in featureKeys" :key="key">
-            <strong>{{ key }}</strong>
-            <div class="checkbox-col">
-              <label
-                v-for="col in featureColumns[key]"
-                :key="col"
-                class="checkbox-item"
-              >
-                <input
-                  type="checkbox"
-                  v-model="localSliders[col]"
-                  true-value="1"
-                  false-value="0"
-                />
-                {{ col }}
-              </label>
+          <!-- Première ligne (4 premiers groupes) -->
+          <div class="checkbox-row">
+            <div v-for="key in featureKeys.slice(0, 4)" :key="key">
+              <strong>{{ key }}</strong>
+              <div class="checkbox-col">
+                <label
+                  v-for="col in featureColumns[key]"
+                  :key="col"
+                  class="checkbox-item"
+                >
+                  <input
+                    type="checkbox"
+                    v-model="localSliders[col]"
+                    true-value="1"
+                    false-value="0"
+                  />
+                  {{ col }}
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- Deuxième ligne (4 suivants) -->
+          <div class="checkbox-row">
+            <div v-for="key in featureKeys.slice(4, 8)" :key="key">
+              <strong>{{ key }}</strong>
+              <div class="checkbox-col">
+                <label
+                  v-for="col in featureColumns[key]"
+                  :key="col"
+                  class="checkbox-item"
+                >
+                  <input
+                    type="checkbox"
+                    v-model="localSliders[col]"
+                    true-value="1"
+                    false-value="0"
+                  />
+                  {{ col }}
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- Dernier groupe si il y en a un 9ème -->
+          <div class="checkbox-row" v-if="featureKeys.length > 8">
+            <div>
+              <strong>{{ featureKeys[8] }}</strong>
+              <div class="checkbox-col">
+                <label
+                  v-for="col in featureColumns[featureKeys[8]]"
+                  :key="col"
+                  class="checkbox-item"
+                >
+                  <input
+                    type="checkbox"
+                    v-model="localSliders[col]"
+                    true-value="1"
+                    false-value="0"
+                  />
+                  {{ col }}
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -432,25 +477,60 @@ h3 {
   justify-items: start;
 }
 
-/* Grille des checkboxes (multi-colonnes) */
+/* Grille multi-lignes pour les critères principaux */
 .checkbox-grid-multi {
   display: flex;
-  gap: 2em;
-  justify-content: center;
+  flex-direction: column;
+  gap: 1em;
   margin-bottom: 1em;
 }
 
-.checkbox-grid-multi > div {
+.checkbox-row {
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.checkbox-row > div {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
   min-width: 180px;
+  flex: 1 1 180px;
+  max-width: 250px;
 }
 
-.checkbox-grid-multi strong {
-  margin-bottom: 0.5em;
-  text-align: center;
-  display: block;
+@media (max-width: 1100px) {
+  .checkbox-row {
+    gap: 1em;
+  }
+  .checkbox-row > div {
+    min-width: 140px;
+    max-width: 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .checkbox-row {
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+  .checkbox-row > div {
+    min-width: 120px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .checkbox-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .checkbox-row > div {
+    min-width: 100%;
+    max-width: 100%;
+  }
 }
 
 /* Éléments individuels de la checkbox */
