@@ -225,7 +225,7 @@ function showFeatureSimilarities(featureSimilarities) {
   alert(`Similarité par feature :\n${message}`)
 }
 
-
+/*
 const allKeys = computed(() => {
   // Prend la première série pour obtenir les colonnes
   const firstSerie = props.characteristics[0]
@@ -245,7 +245,7 @@ function chunkArray(array, size) {
   return result
 }
 
-/*const audioColsChunks = computed(() => chunkArray(audioCols.value, 10))
+const audioColsChunks = computed(() => chunkArray(audioCols.value, 10))
 const videoColsChunks = computed(() => chunkArray(videoCols.value, 10))
 const llamaSynopsisColsChunks = computed(() => chunkArray(llamaSynopsisCols.value, 10))
 
