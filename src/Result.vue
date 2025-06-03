@@ -12,7 +12,6 @@ let editFeature = ref(false) // État pour afficher/masquer la personnalisation
 function getDefaultSliders() {
   const sliders = {}
   featureKeys.forEach(key => {
-    sliders[key] = "1" // coche la feature principale
     (featureColumns[key] || []).forEach(col => {
       sliders[col] = "1"
     })
@@ -21,11 +20,11 @@ function getDefaultSliders() {
 }
 
 // Copie locale pour l'édition (tout coché par défaut si vide)
-const localSliders = ref(Object.keys(props.sliders || {}).length ? { ...props.sliders }:getDefaultSliders())
+const localSliders = ref(Object.keys(props.sliders || {}).length ? { ...props.sliders } : getDefaultSliders())
 
 // Quand on ouvre la personnalisation, synchroniser la copie locale
 function openEdit() {
-  localSliders.value = Object.keys(props.sliders || {}).length ? { ...props.sliders }:getDefaultSliders()
+  localSliders.value = { ...props.sliders }
   editFeature.value = true
 }
 
@@ -109,7 +108,6 @@ const featureKeys = [
 
 // Fonction pour activer/désactiver toutes les sous-features d'un groupe
 function toggleFeatureGroup(key, checked) {
-  localSliders.value[key] = checked ? "1" : "0" // coche/décoche la principale
   (featureColumns[key] || []).forEach(col => {
     localSliders.value[col] = checked ? "1" : "0"
   })
