@@ -289,15 +289,15 @@ function syncCheckboxGroup(mainKey) {
       <div v-if="editFeature">
         <button @click="validerChanges">Valider les changements</button>
         <h3>Personnalisation des critères</h3>
-        <!-- Grille pour les critères principaux, répartie sur 3 par ligne -->
+        <!-- Grille pour les critères principaux, répartie sur 4 par ligne -->
         <div class="checkbox-grid-multi">
           <div
             class="checkbox-row"
-            v-for="row in Math.ceil(featureKeys.length / 3)"
+            v-for="row in Math.ceil(featureKeys.length / 4)"
             :key="row"
           >
             <div
-              v-for="key in featureKeys.slice((row - 1) * 3, row * 3)"
+              v-for="key in featureKeys.slice((row - 1) * 4, row * 4)"
               :key="key"
             >
               <label class="feature-title-checkbox">
