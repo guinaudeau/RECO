@@ -29,7 +29,10 @@ const localSliders = ref(
 
 // Quand on ouvre la personnalisation, synchroniser la copie locale
 function openEdit() {
-  localSliders.value = { ...props.sliders }
+  // On convertit toutes les valeurs en string "1" ou "0"
+  localSliders.value = Object.fromEntries(
+    Object.entries(props.sliders).map(([k, v]) => [k, v === 1 ? "1" : v === 0 ? "0" : String(v)])
+  )
   editFeature.value = true
 }
 
