@@ -116,8 +116,8 @@ const featureColumns = {
 }
 
 const featureKeys = [
-  "plot", "content", "video", "representation", "visuals",
-   "emotion", "character", "artistic", "structural", "audio", "comedy"
+  "plot", "content", "video", "audio", "representation", "visuals",
+   "emotion", "character", "artistic", "structural", "comedy"
 ]
 
 // Fonction pour activer/désactiver toutes les sous-features d'un groupe
