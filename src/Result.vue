@@ -10,17 +10,22 @@ let editFeature = ref(false) // État pour afficher/masquer la personnalisation
 
 // Initialiser tous les sliders à "1" (tout coché par défaut, y compris les features principales)
 function getDefaultSliders() {
-  const sliders = {}
+  const sliders = {};
   featureKeys.forEach(key => {
+    sliders[key] = "1" ;
     (featureColumns[key] || []).forEach(col => {
-      sliders[col] = "1"
+      sliders[col] = "1";
     })
   })
-  return sliders
+  return sliders;
 }
 
 // Copie locale pour l'édition (tout coché par défaut si vide)
-const localSliders = ref(Object.keys(props.sliders || {}).length ? { ...props.sliders } : getDefaultSliders())
+const localSliders = ref(
+  Object.keys(props.sliders || {}).length
+    ? Object.fromEntries(Object.entries(props.sliders).map(([k, v]) => [k, v === 1 ? "1" : v === 0 ? "0" : v]))
+    : (getDefaultSliders())
+)
 
 // Quand on ouvre la personnalisation, synchroniser la copie locale
 function openEdit() {
