@@ -98,12 +98,18 @@ const featureColumns = {
   ],
   structural: [
     "Suspense", "Action elements", "Everyday life"
+  ],
+  audio: [
+    "NoEnergy", "Music", "Noise", "Voice", "F/H"
+  ],
+  video: [
+    "Mean Brightness", "STDÊ Brightness", "MinÊ Brightness", "MaxÊ Brightness", "Mean Contrast", "STDÊ Contrast", "MinÊ Contrast", "MaxÊ Contrast", "Mean Saturation", "STDÊ Saturation", "MinÊ Saturation", "MaxÊ Saturation", "Heat", "Scene/Seconds", "Plans tres rapide", "Plans courts", "Plans moyens", "Plans longs", "Plans tres longs", "Optical Flow Max", "Optical Flow Score", "Optical Flow STD"
   ]
 }
 
 const featureKeys = [
   "plot", "content", "character", "representation", "visuals",
-  "comedy", "emotion", "artistic", "structural"
+  "comedy", "emotion", "artistic", "structural", "audio", "video"
 ]
 
 // Fonction pour activer/désactiver toutes les sous-features d'un groupe

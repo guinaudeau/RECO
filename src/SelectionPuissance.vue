@@ -65,6 +65,14 @@ const voirPlus = ref(false)
       structural : {{ localSliders.structural }}
       <input type="range" v-model="localSliders.structural" min="0" max="2" step="0.01" value="1" />
     </li>
+    <li>
+      audio : {{ localSliders.audio }}
+      <input type="range" v-model="localSliders.audio" min="0" max="2" step="0.01" value="1" />
+    </li>
+    <li>
+      vidéo : {{localSliders.video}}
+      <input type="range" v-model="localSliders.video" min="0" max="2" step="0.01" value="1"/>
+    </li>
   </ul>
   <button @click="voirPlus = !voirPlus" id="buttonvoirPlus">
     {{ voirPlus ? 'Masquer les autres critères' : 'Voir plus de critères' }}
