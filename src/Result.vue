@@ -57,7 +57,7 @@ watch(
   { deep: true }
 )
 
-// Fonction pour calculer la similarité entre deux vecteurs (pas de pondération)
+// Fonction pour calculer la similarité entre deux vecteurs
 function cosineSimilarity(A, B) {
   let dotproduct = 0;
   let mA = 0;
@@ -241,7 +241,7 @@ function showFeatureSimilarities(featureSimilarities) {
   const message = featureSimilarities
     .map(feature => `${feature.key} : ${(feature.similarity * 100).toFixed(2)}%`)
     .join('\n')
-  alert(`Similarité par feature :\n${message}`)
+  alert(`Similarité par caractéristiques :\n${message}`)
 }
 
 /*
@@ -352,7 +352,7 @@ function syncCheckboxGroup(mainKey) {
           <td>{{ item.description }}</td>
           <td>{{ (item.similarity * 100).toFixed(2) }}%</td>
           <td>
-            <button @click="showFeatureSimilarities(item.featureSimilarities)">Voir Similarité par Feature</button>
+            <button @click="showFeatureSimilarities(item.featureSimilarities)">Voir Similarité par caractéristique</button>
           </td>
         </tr>
       </tbody>
