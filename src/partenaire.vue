@@ -44,25 +44,18 @@ a:hover {
   opacity:1;
   box-shadow:0 0 0 1px rgba(255,255,255,0.8);
 }
-div.pair a {
-  display: flex;
-  flex-direction: row;
-  align-items: left;
-  justify-content: center;
-  margin-bottom: 20px;
-}
 div.pair {
   display: flex;
   flex-direction: row;
   align-items: left;
-  justify-content: center;
+  justify-content: space-evenly;
   margin-bottom: 20px;
 }
 div.impair{
   display: flex;
   flex-direction: row;
   align-items: right;
-  justify-content: center;
+  justify-content: space-evenly;
   margin-bottom: 20px;
 }
 </style>
