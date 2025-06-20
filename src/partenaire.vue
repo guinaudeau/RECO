@@ -5,15 +5,15 @@
   <h2>Partenaire</h2>
   <div class="content">
         <p>projet réalisé en partenaria avec :</p>
-        <div>
+        <div class="pair">
             <h4> le CNRS</h4>
             <a href="https://www.cnrs.fr/fr" target="Fenêtre définie"><img src="CNRS.png" alt="logo du CNRS" /></a>
         </div>
-        <div>
+        <div class="impair">
             <h4> l'ISJPS</h4>
             <a href="https://isjps.pantheonsorbonne.fr/" target="Fenêtre définie"><img src="ISJPS.png" alt="logo du ISJPS" /></a>
         </div>
-        <div>
+        <div class="pair">
             <h4> le JFLI</h4>
             <a href="https://jfli.cnrs.fr/" target="Fenêtre définie"><img src="logo-jfli.png" alt="logo du JFLI" /></a>
         </div>
@@ -43,5 +43,26 @@ a {
 a:hover {
   opacity:1;
   box-shadow:0 0 0 1px rgba(255,255,255,0.8);
+}
+div.pair a {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+div.pair a {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+div.impair a {
+  display: flex;
+  flex-direction: row;
+  align-items: right;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 </style>
