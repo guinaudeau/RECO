@@ -22,3 +22,26 @@
 </div>
 </div>
 </template>
+<style>
+img{
+  max-width: 100%;
+  height: auto;
+}
+a {
+  font-size:20px;
+  max-width:200px;
+  height:auto;
+  padding:0;
+  display:inline-block;
+  text-align:center;
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(255,255,255,0.4);
+  margin:0 8px;
+  color:#fff;
+  opacity:0.75;
+}
+a:hover {
+  opacity:1;
+  box-shadow:0 0 0 1px rgba(255,255,255,0.8);
+}
+</style>
