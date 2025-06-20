@@ -51,14 +51,14 @@ div.pair a {
   justify-content: center;
   margin-bottom: 20px;
 }
-div.pair a {
+div.pair {
   display: flex;
   flex-direction: row;
   align-items: left;
   justify-content: center;
   margin-bottom: 20px;
 }
-div.impair a {
+div.impair{
   display: flex;
   flex-direction: row;
   align-items: right;
