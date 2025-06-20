@@ -7,6 +7,7 @@ import Resultat from './Result.vue'
 import AboutReco from './AboutReco.vue'
 import Papa from 'papaparse'
 import Contact from './contact.vue'
+import Partenaire from './partenaire.vue'
 
 const series = ref([]) // Stocker les séries chargées
 const characteristics = ref([]) // Stocker les caractéristiques chargées
@@ -78,7 +79,8 @@ const routes = {
   '/SelectionPuissance': SelectionPuissance,
   '/Resultat': Resultat,
   '/about': AboutReco,
-  '/contact': Contact
+  '/contact': Contact,
+  '/partenaire': Partenaire
 }
 
 const currentPath = ref(window.location.hash || '#/')
@@ -100,6 +102,7 @@ let IsSelection = false
 let IsResult = false
 let IsAbout = false
 let IsContact = false
+let IsPartenaire = false
 function changementVus() {
   if (currentPath.value === '#/') {
     IsHome = true
@@ -107,30 +110,42 @@ function changementVus() {
     IsResult = false
     IsAbout = false
     IsContact = false
+    IsPartenaire = false
   } else if (currentPath.value === '#/SelectionPuissance') {
     IsHome = false
     IsSelection = true
     IsResult = false
     IsAbout = false
     IsContact = false
+    IsPartenaire = false
   } else if (currentPath.value === '#/Resultat') {
     IsHome = false
     IsSelection = false
     IsResult = true
     IsAbout = false
     IsContact = false
+    IsPartenaire = false
   } else if (currentPath.value === '#/about') {
     IsHome = false
     IsSelection = false
     IsResult = false
     IsAbout = true
     IsContact = false
+    IsPartenaire = false
   } else if (currentPath.value === '#/contact'){
     IsHome = false
     IsSelection = false
     IsResult = false
     IsAbout = false
     IsContact = true
+    IsPartenaire = false
+  } else if (currentPath.value === '#/partenaire'){
+    IsHome = false
+    IsSelection = false
+    IsResult = false
+    IsAbout = false
+    IsContact = false
+    IsPartenaire = true
   }
 }
 
@@ -155,6 +170,7 @@ function toggleNav() {
       <a href="#/Resultat" v-if="!IsResult && !IsAbout"><button>Résultats</button></a>
       <a href="#/about" v-if="!IsAbout"><button>À propos</button></a>
       <a href="#/contact" v-if="!IsContact"><button>nous Contacter</button></a>
+      <a href="#/partenaire" v-if="!IsPartenaire"><button>Partenaire</button></a>
     </nav>
     <button @click="toggleDark()" class="dark-mode-toggle">
       <span v-if="!isDark" aria-label="Activer le mode nuit" title="Activer le mode nuit">🌞</span>
@@ -176,16 +192,6 @@ function toggleNav() {
         :characteristics-columns="characteristicsColumns"
       />
   </keep-alive>
-  <footer class="fixed_footer">
-    <div class="content">
-      <p>projet réalisé en partenaria avec :</p>
-      <a href="https://www.cnrs.fr/fr" target="Fenêtre définie"><img src="CNRS.png" alt="logo du CNRS" /></a>
-      <a href="https://isjps.pantheonsorbonne.fr/" target="Fenêtre définie"><img src="ISJPS.png" alt="logo du ISJPS" /></a>
-      <a href="https://jfli.cnrs.fr/" target="Fenêtre définie"><img src="logo-jfli.png" alt="logo du JFLI" /></a>
-      <p>Pour toute question ou suggestion, n'hésitez pas à nous contacter.</p>
-      <p class="copyright">© 2023 RECO+. Tous droits réservés.</p>
-    </div>
-  </footer>
 </template>
 
 <style>
