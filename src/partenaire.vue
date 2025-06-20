@@ -17,9 +17,11 @@
             <h4> le JFLI</h4>
             <a href="https://jfli.cnrs.fr/" target="Fenêtre définie"><img src="logo-jfli.png" alt="logo du JFLI" /></a>
         </div>
-    <div>
-</div>
-</div>
+        <div class="impair">
+            <h4> BétaSérie</h4>
+            <a href="https://www.betaseries.com/" target="Fenêtre définie"><img src="betaSeries.jfif" alt="logo de BétaSérie" /></a>
+        </div>
+    </div>
 </div>
 </template>
 <style>
