@@ -98,7 +98,7 @@ window.addEventListener('hashchange', () => {
 })
 // changer la navigation
 let IsHome = true
-let IsSelection = false
+//let IsSelection = false
 let IsResult = false
 let IsAbout = false
 let IsContact = false
@@ -106,42 +106,42 @@ let IsPartenaire = false
 function changementVus() {
   if (currentPath.value === '#/') {
     IsHome = true
-    IsSelection = false
+    //IsSelection = false
     IsResult = false
     IsAbout = false
     IsContact = false
     IsPartenaire = false
   } else if (currentPath.value === '#/SelectionPuissance') {
     IsHome = false
-    IsSelection = true
+    //IsSelection = true
     IsResult = false
     IsAbout = false
     IsContact = false
     IsPartenaire = false
   } else if (currentPath.value === '#/Resultat') {
     IsHome = false
-    IsSelection = false
+    //IsSelection = false
     IsResult = true
     IsAbout = false
     IsContact = false
     IsPartenaire = false
   } else if (currentPath.value === '#/about') {
     IsHome = false
-    IsSelection = false
+    //IsSelection = false
     IsResult = false
     IsAbout = true
     IsContact = false
     IsPartenaire = false
   } else if (currentPath.value === '#/contact'){
     IsHome = false
-    IsSelection = false
+    //IsSelection = false
     IsResult = false
     IsAbout = false
     IsContact = true
     IsPartenaire = false
   } else if (currentPath.value === '#/partenaire'){
     IsHome = false
-    IsSelection = false
+    //IsSelection = false
     IsResult = false
     IsAbout = false
     IsContact = false
@@ -166,7 +166,7 @@ function toggleNav() {
     <h1 class="header-title">RECO+</h1>
     <nav class="main-nav" :class="{ open: navOpen }">
       <a href="#/" v-if="!IsHome"><button>Catalogue</button></a>
-      <a href="#/SelectionPuissance" v-if="!IsSelection"><button>Personnalisation</button></a>
+      <!--<a href="#/SelectionPuissance" v-if="!IsSelection"><button>Personnalisation</button></a>-->
       <a href="#/Resultat" v-if="!IsResult && !IsAbout"><button>Résultats</button></a>
       <a href="#/about" v-if="!IsAbout"><button>À propos</button></a>
       <a href="#/contact" v-if="!IsContact"><button>nous Contacter</button></a>
