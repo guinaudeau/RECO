@@ -55,7 +55,7 @@ export default {
               type="text" 
               v-model="name"
               name="name"
-              placeholder="Name"
+              placeholder="Nom"
               required
             >
             <input 
@@ -71,7 +71,7 @@ export default {
               list="subject"
               v-model="subject"
               name="subject"
-              placeholder="Subject"
+              placeholder="Sujet"
               required
             >
             <textarea 
@@ -88,11 +88,11 @@ export default {
             <div class="inner"></div>
             <input
               type="submit"
-              value="envoier"
+              value="envoyer le message"
               :disabled="!isFormValid"
               :class="{'error-btn': formTouched && !isFormValid}"
             >
-              <input type="reset" value="Reset" @click="formTouched = false">
+              <input type="reset" value="Annuler" @click="formTouched = false">
           </div>
         </div>
       </form>
@@ -100,9 +100,9 @@ export default {
   </div>
     <datalist id="subject">
       <option value="bug"></option>
-      <option value="feedback"></option>
-      <option value="feature-request"></option>
-      <option value="other"></option>
+      <option value="retour"></option>
+      <option value="souhait d'amélioration"></option>
+      <option value="autre"></option>
     </datalist>
 </template>
 <style scoped>
