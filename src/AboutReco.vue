@@ -18,7 +18,29 @@ Les critères, obtenus par des approches d'intelligence artificielle à l'état 
 Pour les 50 critères calculés à partir de la modalité textuelle, nous utilisons le LLM ChatGPT d'OpenAI pour évaluer la présence et la pertinence de thèmes sémantiques spécifiques, tels que la violence, la politique ou le suspense, dans les sous-titres et les audio-description. Le modèle est alimenté avec une liste de 50 thèmes prédéfinis, chacun accompagné d'une définition claire. Pour chaque entrée, il attribue un score de pertinence compris entre 0 et 1000, reflétant le degré d'expression du thème correspondant dans le texte. Cette stratégie permet au modèle d'effectuer des évaluations ciblées et interprétables, tout en minimisant le risque d'hallucinations en lui permettant d'ignorer les thèmes qu'il ne peut pas évaluer avec certitude.
       </p>
     </div>
-    
+    <div class=content>
+      <li>
+        <ul>
+          <h4>Critères visuels</h4>
+          <div>
+            Mean Brightness;STD Brightness;Min Brightness;Max Brightness;Mean Contrast;STD Contrast;Min Contrast;Max Contrast;Mean Saturation;STD Saturation;Min Saturation;Max Saturation;Heat;Scene/Seconds;Plans tres rapide;Plans courts;Plans moyens;Plans longs;Plans tres longs;Optical Flow Max;Optical Flow Score;Optical Flow STD
+          </div>
+        </ul>
+        <ul>
+          <h4>Critères auditifs</h4>
+          <div>
+            NoEnergy;Music;Noise;Voice;F/H;
+          </div>
+        </ul>
+        <ul>
+          <h4>Critères textuels</h4>
+          <div>
+            Action elements;Animals;Brutal realism;Character development;Collective struggles;Cultural references;Cute;Dark;Dark humor;Deception;Disabilities;Diversity;Diversity of locations;Environmental issues;Everyday life;Feel good;Female characters;Food;Found families theme;Graphic nature;Historical restitution accuracy;Humor;Investigation;Language diversity;Language level;Multigenerational;Multiple characters;Nostalgia factor;Originality of the plot;Personal emancipation trajectories;Plot complexity;Politics;Presence of music;Religion;Romantic elements;Rurality;Satire;Security issues;Sexual violence;Shakespearean human issues;Space;Suspense;Themes of good and evil;Thought-provoking series;Travel;Urban atmosphere;Violence;Vulgar dialogues;Wilderness;Wokeness;
+          </div>
+        </ul>
+      </li>
+
+    </div>
 
 </template>
 <script setup>
