@@ -127,14 +127,6 @@ function toggleFeatureGroup(key, checked) {
   })
 }
 
-// Fonction pour savoir si toutes les sous-features ET la principale sont cochées
-// function isFeatureGroupChecked(key) {
-//   if (localSliders.value[key] !== "1") return false
-//   const cols = featureColumns[key] || []
-//   if (cols.length === 0) return false
-//   return cols.every(col => localSliders.value[col] === "1")
-// }
-
 // Fonction pour récupérer les caractéristiques d'une série selon le mapping (pas de pondération)
 function getFeatures(serieName, featureKeys) {
   const serie = props.characteristics.find(item => item["Serie"] === serieName)
@@ -244,41 +236,6 @@ function showFeatureSimilarities(featureSimilarities) {
   alert(`Similarité par caractéristiques :\n${message}`)
 }
 
-/*
-const allKeys = computed(() => {
-  // Prend la première série pour obtenir les colonnes
-  const firstSerie = props.characteristics[0]
-  return firstSerie ? Object.keys(firstSerie) : []
-})
-
-const llamaSynopsisCols = computed(() => allKeys.value.slice(1, 51))
-const audioCols = computed(() => allKeys.value.slice(51, 56))
-const videoCols = computed(() => allKeys.value.slice(56))
-
-// Fonction utilitaire pour diviser un tableau en morceaux
-function chunkArray(array, size) {
-  const result = []
-  for (let i = 0; i < array.length; i += size) {
-    result.push(array.slice(i, i + size))
-  }
-  return result
-}
-
-const audioColsChunks = computed(() => chunkArray(audioCols.value, 10))
-const videoColsChunks = computed(() => chunkArray(videoCols.value, 10))
-const llamaSynopsisColsChunks = computed(() => chunkArray(llamaSynopsisCols.value, 10))
-
-function syncCheckboxGroup(mainKey) {
-  let group = []
-  if (mainKey === 'llama_Synopsis') group = llamaSynopsisCols.value
-  if (mainKey === 'audio') group = audioCols.value
-  if (mainKey === 'vidéo') group = videoCols.value
-  const value = localSliders.value[mainKey]
-  group.forEach(key => {
-    localSliders.value[key] = value
-  })
-}
-*/
 </script>
 
 <template>

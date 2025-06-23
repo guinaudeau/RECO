@@ -19,64 +19,129 @@ Pour les 50 critères calculés à partir de la modalité textuelle, nous utilis
       </p>
     </div>
     <div class=content>
-      <li>
-        <ul>
-          <h4>Critères visuels</h4>
-          <div>
-            Mean Brightness;STD Brightness;Min Brightness;Max Brightness;Mean Contrast;STD Contrast;Min Contrast;Max Contrast;Mean Saturation;STD Saturation;Min Saturation;Max Saturation;Heat;Scene/Seconds;Plans tres rapide;Plans courts;Plans moyens;Plans longs;Plans tres longs;Optical Flow Max;Optical Flow Score;Optical Flow STD
-          </div>
-        </ul>
-        <ul>
-          <h4>Critères auditifs</h4>
-          <div>
-            NoEnergy;Music;Noise;Voice;F/H;
-          </div>
-        </ul>
-        <ul>
-          <h4>Critères textuels</h4>
-          <div>
-            Action elements;Animals;Brutal realism;Character development;Collective struggles;Cultural references;Cute;Dark;Dark humor;Deception;Disabilities;Diversity;Diversity of locations;Environmental issues;Everyday life;Feel good;Female characters;Food;Found families theme;Graphic nature;Historical restitution accuracy;Humor;Investigation;Language diversity;Language level;Multigenerational;Multiple characters;Nostalgia factor;Originality of the plot;Personal emancipation trajectories;Plot complexity;Politics;Presence of music;Religion;Romantic elements;Rurality;Satire;Security issues;Sexual violence;Shakespearean human issues;Space;Suspense;Themes of good and evil;Thought-provoking series;Travel;Urban atmosphere;Violence;Vulgar dialogues;Wilderness;Wokeness;
-          </div>
-        </ul>
-      </li>
-
+      <ul>
+        <li>
+          <h4>
+            Critères visuels
+            <button @click="showVisuel = !showVisuel">{{ showVisuel ? 'Masquer' : 'Afficher' }}</button>
+          </h4>
+          <ul v-if="showVisuel">
+            <li v-for="(crit, i) in visuelCriteres" :key="i">{{ crit }}</li>
+          </ul>
+        </li>
+        <li>
+          <h4>
+            Critères audio
+            <button @click="showAuditif = !showAuditif">{{ showAuditif ? 'Masquer' : 'Afficher' }}</button>
+          </h4>
+          <ul v-if="showAuditif">
+            <li v-for="(crit, i) in auditifCriteres" :key="i">{{ crit }}</li>
+          </ul>
+        </li>
+        <li>
+          <h4>
+            Critères textuels
+            <button @click="showTextuel = !showTextuel">{{ showTextuel ? 'Masquer' : 'Afficher' }}</button>
+          </h4>
+          <ul v-if="showTextuel">
+            <li v-for="(crit, i) in textuelCriteres" :key="i">{{ crit }}</li>
+          </ul>
+        </li>
+      </ul>
     </div>
-
 </template>
-<script setup>
 
+<script setup>
+import { ref } from 'vue'
+
+const showVisuel = ref(false)
+const showAuditif = ref(false)
+const showTextuel = ref(false)
+
+const visuelCriteres = [
+  "Mean Brightness", "STD Brightness", "Min Brightness", "Max Brightness",
+  "Mean Contrast", "STD Contrast", "Min Contrast", "Max Contrast",
+  "Mean Saturation", "STD Saturation", "Min Saturation", "Max Saturation",
+  "Heat", "Scene/Seconds", "Plans tres rapide", "Plans courts", "Plans moyens",
+  "Plans longs", "Plans tres longs", "Optical Flow Max", "Optical Flow Score", "Optical Flow STD"
+]
+
+const auditifCriteres = [
+  "NoEnergy", "Music", "Noise", "Voice", "F/H"
+]
+
+const textuelCriteres = [
+  "Action elements", "Animals", "Brutal realism", "Character development", "Collective struggles",
+  "Cultural references", "Cute", "Dark", "Dark humor", "Deception", "Disabilities", "Diversity",
+  "Diversity of locations", "Environmental issues", "Everyday life", "Feel good", "Female characters",
+  "Food", "Found families theme", "Graphic nature", "Historical restitution accuracy", "Humor",
+  "Investigation", "Language diversity", "Language level", "Multigenerational", "Multiple characters",
+  "Nostalgia factor", "Originality of the plot", "Personal emancipation trajectories", "Plot complexity",
+  "Politics", "Presence of music", "Religion", "Romantic elements", "Rurality", "Satire",
+  "Security issues", "Sexual violence", "Shakespearean human issues", "Space", "Suspense",
+  "Themes of good and evil", "Thought-provoking series", "Travel", "Urban atmosphere", "Violence",
+  "Vulgar dialogues", "Wilderness", "Wokeness"
+]
 </script>
+
 <style>
-    div.texte{
-        background-color:rgb(255, 255, 191);
-        margin: 1em;
-        margin-left: 3em;
-        margin-right: 3em;
-        font-size: 20px;
-    }
-    div.texte h3{
-        text-align: left;
-        font-variant: small-caps;
-        margin-left: 3em;
-        text-decoration: underline;
-    }
-    html.dark div.texte{
-        background-color: #333;
-    }
-    p.about {
-  animation-duration: 3s;
-  animation-name: slidein;
+    div.texte {
+    background-color: rgb(255, 255, 191);
+    margin: 2em auto;
+    padding: 2em 2.5em;
+    max-width: 900px;
+    font-size: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    line-height: 1.7;
+    letter-spacing: 0.01em;
 }
 
-@keyframes slidein {
-  from {
-    margin-left: 100%;
-    width: 300%;
-  }
+div.texte h3 {
+    text-align: left;
+    font-variant: small-caps;
+    margin-left: 0;
+    margin-bottom: 0.7em;
+    text-decoration: underline;
+    font-size: 1.5em;
+    color: #3a3a1a;
+}
 
-  to {
-    margin-left: 0%;
-    width: 100%;
-  }
+div.texte p {
+    margin-bottom: 1.2em;
+    margin-top: 0.5em;
+    text-align: justify;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 1.5em;
+    font-size: 2.2em;
+    letter-spacing: 0.04em;
+    color: #2d2d0d;
+}
+
+html.dark div.texte {
+    background-color: #333;
+    color: #f3f3e0;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+}
+
+html.dark div.texte h3 {
+    color: #ffe066;
+}
+
+html.dark h2 {
+    color: #ffe066;
+}
+div.content ul ul {
+  margin-left: 2em; /* Décale les sous-listes */
+  background: #f9f9e0;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+}
+html.dark div.content ul ul {
+  background: #444;
 }
 </style>
