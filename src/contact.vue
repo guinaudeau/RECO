@@ -2,6 +2,11 @@
 import emailjs from 'emailjs-com';
 export default {
   name: 'ContactUs',
+  props: {
+    serviceId: String,
+    templateId: String,
+    userId: String
+  },
   data() {
     return {
       name: '',
@@ -18,17 +23,22 @@ export default {
   },
   methods: {
     sendEmail(e) {
-      this.formTouched = true; // Marque le formulaire comme touché
+      this.formTouched = true;
       if (!this.isFormValid) return; // Ne rien faire si le formulaire est invalide
 
       try {
-        emailjs.sendForm('service_mimb94k', 'template_g50q2tl', e.target,
-        'ISM6B8zfLyjqOPXXd', {
-          name: this.name,
-          email: this.email,
-          message: this.message,
-          subject: this.subject,
-        })
+        emailjs.sendForm(
+          this.serviceId,
+          this.templateId,
+          e.target,
+          this.userId,
+          {
+            name: this.name,
+            email: this.email,
+            message: this.message,
+            subject: this.subject,
+          }
+        )
       } catch(error) {
         console.log({error})
       }

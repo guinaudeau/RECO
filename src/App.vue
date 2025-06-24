@@ -9,6 +9,17 @@ import Papa from 'papaparse'
 import Contact from './contact.vue'
 import Partenaire from './partenaire.vue'
 
+const fichierSeries = '/RECO/data/Series.json' // Chemin vers le fichier des descriptions et des images des séries
+const fichierCharacteristics = '/RECO/data/caracteristiques_deepseek_AD_normalise.csv' // Chemin vers le fichier des caractéristiques
+// eslint-disable-next-line no-unused-vars
+const emailjsConfig = {
+  serviceId: 'service_mimb94k',
+  templateId: 'template_g50q2tl',
+  userId: 'ISM6B8zfLyjqOPXXd'
+}
+
+
+
 const series = ref([]) // Stocker les séries chargées
 const characteristics = ref([]) // Stocker les caractéristiques chargées
 const sliders = ref({
@@ -25,7 +36,7 @@ const isLoading = ref(true)
 // Charger les séries depuis Series.json
 onMounted(async () => {
   try {
-    const response = await fetch('/RECO/data/Series.json')
+    const response = await fetch(fichierSeries)
     if (!response.ok) {
       throw new Error(`Erreur HTTP : ${response.status}`)
     }
@@ -50,7 +61,7 @@ onMounted(async () => {
 // Fonction pour charger les données de characteristics.csv
 async function loadCharacteristics() {
   return new Promise((resolve, reject) => {
-    Papa.parse('/RECO/data/caracteristiques_deepseek_AD_normalise.csv', {
+    Papa.parse(fichierCharacteristics, {
       download: true,
       header: true,
       complete: (results) => resolve(results.data),
@@ -76,7 +87,7 @@ watch(characteristicsColumns, (cols) => {
 // Gestion des routes
 const routes = {
   '/': Home,
-  '/SelectionPuissance': SelectionPuissance,
+  '/SelectionPuissance': SelectionPuissance, // invisible mais nécessaire pour la déclaration des caractéristiques (on peut toujours y accéder via l'url)
   '/Resultat': Resultat,
   '/about': AboutReco,
   '/contact': Contact,
@@ -96,7 +107,7 @@ window.addEventListener('hashchange', () => {
   currentPath.value = window.location.hash || '#/'
   changementVus() // Met à jour les états de navigation
 })
-// changer la navigation
+// fonction tres moche pour changer la navigation (code en commentaire pour selection, décommenter si besoin)
 let IsHome = true
 //let IsSelection = false
 let IsResult = false
@@ -107,55 +118,37 @@ function changementVus() {
   if (currentPath.value === '#/') {
     IsHome = true
     //IsSelection = false
-    IsResult = false
-    IsAbout = false
-    IsContact = false
-    IsPartenaire = false
+    IsResult, IsAbout, IsContact, IsPartenaire = false
   } else if (currentPath.value === '#/SelectionPuissance') {
-    IsHome = false
+    IsHome, IsResult, IsAbout, IsContact, IsPartenaire = false
     //IsSelection = true
-    IsResult = false
-    IsAbout = false
-    IsContact = false
-    IsPartenaire = false
   } else if (currentPath.value === '#/Resultat') {
-    IsHome = false
+    IsHome, IsAbout , IsContact, IsPartenaire = false
     //IsSelection = false
     IsResult = true
-    IsAbout = false
-    IsContact = false
-    IsPartenaire = false
   } else if (currentPath.value === '#/about') {
-    IsHome = false
+    IsHome, IsResult, IsContact, IsPartenaire = false
     //IsSelection = false
-    IsResult = false
     IsAbout = true
-    IsContact = false
-    IsPartenaire = false
   } else if (currentPath.value === '#/contact'){
-    IsHome = false
+    IsHome, IsResult, IsAbout, IsPartenaire = false
     //IsSelection = false
-    IsResult = false
-    IsAbout = false
     IsContact = true
-    IsPartenaire = false
   } else if (currentPath.value === '#/partenaire'){
-    IsHome = false
+    IsHome, IsResult, IsAbout, IsContact = false
     //IsSelection = false
-    IsResult = false
-    IsAbout = false
-    IsContact = false
     IsPartenaire = true
   }
 }
-
 changementVus()
 
-// Menu menu pour mobile
+// Menu pour mobile
 const navOpen = ref(false)
 function toggleNav() {
   navOpen.value = !navOpen.value
 }
+
+
 </script>
 
 <template>
@@ -190,6 +183,11 @@ function toggleNav() {
         v-model:sliders="sliders"
         :characteristics="characteristics"
         :characteristics-columns="characteristicsColumns"
+        v-bind="currentPath.value === '#/contact' ? {
+          serviceId: emailjsConfig.serviceId,
+          templateId: emailjsConfig.templateId,
+          userId: emailjsConfig.userId
+        } : {}"
       />
   </keep-alive>
 </template>

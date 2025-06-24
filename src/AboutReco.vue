@@ -57,7 +57,7 @@ import { ref } from 'vue'
 const showVisuel = ref(false)
 const showAuditif = ref(false)
 const showTextuel = ref(false)
-
+// liste des critères non dynamiques (possible de les charger depuis un fichier CSV si nécessaire)
 const visuelCriteres = [
   "Mean Brightness", "STD Brightness", "Min Brightness", "Max Brightness",
   "Mean Contrast", "STD Contrast", "Min Contrast", "Max Contrast",
