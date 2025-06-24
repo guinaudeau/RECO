@@ -13,9 +13,9 @@ const fichierSeries = '/RECO/data/Series.json' // Chemin vers le fichier des des
 const fichierCharacteristics = '/RECO/data/caracteristiques_deepseek_AD_normalise.csv' // Chemin vers le fichier des caractéristiques
 // eslint-disable-next-line no-unused-vars
 const emailjsConfig = {
-  serviceId: 'service_mimb94k',
-  templateId: 'template_g50q2tl',
-  userId: 'ISM6B8zfLyjqOPXXd'
+  serviceId: 'service_mimb94k',   // ID du service EmailJS
+  templateId: 'template_g50q2tl', // ID du modèle EmailJS
+  userId: 'ISM6B8zfLyjqOPXXd'     // ID de l'utilisateur EmailJS
 }
 
 
@@ -118,24 +118,26 @@ function changementVus() {
   if (currentPath.value === '#/') {
     IsHome = true
     //IsSelection = false
-    IsResult, IsAbout, IsContact, IsPartenaire = false
+    IsResult= false, IsAbout= false, IsContact= false, IsPartenaire= false
   } else if (currentPath.value === '#/SelectionPuissance') {
-    IsHome, IsResult, IsAbout, IsContact, IsPartenaire = false
+    IsHome= false, IsResult= false, IsAbout= false, IsContact= false, IsPartenaire= false
     //IsSelection = true
   } else if (currentPath.value === '#/Resultat') {
-    IsHome, IsAbout , IsContact, IsPartenaire = false
+    IsHome= false
+    IsAbout= false
+    IsContact= false, IsPartenaire= false
     //IsSelection = false
     IsResult = true
   } else if (currentPath.value === '#/about') {
-    IsHome, IsResult, IsContact, IsPartenaire = false
+    IsHome= false, IsResult= false, IsContact= false, IsPartenaire= false
     //IsSelection = false
     IsAbout = true
   } else if (currentPath.value === '#/contact'){
-    IsHome, IsResult, IsAbout, IsPartenaire = false
+    IsHome= false, IsResult= false, IsAbout= false, IsPartenaire= false
     //IsSelection = false
     IsContact = true
   } else if (currentPath.value === '#/partenaire'){
-    IsHome, IsResult, IsAbout, IsContact = false
+    IsHome= false, IsResult= false, IsAbout= false, IsContact= false
     //IsSelection = false
     IsPartenaire = true
   }

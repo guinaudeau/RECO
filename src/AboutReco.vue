@@ -85,62 +85,61 @@ const textuelCriteres = [
 </script>
 
 <style>
-    div.texte {
-    background-color: rgb(255, 255, 191);
-    margin: 2em auto;
-    padding: 2em 2.5em;
-    max-width: 900px;
-    font-size: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-    line-height: 1.7;
-    letter-spacing: 0.01em;
+div.texte {
+  background-color: rgb(255, 255, 191);
+  margin: 2em auto;
+  padding: 2em 2.5em;
+  max-width: 900px;
+  font-size: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  line-height: 1.7;
+  letter-spacing: 0.01em;
 }
 
 div.texte h3 {
-    text-align: left;
-    font-variant: small-caps;
-    margin-left: 0;
-    margin-bottom: 0.7em;
-    text-decoration: underline;
-    font-size: 1.5em;
-    color: #3a3a1a;
+  text-align: left;
+  font-variant: small-caps;
+  margin-bottom: 0.7em;
+  text-decoration: underline;
+  font-size: 1.5em;
+  color: #3a3a1a;
 }
 
 div.texte p {
-    margin-bottom: 1.2em;
-    margin-top: 0.5em;
-    text-align: justify;
+  margin-bottom: 1.2em;
+  margin-top: 0.5em;
+  text-align: justify;
 }
 
 h2 {
-    text-align: center;
-    margin-top: 2em;
-    margin-bottom: 1.5em;
-    font-size: 2.2em;
-    letter-spacing: 0.04em;
-    color: #2d2d0d;
+  text-align: center;
+  margin-top: 2em;
+  margin-bottom: 1.5em;
+  font-size: 2.2em;
+  letter-spacing: 0.04em;
+  color: #2d2d0d;
 }
 
+/* Mode sombre */
 html.dark div.texte {
-    background-color: #333;
-    color: #f3f3e0;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+  background-color: #333;
+  color: #f3f3e0;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.25);
 }
 
-html.dark div.texte h3 {
-    color: #ffe066;
-}
-
+html.dark div.texte h3,
 html.dark h2 {
-    color: #ffe066;
+  color: #ffe066;
 }
+
 div.content ul ul {
-  margin-left: 2em; /* Décale les sous-listes */
+  margin-left: 2em;
   background: #f9f9e0;
   border-radius: 8px;
   padding: 0.5em 1em;
 }
+
 html.dark div.content ul ul {
   background: #444;
 }
