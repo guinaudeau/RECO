@@ -115,10 +115,7 @@ const featureColumns = {
   ]
 }
 
-const featureKeys = [
-  "plot", "content", "video", "audio", "representation", "visuals",
-   "emotion", "character", "artistic", "structural", "comedy"
-]
+const featureKeys = Object.keys(featureColumns)
 
 // Fonction pour activer/désactiver toutes les sous-features d'un groupe
 function toggleFeatureGroup(key, checked) {
