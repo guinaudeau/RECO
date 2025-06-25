@@ -171,8 +171,9 @@ p {
     margin-bottom: 18px;
   }
 }
-
-.checkbox-wrapper-50 * {
+  .checkbox-wrapper-50 *,
+  .checkbox-wrapper-50 *::before,
+  .checkbox-wrapper-50 *::after {
   box-sizing: border-box;
 }
 
@@ -182,10 +183,14 @@ p {
   --duration: .5s;
   -webkit-appearance: none;
   -moz-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
   outline: none;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  transform-style: preserve-3d;
+  perspective: 240px;
   border-radius: 50%;
   width: 36px;
   height: 36px;
@@ -193,6 +198,8 @@ p {
   background-size: 300% 300%;
   transition: transform 0.3s;
   transform: scale(var(--scale, 1)) translateZ(0);
+  -webkit-animation: var(--name, unchecked-50) var(--duration) ease forwards;
+    animation: var(--name, unchecked-50) var(--duration) ease forwards;
   margin: 0;
 }
 
@@ -205,9 +212,13 @@ p {
   left: 6px;
   top: var(--top, 6px);
   background: var(--background, var(--primary));
+  -webkit-animation: var(--name-icon-b, var(--name-icon, unchecked-icon-50)) var(--duration) ease forwards;
+    animation: var(--name-icon-b, var(--name-icon, unchecked-icon-50)) var(--duration) ease forwards;
+
 }
 
 .checkbox-wrapper-50 .plus-minus::before {
+  -webkit-clip-path: polygon(0 6px, 6px 6px, 6px 0, 10px 0, 10px 6px, 16px 6px, 16px 10px, 10px 10px, 10px 16px, 6px 16px, 6px 10px, 0 10px);
   clip-path: polygon(0 6px, 6px 6px, 6px 0, 10px 0, 10px 6px, 16px 6px, 16px 10px, 10px 10px, 10px 16px, 6px 16px, 6px 10px, 0 10px);
 }
 
@@ -215,6 +226,8 @@ p {
   --height: 4px;
   --top: 12px;
   --background: var(--secondary);
+  --name-icon-b: var(--name-icon-a, checked-icon-50);
+
 }
 
 .checkbox-wrapper-50 .plus-minus:active {
@@ -267,6 +280,47 @@ p {
     padding: 12px;
   }
 }
+  @-webkit-keyframes checked-50 {
+    from {
+      background-image: radial-gradient(ellipse at center, var(--primary) 0%, var(--primary) 25%, var(--secondary) 25.1%, var(--secondary) 100%);
+      background-position: 100% 50%;
+    }
+    to {
+      background-image: radial-gradient(ellipse at center, var(--primary) 0%, var(--primary) 25%, var(--secondary) 25.1%, var(--secondary) 100%);
+      background-position: 50% 50%;
+    }
+  }
+  @keyframes checked-50 {
+    from {
+      background-image: radial-gradient(ellipse at center, var(--primary) 0%, var(--primary) 25%, var(--secondary) 25.1%, var(--secondary) 100%);
+      background-position: 100% 50%;
+    }    to {
+      background-image: radial-gradient(ellipse at center, var(--primary) 0%, var(--primary) 25%, var(--secondary) 25.1%, var(--secondary) 100%);
+      background-position: 50% 50%;
+    }
+  }
+  @-webkit-keyframes unchecked-50 {
+    from {
+      background-image: radial-gradient(ellipse at center, var(--secondary) 0%, var(--secondary) 25%, var(--primary) 25.1%, var(--primary) 100%);
+      background-position: 100% 50%;
+    }
+    to {
+      background-image: radial-gradient(ellipse at center, var(--secondary) 0%, var(--secondary) 25%, var(--primary) 25.1%, var(--primary) 100%);
+      background-position: 50% 50%;
+    }
+  }
+  @keyframes unchecked-50 {
+    from {
+      background-image: radial-gradient(ellipse at center, var(--secondary) 0%, var(--secondary) 25%, var(--primary) 25.1%, var(--primary) 100%);
+      background-position: 100% 50%;
+    }
+    to {
+      background-image: radial-gradient(ellipse at center, var(--secondary) 0%, var(--secondary) 25%, var(--primary) 25.1%, var(--primary) 100%);
+      background-position: 50% 50%;
+    }
+  }
+
+
 
 .series-grid {
   display: grid;

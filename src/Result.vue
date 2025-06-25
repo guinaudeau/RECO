@@ -294,34 +294,28 @@ function showDescription(item) {
         <button @click="editFeature = false">Annuler</button>
       </div>
     </div>
-    <table v-if="typeAffichage===1" class="similarities-table">
-      <caption>Tableau des similarités</caption>
-      <thead>
-        <tr>
-          <th>Série</th>
-          <th>Image</th>
-          <th>Description</th>
-          <th>Score de Similarité</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in similaritiesTable" :key="item.name">
-          <td :data-label="'Série'">{{ item.name }}</td>
-          <td :data-label="'Image'">
-            <img :src="item.image" alt="Image de la série" class="serie-image" />
-          </td>
-          <td :data-label="'Description'" class="description-cell">
+    <div v-if="typeAffichage===1" class="series-grid">
+      <div v-for="item in similaritiesTable" :key="item.name" class="serie-card">
+        <div class="serie-header">
+          <img :src="item.image" alt="Image de la série" class="serie-image" />
+          <h3 class="serie-title">{{ item.name }}</h3>
+        </div>
+        <div class="serie-body">
+          <div class="similarity-score">
+            <strong>Score de Similarité :</strong> {{ (item.similarity * 100).toFixed(2) }}%
+          </div>
+          <div class="serie-description">
             <span class="desc-text">{{ item.description }}</span>
-            <button class="desc-btn" @click="showDescription(item)" style="display:none">Voir description</button>
-          </td>
-          <td :data-label="'Score de Similarité'">{{ (item.similarity * 100).toFixed(2) }}%</td>
-          <td :data-label="'Action'">
-            <button @click="showFeatureSimilarities(item.featureSimilarities)">Voir Similarité par caractéristique</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <button class="desc-btn" @click="showDescription(item)">Voir description</button>
+          </div>
+        </div>
+        <div class="serie-actions">
+          <button @click="showFeatureSimilarities(item.featureSimilarities)">
+            Voir Similarité par caractéristique
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Affichage des résultats de la comparaison -->
     <div v-else-if="typeAffichage === 2 && comparisonResult" class="comparison-result">
@@ -533,5 +527,150 @@ h3 {
   .serie-image {
     display: none;
   }
+}
+
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px 20px;
+  margin: 30px auto 10px auto;
+  background: #c4e0ff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.15);
+  padding: 24px;
+}
+
+.serie-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+  padding: 18px 12px 12px 12px;
+  text-align: center;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s;
+}
+
+.serie-card:hover {
+  box-shadow: 0 6px 24px 0 rgba(0,0,0,0.18);
+}
+
+.serie-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.serie-title {
+  font-size: 1.2em;
+  margin: 8px 0 0 0;
+  color: #2d3a4a;
+}
+
+.serie-image {
+  max-width: 110px;
+  max-height: 160px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+  background: #f3f3f3;
+  transition: transform 0.3s;
+}
+
+.serie-image:hover {
+  transform: scale(1.08);
+}
+
+.similarity-score {
+  margin-bottom: 10px;
+  color: #007bff;
+  font-weight: 600;
+}
+
+.serie-description {
+  margin-bottom: 10px;
+}
+
+.desc-btn {
+  display: none;
+  margin-top: 6px;
+  background: #7dcfff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.serie-actions button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.06);
+  transition: background 0.2s, color 0.2s;
+}
+
+.serie-actions button:hover,
+.desc-btn:hover {
+  background: #2d3a4a;
+  color: #fff;
+}
+
+/* Responsive : description masquée sur mobile, bouton affiché */
+@media (max-width: 700px) {
+  .desc-text {
+    display: none;
+  }
+  .desc-btn {
+    display: inline-block;
+  }
+}
+
+/* Responsive : grille en colonne sur mobile */
+@media (max-width: 900px) {
+  .series-grid {
+    grid-template-columns: 1fr !important;
+    padding: 12px;
+  }
+}
+
+/* Encore plus petit : masquer l'image si besoin */
+@media (max-width: 500px) {
+  .serie-image {
+    display: none;
+  }
+}
+
+/* Mode sombre */
+html.dark .series-grid,
+html.dark .serie-card {
+  background: #232834;
+  color: #e6eaf3;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
+}
+
+html.dark .serie-card {
+  background: #232834;
+  color: #e6eaf3;
+}
+
+html.dark .serie-title {
+  color: #7dcfff;
+}
+
+html.dark .serie-image {
+  background: #232834;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.22);
 }
 </style>
