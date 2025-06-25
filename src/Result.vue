@@ -236,6 +236,11 @@ function showFeatureSimilarities(featureSimilarities) {
   alert(`Similarité par caractéristiques :\n${message}`)
 }
 
+// Fonction pour afficher la description d'une série
+function showDescription(item) {
+  alert(`Description de "${item.name}" : ${item.description}`)
+}
+
 </script>
 
 <template>
@@ -302,13 +307,16 @@ function showFeatureSimilarities(featureSimilarities) {
       </thead>
       <tbody>
         <tr v-for="item in similaritiesTable" :key="item.name">
-          <td>{{ item.name }}</td>
-          <td>
+          <td :data-label="'Série'">{{ item.name }}</td>
+          <td :data-label="'Image'">
             <img :src="item.image" alt="Image de la série" class="serie-image" />
           </td>
-          <td>{{ item.description }}</td>
-          <td>{{ (item.similarity * 100).toFixed(2) }}%</td>
-          <td>
+          <td :data-label="'Description'" class="description-cell">
+            <span class="desc-text">{{ item.description }}</span>
+            <button class="desc-btn" @click="showDescription(item)" style="display:none">Voir description</button>
+          </td>
+          <td :data-label="'Score de Similarité'">{{ (item.similarity * 100).toFixed(2) }}%</td>
+          <td :data-label="'Action'">
             <button @click="showFeatureSimilarities(item.featureSimilarities)">Voir Similarité par caractéristique</button>
           </td>
         </tr>
@@ -451,6 +459,7 @@ h3 {
   }
 }
 
+
 @media (max-width: 600px) {
   .checkbox-row {
     flex-direction: column;
@@ -473,5 +482,56 @@ h3 {
   display: flex;
   flex-direction: column;
   margin-bottom: 1em;
+}
+
+@media (max-width: 900px) {
+  table, thead, tbody, tr, th, td {
+    display: block;
+    width: 100%;
+  }
+  thead {
+    display: none;
+  }
+  tr {
+    margin-bottom: 22px;
+    background: #f3f3f3;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+    padding: 12px 0;
+  }
+  td {
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 10px 16px;
+    text-align: left;
+    min-width: 0;
+    position: relative;
+  }
+  td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+    color: #007bff;
+  }
+  .serie-image {
+    margin: 0 auto 10px auto;
+    display: block;
+  }
+  .desc-text {
+    display: none;
+  }
+  .desc-btn {
+    display: inline-block !important;
+    margin-top: 6px;
+  }
+}
+
+/* Encore plus petit : masquer l'image si besoin */
+@media (max-width: 500px) {
+  .serie-image {
+    display: none;
+  }
 }
 </style>

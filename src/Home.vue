@@ -222,8 +222,44 @@ p {
 }
 
 .checkbox-wrapper-50 .plus-minus:checked {
-  /* Animation states handled by keyframes below */
-}
+      --name: checked-50;
+    --name-icon-b: checked-icon-50;
+    --name-icon-a: unchecked-icon-50;
+  }
+
+  @-webkit-keyframes checked-icon-50 {
+    from {
+      transform: translateZ(12px);
+    }
+    to {
+      transform: translateX(16px) rotateY(90deg) translateZ(12px);
+    }
+  }
+
+  @keyframes checked-icon-50 {
+    from {
+      transform: translateZ(12px);
+    }
+    to {
+      transform: translateX(16px) rotateY(90deg) translateZ(12px);
+    }
+  }
+  @-webkit-keyframes unchecked-icon-50 {
+    from {
+      transform: translateX(-16px) rotateY(-90deg) translateZ(12px);
+    }
+    to {
+      transform: translateZ(12px);
+    }
+  }
+  @keyframes unchecked-icon-50 {
+    from {
+      transform: translateX(-16px) rotateY(-90deg) translateZ(12px);
+    }
+    to {
+      transform: translateZ(12px);
+    }
+  }
 
 @media (max-width: 900px) {
   .series-grid {
