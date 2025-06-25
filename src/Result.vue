@@ -628,7 +628,7 @@ h3 {
 }
 
 /* Responsive : description masquée sur mobile, bouton affiché */
-@media (max-width: 700px) {
+@media (max-width: 500px) {
   .desc-text {
     display: none;
   }
@@ -645,12 +645,6 @@ h3 {
   }
 }
 
-/* Encore plus petit : masquer l'image si besoin */
-@media (max-width: 500px) {
-  .serie-image {
-    display: none;
-  }
-}
 
 /* Mode sombre */
 html.dark .series-grid,
