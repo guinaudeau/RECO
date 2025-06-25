@@ -330,7 +330,6 @@ function showFeatureSimilarities(featureSimilarities) {
 </template>
 
 <style>
-/* Styles pour le tableau */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -350,7 +349,6 @@ td {
   max-height: 150px;
 }
 
-/* Styles pour les boutons */
 button {
   padding: 5px 10px;
   background-color: #007bff;
@@ -358,13 +356,13 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
 button:hover {
   background-color: #0056b3;
 }
 
-/* Styles pour la section de comparaison */
 .comparison-result {
   margin-top: 20px;
   padding: 15px;
@@ -374,12 +372,10 @@ button:hover {
   color: var(--text-color, #000);
 }
 
-/* Titre de la section */
 .comparison-result h3 {
   margin-bottom: 10px;
 }
 
-/* Liste des similarités */
 .comparison-result ul {
   list-style-type: none;
   padding: 0;
@@ -389,37 +385,18 @@ button:hover {
   margin-bottom: 5px;
 }
 
-/* Mode sombre */
 html.dark .comparison-result {
   --background-color: #333;
   --text-color: #00c7ec;
   --border-color: #555;
 }
 
-/* Styles pour la personnalisation */
 #personnalisation {
   margin-bottom: 20px;
 }
 
 h3 {
   margin-top: 0;
-}
-
-/* Ligne principale des checkboxes */
-.main-checkbox-row {
-  display: flex;
-  gap: 2em;
-  justify-content: center;
-  margin-bottom: 1em;
-}
-
-/* Grille des checkboxes */
-.checkbox-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1em 2em;
-  margin-bottom: 1em;
-  justify-items: start;
 }
 
 /* Grille multi-lignes pour les critères principaux */
@@ -485,7 +462,6 @@ h3 {
   }
 }
 
-/* Éléments individuels de la checkbox */
 .checkbox-item {
   display: flex;
   align-items: center;
