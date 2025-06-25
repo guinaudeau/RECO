@@ -39,43 +39,42 @@
 
 </template>
 <style>
-img{
+img {
   max-width: 100%;
   height: auto;
 }
+
 a {
-  font-size:20px;
-  max-width:200px;
-  height:auto;
-  padding:0;
-  display:inline-block;
-  text-align:center;
-  border-radius:50%;
-  margin:0 8px;
-  color:#fff;
-  opacity:0.75;
+  font-size: 20px;
+  max-width: 200px;
+  height: auto;
+  padding: 0;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  margin: 0 8px;
+  color: #fff;
+  opacity: 0.75;
+  transition: opacity 0.2s, box-shadow 0.2s;
 }
+
 a:hover {
-  opacity:1;
-  box-shadow:0 0 0 1px rgba(255,255,255,0.8);
+  opacity: 1;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.8);
 }
-div.pair {
+
+div.pair,
+div.impair {
   display: flex;
   flex-direction: row;
-  align-items: left;
+  align-items: center;
   justify-content: space-evenly;
   margin-bottom: 20px;
 }
-div.impair{
-  display: flex;
-  flex-direction: row;
-  align-items: right;
-  justify-content: space-evenly;
-  margin-bottom: 20px;
-}
+
 div.description {
   max-width: 400px;
   margin-right: 20px;
-  text-align:center
+  text-align: center;
 }
 </style>
