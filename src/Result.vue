@@ -146,6 +146,8 @@ function calculerSimilaritesPourUneSerie(serie_name) {
   similaritiesTable.value = props.series
     .filter(serie => serie.name !== serie_name)
     .map(serie => {
+      let totalWeight = 0
+      let weightedSum = 0
       const featureSimilarities = featureKeys.map(key => {
         const cols = featureColumns[key] || []
         const activeCols = cols.filter(col => localSliders.value[col] === "1")
@@ -153,13 +155,13 @@ function calculerSimilaritesPourUneSerie(serie_name) {
         const featureVectorA = getFeatures(selectedSerie.name, [key])
         const featureVectorB = getFeatures(serie.name, [key])
         const similarity = cosineSimilarity(featureVectorA, featureVectorB)
-        return { key, similarity, count: activeCols.length }
+        const weight = parseFloat(localSliders.value[key]) || 0
+        weightedSum += similarity * weight
+        totalWeight += weight
+        return { key, similarity, count: activeCols.length, weight }
       }).filter(Boolean)
 
-      // Moyenne simple des similarités de features actives
-      const meanSimilarity = featureSimilarities.length > 0
-        ? featureSimilarities.reduce((sum, feature) => sum + feature.similarity, 0) / featureSimilarities.length
-        : 0
+      const meanSimilarity = totalWeight > 0 ? weightedSum / totalWeight : 0
 
       return {
         name: serie.name,
@@ -175,6 +177,8 @@ function calculerSimilaritesPourUneSerie(serie_name) {
 
 // Fonction pour calculer la similarité entre deux séries (moyenne simple)
 function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
+  let totalWeight = 0
+  let weightedSum = 0
   const featureSimilarities = featureKeys.map(key => {
     const cols = featureColumns[key] || []
     const activeCols = cols.filter(col => localSliders.value[col] === "1")
@@ -182,12 +186,13 @@ function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
     const featureVectorA = getFeatures(serie1Name, [key])
     const featureVectorB = getFeatures(serie2Name, [key])
     const similarity = cosineSimilarity(featureVectorA, featureVectorB)
-    return { key, similarity, count: activeCols.length }
+    const weight = parseFloat(localSliders.value[key]) || 0
+    weightedSum += similarity * weight
+    totalWeight += weight
+    return { key, similarity, count: activeCols.length, weight }
   }).filter(Boolean)
 
-  const meanSimilarity = featureSimilarities.length > 0
-    ? featureSimilarities.reduce((sum, feature) => sum + feature.similarity, 0) / featureSimilarities.length
-    : 0
+  const meanSimilarity = totalWeight > 0 ? weightedSum / totalWeight : 0
 
   // Stocker le résultat dans comparisonResult
   comparisonResult.value = {
@@ -249,25 +254,27 @@ function showDescription(item) {
         <button @click="validerChanges">Valider les changements</button>
         <h3>Personnalisation des critères</h3>
         <!-- Grille pour les critères principaux, répartie sur 4 par ligne -->
-        <div class="checkbox-grid-multi">
+        <div class="slider-grid-multi">
           <div
-            class="checkbox-row"
+            class="slider-row"
             v-for="row in Math.ceil(featureKeys.length / 4)"
             :key="row"
           >
             <div
               v-for="key in featureKeys.slice((row - 1) * 4, row * 4)"
               :key="key"
+              class="slider-col"
             >
-              <label class="feature-title-checkbox">
-                <input
-                  type="checkbox"
-                  v-model="localSliders[key]"
-                  true-value="1"
-                  false-value="0"
-                  @change="toggleFeatureGroup(key, $event.target.checked)"
-                />
+              <label class="feature-title-slider">
                 <strong>{{ key }}</strong>
+                <input
+                  type="range"
+                  v-model.number="localSliders[key]"
+                  min="0"
+                  max="2"
+                  step="0.01"
+                />
+                <span class="slider-value">{{ localSliders[key] }}</span>
               </label>
               <div class="checkbox-col">
                 <label
@@ -663,5 +670,41 @@ html.dark .serie-title {
 html.dark .serie-image {
   background: #232834;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.22);
+}
+
+.slider-grid-multi {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+.slider-row {
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.slider-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  min-width: 180px;
+  flex: 1 1 180px;
+  max-width: 250px;
+}
+.feature-title-slider {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  margin-bottom: 0.5em;
+}
+.slider-value {
+  min-width: 2.5em;
+  text-align: right;
+  font-family: monospace;
+  color: #007bff;
+}
+input[type="range"] {
+  width: 90px;
 }
 </style>
