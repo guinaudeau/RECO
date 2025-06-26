@@ -233,6 +233,12 @@ function showDescription(item) {
   alert(`Description de "${item.name}" : ${item.description}`)
 }
 
+const openGroups = ref({})
+
+// Initialiser tous fermés
+featureKeys.forEach(key => {
+  openGroups.value[key] = false
+})
 </script>
 
 <template>
@@ -265,22 +271,31 @@ function showDescription(item) {
                   step="0.01"
                 />
                 <span class="slider-value">{{ localSliders[key] }}</span>
-              </label>
-              <div class="checkbox-col">
-                <label
-                  v-for="col in featureColumns[key]"
-                  :key="col"
-                  class="checkbox-item"
+                <button
+                  type="button"
+                  class="toggle-features-btn"
+                  @click="openGroups[key] = !openGroups[key]"
                 >
-                  <input
-                    type="checkbox"
-                    v-model="localSliders[col]"
-                    true-value="1"
-                    false-value="0"
-                  />
-                  {{ col }}
-                </label>
-              </div>
+                  {{ openGroups[key] ? '▲' : '▼' }}
+                </button>
+              </label>
+              <transition name="fade">
+                <div class="checkbox-col" v-show="openGroups[key]">
+                  <label
+                    v-for="col in featureColumns[key]"
+                    :key="col"
+                    class="checkbox-item"
+                  >
+                    <input
+                      type="checkbox"
+                      v-model="localSliders[col]"
+                      true-value="1"
+                      false-value="0"
+                    />
+                    {{ col }}
+                  </label>
+                </div>
+              </transition>
             </div>
           </div>
         </div>
