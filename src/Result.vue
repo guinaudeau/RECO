@@ -117,12 +117,12 @@ const featureColumns = {
 
 const featureKeys = Object.keys(featureColumns)
 
-// Fonction pour activer/désactiver toutes les sous-features d'un groupe
+/* Fonction pour activer/désactiver toutes les sous-features d'un groupe
 function toggleFeatureGroup(key, checked) {
   (featureColumns[key] || []).forEach(col => {
     localSliders.value[col] = checked ? "1" : "0"
   })
-}
+}*/
 
 // Fonction pour récupérer les caractéristiques d'une série selon le mapping (pas de pondération)
 function getFeatures(serieName, featureKeys) {
