@@ -135,7 +135,7 @@ function getFeatures(serieName, key) {
     .map(col => parseFloat(serie[col]) || 0)
 }
 
-// Fonction pour calculer les similarités pour une série donnée (moyenne simple)
+// Fonction pour calculer les similarités pour une série donnée (moyenne simple, sans pondération)
 function calculerSimilaritesPourUneSerie(serie_name) {
   const selectedSerie = props.series.find(serie => serie.name === serie_name)
   if (!selectedSerie) return
@@ -143,20 +143,19 @@ function calculerSimilaritesPourUneSerie(serie_name) {
   similaritiesTable.value = props.series
     .filter(serie => serie.name !== serie_name)
     .map(serie => {
-      let totalWeight = 0
-      let weightedSum = 0
+      let sum = 0
+      let count = 0
       const featureSimilarities = featureKeys.map(key => {
         const vectorA = getFeatures(selectedSerie.name, key)
         const vectorB = getFeatures(serie.name, key)
         if (vectorA.length === 0 || vectorB.length === 0) return null
         const similarity = cosineSimilarity(vectorA, vectorB)
-        const weight = parseFloat(localSliders.value[key]) || 0
-        weightedSum += similarity * weight
-        totalWeight += weight
-        return { key, similarity, count: vectorA.length, weight }
+        sum += similarity
+        count++
+        return { key, similarity, count: vectorA.length }
       }).filter(Boolean)
 
-      const meanSimilarity = totalWeight > 0 ? weightedSum / totalWeight : 0
+      const meanSimilarity = count > 0 ? sum / count : 0
 
       return {
         name: serie.name,
@@ -170,22 +169,21 @@ function calculerSimilaritesPourUneSerie(serie_name) {
   similaritiesTable.value.sort((a, b) => b.similarity - a.similarity)
 }
 
-// Fonction pour calculer la similarité entre deux séries (moyenne simple)
+// Fonction pour calculer la similarité entre deux séries (moyenne simple, sans pondération)
 function calculerSimilaritesEntreDeuxSeries(serie1Name, serie2Name) {
-  let totalWeight = 0
-  let weightedSum = 0
+  let sum = 0
+  let count = 0
   const featureSimilarities = featureKeys.map(key => {
     const vectorA = getFeatures(serie1Name, key)
     const vectorB = getFeatures(serie2Name, key)
     if (vectorA.length === 0 || vectorB.length === 0) return null
     const similarity = cosineSimilarity(vectorA, vectorB)
-    const weight = parseFloat(localSliders.value[key]) || 0
-    weightedSum += similarity * weight
-    totalWeight += weight
-    return { key, similarity, count: vectorA.length, weight }
+    sum += similarity
+    count++
+    return { key, similarity, count: vectorA.length }
   }).filter(Boolean)
 
-  const meanSimilarity = totalWeight > 0 ? weightedSum / totalWeight : 0
+  const meanSimilarity = count > 0 ? sum / count : 0
 
   comparisonResult.value = {
     serie1Name,
