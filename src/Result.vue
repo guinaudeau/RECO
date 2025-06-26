@@ -692,24 +692,57 @@ html.dark .serie-image {
 .slider-col {
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
-  min-width: 180px;
-  flex: 1 1 180px;
-  max-width: 250px;
+  gap: 0.8em;
+  min-width: 210px;
+  max-width: 260px;
+  flex: 1 1 220px;
+  box-sizing: border-box;
 }
 .feature-title-slider {
   display: flex;
   align-items: center;
   gap: 0.7em;
   margin-bottom: 0.5em;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.feature-title-slider strong {
+  flex: 1 1 80px;
+  min-width: 80px;
+  max-width: 120px;
+  word-break: break-word;
+}
+input[type="range"] {
+  width: 90px;
+  min-width: 70px;
+  margin: 0 8px;
+  flex-shrink: 0;
 }
 .slider-value {
   min-width: 2.5em;
   text-align: right;
   font-family: monospace;
   color: #007bff;
+  flex-shrink: 0;
 }
-input[type="range"] {
-  width: 90px;
+.toggle-features-btn {
+  margin-left: 0.5em;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .slider-row {
+    flex-direction: column;
+    gap: 1em;
+  }
+  .slider-col {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  .feature-title-slider {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+  }
 }
 </style>
