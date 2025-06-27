@@ -8,13 +8,54 @@ const similaritiesTable = ref([]) // Tableau des similarités
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
 let editFeature = ref(false) // État pour afficher/masquer la personnalisation
 
+// Mapping des features vers les colonnes du CSV
+const featureColumns = {
+  plot: [
+    "Plot complexity", "Language level", "Character development", "Originality of the plot", "Themes of good and evil",
+    "Deception", "Personal emancipation trajectories", "Collective struggles", "Found families theme",
+    "Shakespearean human issues", "Brutal realism"
+  ],
+  content: [
+    "Wokeness", "Historical restitution accuracy", "Multiple characters", "Disabilities", "Politics",
+    "Security issues", "Environmental issues", "Investigation", "Thought-provoking series", "Religion", "Travel"
+  ],
+  character: [
+    "Female characters", "Diversity", "Multigenerational", "Animals"
+  ],
+  representation: [
+    "Graphic nature", "Sexual violence", "Violence", "Vulgar dialogues"
+  ],
+  visuals: [
+    "Urban atmosphere", "Rurality", "Wilderness", "Space", "Diversity of locations"
+  ],
+  comedy: [
+    "Humor", "Dark humor", "Satire"
+  ],
+  emotion: [
+    "Nostalgia factor", "Romantic elements", "Feel good", "Dark", "Cute"
+  ],
+  artistic: [
+    "Presence of music", "Language diversity", "Cultural references", "Food"
+  ],
+  structural: [
+    "Suspense", "Action elements", "Everyday life"
+  ],
+  audio: [
+    "NoEnergy", "Music", "Noise", "Voice", "F/H"
+  ],
+  video: [
+    "Mean Brightness", "STDÊ Brightness", "MinÊ Brightness", "MaxÊ Brightness", "Mean Contrast", "STDÊ Contrast", "MinÊ Contrast", "MaxÊ Contrast", "Mean Saturation", "STDÊ Saturation", "MinÊ Saturation", "MaxÊ Saturation", "Heat", "Scene/Seconds", "Plans tres rapide", "Plans courts", "Plans moyens", "Plans longs", "Plans tres longs", "Optical Flow Max", "Optical Flow Score", "Optical Flow STD"
+  ]
+}
+const featureKeys = Object.keys(featureColumns)
+
 // Initialiser tous les sliders à "1" (tout coché par défaut, y compris les features principales)
 function getDefaultSliders() {
   const sliders = {};
   featureKeys.forEach(key => {
-    sliders[key] = "1"; // <-- Active tous les sliders principaux par défaut
+    sliders[key] = "1";
     (featureColumns[key] || []).forEach(col => {
-      sliders[col] = "1"; // Active aussi toutes les sous-features par défaut
+      sliders[col] = "1";
     })
   })
   return sliders;
@@ -74,55 +115,6 @@ function cosineSimilarity(A, B) {
   const result = dotproduct / denom;
   return isNaN(result) ? 0 : result;
 }
-
-// Mapping des features vers les colonnes du CSV
-const featureColumns = {
-  plot: [
-    "Plot complexity", "Language level", "Character development", "Originality of the plot", "Themes of good and evil",
-    "Deception", "Personal emancipation trajectories", "Collective struggles", "Found families theme",
-    "Shakespearean human issues", "Brutal realism"
-  ],
-  content: [
-    "Wokeness", "Historical restitution accuracy", "Multiple characters", "Disabilities", "Politics",
-    "Security issues", "Environmental issues", "Investigation", "Thought-provoking series", "Religion", "Travel"
-  ],
-  character: [
-    "Female characters", "Diversity", "Multigenerational", "Animals"
-  ],
-  representation: [
-    "Graphic nature", "Sexual violence", "Violence", "Vulgar dialogues"
-  ],
-  visuals: [
-    "Urban atmosphere", "Rurality", "Wilderness", "Space", "Diversity of locations"
-  ],
-  comedy: [
-    "Humor", "Dark humor", "Satire"
-  ],
-  emotion: [
-    "Nostalgia factor", "Romantic elements", "Feel good", "Dark", "Cute"
-  ],
-  artistic: [
-    "Presence of music", "Language diversity", "Cultural references", "Food"
-  ],
-  structural: [
-    "Suspense", "Action elements", "Everyday life"
-  ],
-  audio: [
-    "NoEnergy", "Music", "Noise", "Voice", "F/H"
-  ],
-  video: [
-    "Mean Brightness", "STDÊ Brightness", "MinÊ Brightness", "MaxÊ Brightness", "Mean Contrast", "STDÊ Contrast", "MinÊ Contrast", "MaxÊ Contrast", "Mean Saturation", "STDÊ Saturation", "MinÊ Saturation", "MaxÊ Saturation", "Heat", "Scene/Seconds", "Plans tres rapide", "Plans courts", "Plans moyens", "Plans longs", "Plans tres longs", "Optical Flow Max", "Optical Flow Score", "Optical Flow STD"
-  ]
-}
-
-const featureKeys = Object.keys(featureColumns)
-
-/* Fonction pour activer/désactiver toutes les sous-features d'un groupe
-function toggleFeatureGroup(key, checked) {
-  (featureColumns[key] || []).forEach(col => {
-    localSliders.value[col] = checked ? "1" : "0"
-  })
-}*/
 
 // Fonction pour récupérer les caractéristiques d'une série selon le mapping (pas de pondération)
 function getFeatures(serieName, key) {
