@@ -73,10 +73,13 @@ if (props.sliders && Object.keys(props.sliders).length) {
 
 // Quand on ouvre la personnalisation, synchroniser la copie locale
 function openEdit() {
-  // On convertit toutes les valeurs en string "1" ou "0"
-  localSliders.value = Object.fromEntries(
-    Object.entries(props.sliders).map(([k, v]) => [k, v === 1 ? "1" : v === 0 ? "0" : String(v)])
-  )
+  // Fusionne les valeurs par défaut avec celles du parent
+  localSliders.value = {
+    ...getDefaultSliders(),
+    ...Object.fromEntries(
+      Object.entries(props.sliders).map(([k, v]) => [k, v === 1 ? "1" : v === 0 ? "0" : String(v)])
+    )
+  }
   editFeature.value = true
 }
 
