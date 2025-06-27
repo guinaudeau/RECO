@@ -111,25 +111,22 @@ let IsPartenaire = false
 function changementVus() {
   if (currentPath.value === '#/') {
     IsHome = true
-    //IsSelection = false
     IsResult= false, IsAbout= false, IsContact= false, IsPartenaire= false
   } else if (currentPath.value === '#/Resultat') {
-    IsHome= false
-    IsAbout= false
-    IsContact= false, IsPartenaire= false
-    //IsSelection = false
+    IsHome= false, IsAbout= false, IsContact= false, IsPartenaire= false
     IsResult = true
+
   } else if (currentPath.value === '#/about') {
     IsHome= false, IsResult= false, IsContact= false, IsPartenaire= false
-    //IsSelection = false
     IsAbout = true
+
   } else if (currentPath.value === '#/contact'){
     IsHome= false, IsResult= false, IsAbout= false, IsPartenaire= false
-    //IsSelection = false
+
     IsContact = true
   } else if (currentPath.value === '#/partenaire'){
     IsHome= false, IsResult= false, IsAbout= false, IsContact= false
-    //IsSelection = false
+    
     IsPartenaire = true
   }
 }
@@ -152,7 +149,7 @@ function toggleNav() {
     <h1 class="header-title">RECO+</h1>
     <nav class="main-nav" :class="{ open: navOpen }">
       <a href="#/" v-if="!IsHome"><button>Catalogue</button></a>
-      <a href="#/Resultat" v-if="!IsResult && !IsAbout"><button>Résultats</button></a>
+      <a href="#/Resultat" v-if="!IsResult"><button>Résultats</button></a>
       <a href="#/about" v-if="!IsAbout"><button>À propos</button></a>
       <a href="#/contact" v-if="!IsContact"><button>nous Contacter</button></a>
       <a href="#/partenaire" v-if="!IsPartenaire"><button>Partenaire</button></a>
