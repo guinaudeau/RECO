@@ -76,7 +76,7 @@ div.description {
   margin-right: 20px;
   text-align: center;
 }
-.container {
+.partenaire {
   background: #f0f9ff;
   width: 100%;
   padding: 25px 40px 10px 40px;
