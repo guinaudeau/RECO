@@ -249,15 +249,15 @@ featureKeys.forEach(key => {
       <div v-if="editFeature">
         <button @click="validerChanges">Valider les changements</button>
         <h3>Personnalisation des critères</h3>
-        <!-- Grille pour les critères principaux, répartie sur 4 par ligne -->
+        <!-- Grille pour les critères principaux, répartie sur 3 par ligne -->
         <div class="slider-grid-multi">
           <div
             class="slider-row"
-            v-for="row in Math.ceil(featureKeys.length / 4)"
+            v-for="row in Math.ceil(featureKeys.length / 3)"
             :key="row"
           >
             <div
-              v-for="key in featureKeys.slice((row - 1) * 4, row * 4)"
+              v-for="key in featureKeys.slice((row - 1) * 3, row * 3)"
               :key="key"
               class="slider-col"
             >

@@ -110,8 +110,9 @@ let IsContact = false
 let IsPartenaire = false
 function changementVus() {
   if (currentPath.value === '#/') {
-    IsHome = true
     IsResult= false, IsAbout= false, IsContact= false, IsPartenaire= false
+    IsHome = true
+
   } else if (currentPath.value === '#/Resultat') {
     IsHome= false, IsAbout= false, IsContact= false, IsPartenaire= false
     IsResult = true
@@ -122,12 +123,12 @@ function changementVus() {
 
   } else if (currentPath.value === '#/contact'){
     IsHome= false, IsResult= false, IsAbout= false, IsPartenaire= false
-
     IsContact = true
+
   } else if (currentPath.value === '#/partenaire'){
     IsHome= false, IsResult= false, IsAbout= false, IsContact= false
-    
     IsPartenaire = true
+
   }
 }
 changementVus()
