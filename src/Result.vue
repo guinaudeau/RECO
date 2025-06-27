@@ -531,13 +531,6 @@ h3 {
   }
 }
 
-/* Encore plus petit : masquer l'image si besoin */
-@media (max-width: 500px) {
-  .serie-image {
-    display: none;
-  }
-}
-
 .series-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -739,10 +732,24 @@ input[type="range"] {
     min-width: 100%;
     max-width: 100%;
   }
+  
   .feature-title-slider {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
     gap: 0.5em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .checkbox-col {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+    background: #f8fafd;
+    border-radius: 8px;
+    padding: 0.5em 0.7em;
+    margin-bottom: 0.5em;
+    box-sizing: border-box;
   }
 }
 </style>
