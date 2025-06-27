@@ -62,11 +62,14 @@ function getDefaultSliders() {
 }
 
 // Copie locale pour l'édition (tout coché par défaut si vide)
-const localSliders = ref(
-  Object.keys(props.sliders || {}).length
-    ? Object.fromEntries(Object.entries(props.sliders).map(([k, v]) => [k, v === 1 ? "1" : v === 0 ? "0" : v]))
-    : (getDefaultSliders())
-)
+const localSliders = ref(getDefaultSliders())
+
+// Si props.sliders est fourni et non vide, écrase les valeurs par défaut
+if (props.sliders && Object.keys(props.sliders).length) {
+  Object.entries(props.sliders).forEach(([k, v]) => {
+    localSliders.value[k] = v === 1 ? "1" : v === 0 ? "0" : String(v)
+  })
+}
 
 // Quand on ouvre la personnalisation, synchroniser la copie locale
 function openEdit() {

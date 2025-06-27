@@ -22,11 +22,7 @@ const emailjsConfig = {
 
 const series = ref([]) // Stocker les séries chargées
 const characteristics = ref([]) // Stocker les caractéristiques chargées
-const sliders = ref({
-  llama_Synopsis: 1,
-  audio: 1,
-  vidéo: 1
-})
+const sliders = ref({}) 
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
