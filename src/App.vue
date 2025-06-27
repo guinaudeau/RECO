@@ -2,7 +2,6 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useDark, useToggle } from '@vueuse/core'
 import Home from './Home.vue'
-import SelectionPuissance from './SelectionPuissance.vue'
 import Resultat from './Result.vue'
 import AboutReco from './AboutReco.vue'
 import Papa from 'papaparse'
@@ -83,7 +82,6 @@ watch(characteristicsColumns, (cols) => {
 // Gestion des routes
 const routes = {
   '/': Home,
-  '/SelectionPuissance': SelectionPuissance, // invisible mais nécessaire pour la déclaration des caractéristiques (on peut toujours y accéder via l'url)
   '/Resultat': Resultat,
   '/about': AboutReco,
   '/contact': Contact,
@@ -115,9 +113,6 @@ function changementVus() {
     IsHome = true
     //IsSelection = false
     IsResult= false, IsAbout= false, IsContact= false, IsPartenaire= false
-  } else if (currentPath.value === '#/SelectionPuissance') {
-    IsHome= false, IsResult= false, IsAbout= false, IsContact= false, IsPartenaire= false
-    //IsSelection = true
   } else if (currentPath.value === '#/Resultat') {
     IsHome= false
     IsAbout= false
@@ -157,7 +152,6 @@ function toggleNav() {
     <h1 class="header-title">RECO+</h1>
     <nav class="main-nav" :class="{ open: navOpen }">
       <a href="#/" v-if="!IsHome"><button>Catalogue</button></a>
-      <!--<a href="#/SelectionPuissance" v-if="!IsSelection"><button>Personnalisation</button></a>-->
       <a href="#/Resultat" v-if="!IsResult && !IsAbout"><button>Résultats</button></a>
       <a href="#/about" v-if="!IsAbout"><button>À propos</button></a>
       <a href="#/contact" v-if="!IsContact"><button>nous Contacter</button></a>

@@ -704,6 +704,7 @@ html.dark .serie-image {
   max-width: 120px;
   word-break: break-word;
 }
+
 input[type="range"] {
   width: 90px;
   min-width: 70px;
