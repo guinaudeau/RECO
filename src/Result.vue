@@ -267,7 +267,7 @@ featureKeys.forEach(key => {
                   type="range"
                   v-model.number="localSliders[key]"
                   min="0"
-                  max="2"
+                  max="5"
                   step="0.01"
                 />
                 <span class="slider-value">{{ localSliders[key] }}</span>
