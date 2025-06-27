@@ -12,9 +12,9 @@ let editFeature = ref(false) // État pour afficher/masquer la personnalisation
 function getDefaultSliders() {
   const sliders = {};
   featureKeys.forEach(key => {
-    sliders[key] = "1" ;
+    sliders[key] = "1"; // <-- Active tous les sliders principaux par défaut
     (featureColumns[key] || []).forEach(col => {
-      sliders[col] = "1";
+      sliders[col] = "1"; // Active aussi toutes les sous-features par défaut
     })
   })
   return sliders;
@@ -225,7 +225,7 @@ onActivated(async () => {
 // Fonction pour afficher la similarité pour chaque feature
 function showFeatureSimilarities(featureSimilarities) {
   const message = featureSimilarities
-    .map(feature => `${feature.key} : ${(feature.similarity * 100).toFixed(2)}%`)
+    .map(feature => `${feature.key} : ${(feature.similarity * 100).toFixed(2)}% (poids : ${feature.weight ?? localSliders.value[feature.key]})`)
     .join('\n')
   alert(`Similarité par caractéristiques :\n${message}`)
 }
