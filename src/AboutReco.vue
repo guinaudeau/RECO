@@ -151,4 +151,7 @@ html.dark div.content ul ul {
   padding: 25px 40px 10px 40px;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 }
+.dark .container {
+  background: #181c23;
+}
 </style>
