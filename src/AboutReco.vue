@@ -145,4 +145,10 @@ div.content ul ul {
 html.dark div.content ul ul {
   background: #444;
 }
+.container {
+  background: #f0f9ff;
+  width: 100%;
+  padding: 25px 40px 10px 40px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
 </style>
