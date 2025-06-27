@@ -18,7 +18,7 @@ Les critères, obtenus par des approches d'intelligence artificielle à l'état 
 Pour les 50 critères calculés à partir de la modalité textuelle, nous utilisons le LLM ChatGPT d'OpenAI pour évaluer la présence et la pertinence de thèmes sémantiques spécifiques, tels que la violence, la politique ou le suspense, dans les sous-titres et les audio-description. Le modèle est alimenté avec une liste de 50 thèmes prédéfinis, chacun accompagné d'une définition claire. Pour chaque entrée, il attribue un score de pertinence compris entre 0 et 1000, reflétant le degré d'expression du thème correspondant dans le texte. Cette stratégie permet au modèle d'effectuer des évaluations ciblées et interprétables, tout en minimisant le risque d'hallucinations en lui permettant d'ignorer les thèmes qu'il ne peut pas évaluer avec certitude.
       </p>
     </div>
-    <div class=content>
+    <div class=container>
       <ul>
         <li>
           <h4>

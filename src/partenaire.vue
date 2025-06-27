@@ -3,7 +3,7 @@
 <template>
 <div class="partenaire">
   <h2>Partenaire</h2>
-  <div class="content">
+  <div class="container">
         <p>projet réalisé en partenaria avec :</p>
         <div class="pair">
             <div class="description">
@@ -53,7 +53,6 @@ a {
   text-align: center;
   border-radius: 50%;
   margin: 0 8px;
-  color: #fff;
   opacity: 0.75;
   transition: opacity 0.2s, box-shadow 0.2s;
 }
@@ -76,5 +75,11 @@ div.description {
   max-width: 400px;
   margin-right: 20px;
   text-align: center;
+}
+.container {
+  background: #f0f9ff;
+  width: 100%;
+  padding: 25px 40px 10px 40px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 }
 </style>
