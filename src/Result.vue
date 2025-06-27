@@ -688,7 +688,6 @@ html.dark .serie-image {
   gap: 0.8em;
   min-width: 210px;
   max-width: 260px;
-  flex: 1 1 220px;
   box-sizing: border-box;
 }
 .feature-title-slider {
@@ -738,14 +737,13 @@ input[type="range"] {
     align-items: center;
     gap: 0.5em;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /* justify-content: space-between; */
   }
   .checkbox-col {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.3em;
-    background: #f8fafd;
     border-radius: 8px;
     padding: 0.5em 0.7em;
     margin-bottom: 0.5em;
