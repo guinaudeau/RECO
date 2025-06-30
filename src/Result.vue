@@ -237,6 +237,7 @@ onActivated(async () => {
     console.log('Caractéristiques disponibles :', props.characteristics)
     // Vérifier si la liste des séries sélectionnées est vide
     const selectedSeries = props.series.filter(serie => serie.checked)
+    
     if (selectedSeries.length === 0) {
       // Rediriger vers Home si aucune série n'est sélectionnée
       window.location.hash = '#/'
@@ -771,6 +772,8 @@ html.dark .serie-image {
   min-width: 210px;
   max-width: 260px;
   box-sizing: border-box;
+
+  
 }
 .feature-title-slider {
   display: flex;
