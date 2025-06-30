@@ -147,6 +147,29 @@ function cosineSimilarity(A, B) {
   return isNaN(result) ? 0 : result;
 }
 
+// Fonction pour récupérer les caractéristiques d'une série selon le mapping (pas de pondération)
+function getFeatures(serieName, key) {
+  const serie = props.characteristics.find(item => item["Serie"] === serieName)
+  if (!serie) return []
+  if (key === 'texte') {
+    // Pour texte, concaténer tous les sous-features activés de chaque ancienne feature principale
+    let values = []
+    featureColumns.texte.forEach(group => {
+      if (localSliders.value[group.key] === "1") {
+        values.push(
+          ...group.sub.filter(col => localSliders.value[col] === "1").map(col => parseFloat(serie[col]) || 0)
+        )
+      }
+    })
+    return values
+  } else {
+    // audio ou video
+    return (featureColumns[key] || [])
+      .filter(col => localSliders.value[col] === "1")
+      .map(col => parseFloat(serie[col]) || 0)
+  }
+}
+
 // Fonction pour calculer les similarités pour une série donnée (avec pondération)
 function calculerSimilaritesPourUneSerie(serie_name) {
   const selectedSerie = props.series.find(serie => serie.name === serie_name)
