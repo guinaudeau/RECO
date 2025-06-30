@@ -132,10 +132,8 @@ html.dark body {
 }
 
 .contact-container {
-  max-width: 420px;
-  margin: 40px auto;
-  background: #f9f9f9;
-  padding: 28px 22px 18px 22px;
+  width: 100%;
+  padding: 0px 40px 0px 40px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
@@ -150,7 +148,6 @@ html.dark .contact-container {
   font-size: 1.7em;
   font-weight: 600;
   margin-bottom: 18px;
-  color: #007bff;
   letter-spacing: 1px;
 }
 
