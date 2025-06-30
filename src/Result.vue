@@ -8,8 +8,8 @@ const similaritiesTable = ref([]) // Tableau des similarités
 const comparisonResult = ref(null) // Résultat de la comparaison entre deux séries
 let editFeature = ref(false) // État pour afficher/masquer la personnalisation
 
-// Mapping des features vers les colonnes du CSV
-const featureColumns = {
+// Regroupement des features principales
+const oldFeatureColumns = {
   plot: [
     "Plot complexity", "Language level", "Character development", "Originality of the plot", "Themes of good and evil",
     "Deception", "Personal emancipation trajectories", "Collective struggles", "Found families theme",
@@ -47,16 +47,41 @@ const featureColumns = {
     "Mean Brightness", "STDÊ Brightness", "MinÊ Brightness", "MaxÊ Brightness", "Mean Contrast", "STDÊ Contrast", "MinÊ Contrast", "MaxÊ Contrast", "Mean Saturation", "STDÊ Saturation", "MinÊ Saturation", "MaxÊ Saturation", "Heat", "Scene/Seconds", "Plans tres rapide", "Plans courts", "Plans moyens", "Plans longs", "Plans tres longs", "Optical Flow Max", "Optical Flow Score", "Optical Flow STD"
   ]
 }
-const featureKeys = Object.keys(featureColumns)
 
-// Initialiser tous les sliders à "1" (tout coché par défaut, y compris les features principales)
+// Nouvelle structure : texte, audio, video
+const featureColumns = {
+  texte: [
+    // Les anciennes features principales (hors audio/video)
+    ...Object.keys(oldFeatureColumns)
+      .filter(k => k !== 'audio' && k !== 'video')
+      .map(k => ({
+        key: k,
+        label: k,
+        sub: oldFeatureColumns[k]
+      }))
+  ],
+  audio: oldFeatureColumns.audio,
+  video: oldFeatureColumns.video
+}
+const featureKeys = ['texte', 'audio', 'video']
+
+// Initialiser tous les sliders à "1" (tout coché par défaut, y compris les features principales et sous-features)
 function getDefaultSliders() {
   const sliders = {};
   featureKeys.forEach(key => {
     sliders[key] = "1";
-    (featureColumns[key] || []).forEach(col => {
-      sliders[col] = "1";
-    })
+    if (key === 'texte') {
+      featureColumns.texte.forEach(group => {
+        sliders[group.key] = "1";
+        group.sub.forEach(col => {
+          sliders[col] = "1";
+        })
+      })
+    } else {
+      (featureColumns[key] || []).forEach(col => {
+        sliders[col] = "1";
+      })
+    }
   })
   return sliders;
 }
@@ -120,17 +145,6 @@ function cosineSimilarity(A, B) {
   if (!denom) return 0;
   const result = dotproduct / denom;
   return isNaN(result) ? 0 : result;
-}
-
-// Fonction pour récupérer les caractéristiques d'une série selon le mapping (pas de pondération)
-function getFeatures(serieName, key) {
-  const serie = props.characteristics.find(item => item["Serie"] === serieName)
-  if (!serie) return []
-  const cols = featureColumns[key] || []
-  // On ne prend en compte que les sous-features activées
-  return cols
-    .filter(col => localSliders.value[col] === "1")
-    .map(col => parseFloat(serie[col]) || 0)
 }
 
 // Fonction pour calculer les similarités pour une série donnée (avec pondération)
@@ -238,6 +252,11 @@ const openGroups = ref({})
 // Initialiser tous fermés
 featureKeys.forEach(key => {
   openGroups.value[key] = false
+  if (key === 'texte') {
+    featureColumns.texte.forEach(group => {
+      openGroups.value[group.key] = false
+    })
+  }
 })
 </script>
 
@@ -249,18 +268,10 @@ featureKeys.forEach(key => {
       <div v-if="editFeature">
         <button @click="validerChanges">Valider les changements</button>
         <h3>Personnalisation des critères</h3>
-        <!-- Grille pour les critères principaux, répartie sur 3 par ligne -->
+        <!-- Grille pour les 3 grandes features -->
         <div class="slider-grid-multi">
-          <div
-            class="slider-row"
-            v-for="row in Math.ceil(featureKeys.length / 3)"
-            :key="row"
-          >
-            <div
-              v-for="key in featureKeys.slice((row - 1) * 3, row * 3)"
-              :key="key"
-              class="slider-col"
-            >
+          <div class="slider-row">
+            <div v-for="key in featureKeys" :key="key" class="slider-col">
               <label class="feature-title-slider">
                 <strong>{{ key }}</strong>
                 <input
@@ -272,6 +283,15 @@ featureKeys.forEach(key => {
                 />
                 <span class="slider-value">{{ localSliders[key] }}</span>
                 <button
+                  v-if="key === 'texte'"
+                  type="button"
+                  class="toggle-features-btn"
+                  @click="openGroups[key] = !openGroups[key]"
+                >
+                  {{ openGroups[key] ? '▲' : '▼' }}
+                </button>
+                <button
+                  v-if="key === 'audio' || key === 'video'"
                   type="button"
                   class="toggle-features-btn"
                   @click="openGroups[key] = !openGroups[key]"
@@ -280,7 +300,46 @@ featureKeys.forEach(key => {
                 </button>
               </label>
               <transition name="fade">
-                <div class="checkbox-col" v-show="openGroups[key]">
+                <!-- Sous-features pour texte -->
+                <div class="checkbox-col" v-show="openGroups[key]" v-if="key === 'texte'">
+                  <div v-for="group in featureColumns.texte" :key="group.key" style="margin-bottom: 0.7em;">
+                    <label class="feature-title-slider" style="font-size: 1em;">
+                      <strong>{{ group.label }}</strong>
+                      <input
+                        type="checkbox"
+                        v-model="localSliders[group.key]"
+                        true-value="1"
+                        false-value="0"
+                      />
+                      <button
+                        type="button"
+                        class="toggle-features-btn"
+                        @click="openGroups[group.key] = !openGroups[group.key]"
+                      >
+                        {{ openGroups[group.key] ? '▲' : '▼' }}
+                      </button>
+                    </label>
+                    <transition name="fade">
+                      <div class="checkbox-col" v-show="openGroups[group.key]">
+                        <label
+                          v-for="col in group.sub"
+                          :key="col"
+                          class="checkbox-item"
+                        >
+                          <input
+                            type="checkbox"
+                            v-model="localSliders[col]"
+                            true-value="1"
+                            false-value="0"
+                          />
+                          {{ col }}
+                        </label>
+                      </div>
+                    </transition>
+                  </div>
+                </div>
+                <!-- Sous-features pour audio/video -->
+                <div class="checkbox-col" v-show="openGroups[key]" v-else>
                   <label
                     v-for="col in featureColumns[key]"
                     :key="col"
