@@ -144,15 +144,15 @@ function toggleNav() {
 
 <template>
   <header class="header-bar">
-    <a href="https://www.cnrs.fr/fr" target="Fenêtre définie" class="logo-link">
-      <img src="CNRS.png" alt="Logo du CNRS" class="logo-img" />
+    <a href="https://guinaudeau.github.io/RECO/" target="Fenêtre définie" class="logo-link">
+      <img src="logo_RECO.png" alt="Logo de RECO+" class="logo-img" />
     </a>
     <h1 class="header-title">RECO+</h1>
     <nav class="main-nav" :class="{ open: navOpen }">
       <a href="#/" v-if="!IsHome"><button>Catalogue</button></a>
       <a href="#/Resultat" v-if="!IsResult"><button>Résultats</button></a>
       <a href="#/about" v-if="!IsAbout"><button>À propos</button></a>
-      <a href="#/contact" v-if="!IsContact"><button>nous Contacter</button></a>
+      <a href="#/contact" v-if="!IsContact"><button>Contact</button></a>
       <a href="#/partenaire" v-if="!IsPartenaire"><button>Partenaire</button></a>
     </nav>
     <button @click="toggleDark()" class="dark-mode-toggle">
