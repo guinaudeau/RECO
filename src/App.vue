@@ -207,13 +207,13 @@ h2{
   padding:0;
   font-size: 2.2em;
   font-weight:bold;
-  color: #38808D; /*#222;*/
+  color: #224E55; /*#38808D; #222;*/
   text-align:center;
   margin-bottom:20px;
   font-family: 'Poppins', sans-serif;
   text-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
   letter-spacing: 1px;
 }
 html.dark h2 {
