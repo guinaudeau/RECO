@@ -327,7 +327,7 @@ p {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 24px 20px;
   margin: 30px auto 10px auto;
-  background: #c4e0ff;
+  background: #c3d8dc; /*#c4e0ff;*/
   border-radius: 18px;
   box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
   padding: 24px;
