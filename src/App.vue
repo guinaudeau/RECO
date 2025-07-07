@@ -207,7 +207,7 @@ h2{
   padding:0;
   font-size: 2.2em;
   font-weight:bold;
-  color:#222;
+  color: #38808D; /*#222;*/
   text-align:center;
   margin-bottom:20px;
   font-family: 'Poppins', sans-serif;
@@ -332,7 +332,7 @@ html.dark .menu span {
     left: 0;
     right: 0;
     flex-direction: column;
-    background: #fff;
+    background: #EBF5F7; /*#fff;*/
     border-bottom: 1px solid #34495e;
     z-index: 100;
     display: none;
