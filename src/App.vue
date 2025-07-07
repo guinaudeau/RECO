@@ -192,10 +192,10 @@ h1{
   padding:0;
   font-size:2.5em;
   font-weight:bold;
-  color:#222;
+  color: #224E55; /*#222;*/
   text-align:center;
   margin-bottom:20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'PT Serif'; /*'Poppins', sans-serif;*/
   text-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
 }
@@ -210,7 +210,7 @@ h2{
   color: #224E55; /*#38808D; #222;*/
   text-align:center;
   margin-bottom:20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'PT Serif'; /*'Poppins', sans-serif;*/
   text-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
   /*text-decoration: underline;*/
