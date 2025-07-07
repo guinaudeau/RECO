@@ -1,8 +1,8 @@
 <template>
   <div class="contenu">
-    <h1>Bienvenue sur la page d'accueil</h1>
+    <!--<h1>Bienvenue sur la page d'accueil</h1>
     <p>Cette page affiche une liste de séries avec des options de recherche et de sélection.</p>
-    <p>cocher la série pour la sélectionner puis clicker sur resultat pour voir les seris similaires</p>
+    <p>cocher la série pour la sélectionner puis clicker sur resultat pour voir les seris similaires</p>-->
   <h2>Liste des séries</h2>
   <form @submit.prevent="searchQuery">
     <input type="text" v-model="rechercher" placeholder="Rechercher une série" />
