@@ -192,7 +192,7 @@ h1{
   padding:0;
   font-size:2.5em;
   font-weight:bold;
-  color: #224E55; /*#222;*/
+  color: #222; /*#222;*/
   text-align:center;
   margin-bottom:20px;
   font-family: 'PT Serif'; /*'Poppins', sans-serif;*/
@@ -207,7 +207,7 @@ h2{
   padding:0;
   font-size: 2.2em;
   font-weight:bold;
-  color: #224E55; /*#38808D; #222;*/
+  color: #222; /*#38808D; #222;*/
   text-align:center;
   margin-bottom:20px;
   font-family: 'PT Serif'; /*'Poppins', sans-serif;*/
