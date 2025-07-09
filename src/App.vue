@@ -143,6 +143,10 @@ function toggleNav() {
 </script>
 
 <template>
+  <head>
+    <link rel="icon" type="image/png" href="/RECO/public/favicon.ico">
+    <title>TV Series Recommandation - RECO+</title>
+  </head>  
   <header class="header-bar">
     
     <a href="https://guinaudeau.github.io/RECO/" target="Fenêtre définie" class="logo-link">
