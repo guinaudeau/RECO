@@ -145,7 +145,7 @@ function toggleNav() {
 <template>
   <header class="header-bar">
     <a href="https://guinaudeau.github.io/RECO/" target="Fenêtre définie" class="logo-link">
-      <img src="logo_RECO.png" alt="Logo de RECO+" class="logo-img" />
+      <img src="Logo_RECO.png" alt="Logo de RECO+" class="logo-img" />
     </a>
     <h1 class="header-title">RECO+</h1>
     <nav class="main-nav" :class="{ open: navOpen }">
