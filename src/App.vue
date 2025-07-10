@@ -154,22 +154,17 @@ function toggleNav() {
       <span v-if="!isDark" aria-label="Activer le mode nuit" title="Activer le mode nuit">🌞</span>
       <span v-else aria-label="Activer le mode jour" title="Activer le mode jour">🌙</span>
     </button>
-    <!--<button class="menu" @click="toggleNav" aria-label="Menu" aria-expanded="navOpen" aria-controls="main-nav">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>-->
   </header>
-  <nav class="main-nav" :class="{ open: navOpen }">
-    <span></span>
-    <span></span>
-    <span></span>
+    <button class="menu" @click="toggleNav" aria-label="Menu" aria-expanded="navOpen" aria-controls="main-nav">
+      <span></span>
+      <span></span>
+      <span></span>
       <a href="#/" v-if="!IsHome"><button>Catalogue</button></a>
       <a href="#/Resultat" v-if="!IsResult"><button>Résultats</button></a>
       <a href="#/about" v-if="!IsAbout"><button>À propos</button></a>
       <a href="#/contact" v-if="!IsContact"><button>Contact</button></a>
       <a href="#/partenaire" v-if="!IsPartenaire"><button>Partenaire</button></a>
-  </nav>
+    </button>
   <div v-if="isLoading">Chargement des séries...</div>
   <keep-alive v-else>
       <component
