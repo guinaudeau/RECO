@@ -138,8 +138,6 @@ const navOpen = ref(false)
 function toggleNav() {
   navOpen.value = !navOpen.value
 }
-
-
 </script>
 
 <template>
@@ -148,18 +146,10 @@ function toggleNav() {
     <title>TV Series Recommandation - RECO+</title>
   </head>  
   <header class="header-bar">
-    
     <a href="https://guinaudeau.github.io/RECO/" target="Fenêtre définie" class="logo-link">
       <img src="/RECO/public/Logo_RECO.png" alt="Logo de RECO+" class="logo-img" />
     </a>
     <h1 class="header-title">RECO+</h1>
-    <nav class="main-nav" :class="{ open: navOpen }">
-      <a href="#/" v-if="!IsHome"><button>Catalogue</button></a>
-      <a href="#/Resultat" v-if="!IsResult"><button>Résultats</button></a>
-      <a href="#/about" v-if="!IsAbout"><button>À propos</button></a>
-      <a href="#/contact" v-if="!IsContact"><button>Contact</button></a>
-      <a href="#/partenaire" v-if="!IsPartenaire"><button>Partenaire</button></a>
-    </nav>
     <button @click="toggleDark()" class="dark-mode-toggle">
       <span v-if="!isDark" aria-label="Activer le mode nuit" title="Activer le mode nuit">🌞</span>
       <span v-else aria-label="Activer le mode jour" title="Activer le mode jour">🌙</span>
@@ -170,6 +160,13 @@ function toggleNav() {
       <span></span>
     </button>
   </header>
+  <nav class="main-nav" :class="{ open: navOpen }">
+      <a href="#/" v-if="!IsHome"><button>Catalogue</button></a>
+      <a href="#/Resultat" v-if="!IsResult"><button>Résultats</button></a>
+      <a href="#/about" v-if="!IsAbout"><button>À propos</button></a>
+      <a href="#/contact" v-if="!IsContact"><button>Contact</button></a>
+      <a href="#/partenaire" v-if="!IsPartenaire"><button>Partenaire</button></a>
+  </nav>
   <div v-if="isLoading">Chargement des séries...</div>
   <keep-alive v-else>
       <component
