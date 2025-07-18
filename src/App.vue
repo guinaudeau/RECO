@@ -222,7 +222,7 @@ html.dark h2 {
   color: #00c7ec;
 }
 .contenu{
-  background-color:#f0f9ff;
+  background-color:#eaf3fb;
 }
 html.dark .contenu {
   background-color: #181c23;
@@ -303,7 +303,7 @@ html.dark .header-bar {
   display: block;
   width: 28px;
   height: 4px;
-  background: #34495e;
+  background: #10314F;
   margin: 4px 0;
   border-radius: 2px;
   transition: all 0.3s;
@@ -334,8 +334,8 @@ html.dark .menu span {
     left: 0;
     right: 0;
     flex-direction: column;
-    background: #EBF5F7; /*#fff;*/
-    border-bottom: 1px solid #34495e;
+    background: #d5e6f6; /*#fff;*/
+    border-bottom: 1px solid #10314F;
     z-index: 100;
     display: none;
     gap: 0;
