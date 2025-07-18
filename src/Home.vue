@@ -77,14 +77,14 @@ table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 20px 10px;
-  background: #c4e0ff;
+  background: #96c1e8;
   border-radius: 18px;
   box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
   margin: 30px auto 10px auto;
 }
 
 td {
-  background: #cae3ff;
+  background: #96c1e8;
   border-radius: 14px;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
   padding: 18px 12px 12px 12px;
@@ -104,7 +104,7 @@ td:hover {
   border-radius: 10px;
   margin-bottom: 8px;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
-  background: #f3f3f3;
+  background: #eaf3fa;
   transition: transform 0.3s;
 }
 
@@ -126,19 +126,19 @@ input[type="email"] {
   border: 1.5px solid #dbe2ea;
   border-radius: 6px;
   font-size: 1.1em;
-  background: #f8fafd;
+  background: #eaf3fa;
   transition: border 0.2s;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus {
-  border: 1.5px solid #1a4e7f;
+  border: 1.5px solid #174169;
   outline: none;
 }
 
 button,
 button[type="submit"] {
-  background: #1a4e7f;
+  background: #174169;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -152,7 +152,7 @@ button[type="submit"] {
 
 button:hover,
 button[type="submit"]:hover {
-  background: #2d3a4a;
+  background: #11304d;
   color: #fff;
 }
 
@@ -178,8 +178,8 @@ p {
 }
 
 .checkbox-wrapper-50 .plus-minus {
-  --primary: #1E2235;
-  --secondary: #FAFBFF;
+  --primary: #11304d;
+  --secondary: #eaf3fa;
   --duration: .5s;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -327,14 +327,14 @@ p {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 24px 20px;
   margin: 30px auto 10px auto;
-  background: #C2E1E7; /*#c3d8dc; #c4e0ff;*/
+  background: #d5e6f6; /*#c3d8dc; #c4e0ff;*/
   border-radius: 18px;
   box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
   padding: 24px;
 }
 
 .serie-card {
-  background: #c4e0ff;
+  background: #abcded;
   border-radius: 14px;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
   padding: 18px 12px 12px 12px;
