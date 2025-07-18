@@ -161,9 +161,9 @@ function toggleNav() {
       <span></span>
     </button>
   <nav>
-    <a href="#/" v-if="!IsHome"><button>Catalogue</button></a>
+    <a href="#/" v-if="!IsHome"><button>Accueil</button></a>
     <a href="#/Resultat" v-if="!IsResult"><button>Résultats</button></a>
-    <a href="#/about" v-if="!IsAbout"><button>Projet RECO+</button></a>
+    <a href="#/about" v-if="!IsAbout"><button>Projet</button></a>
     <a href="#/partenaire" v-if="!IsPartenaire"><button>Partenaires</button></a>
     <a href="#/contact" v-if="!IsContact"><button>Contact</button></a>
   </nav>
