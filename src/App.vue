@@ -142,12 +142,12 @@ function toggleNav() {
 
 <template>
   <head>
-    <link rel="icon" type="image/png" href="/RECO/public/favicon.ico">
+    <link rel="icon" type="image/png" href="favicon.ico">
     <title>TV Series Recommandation - RECO+</title>
   </head>  
   <header class="header-bar">
     <a href="https://guinaudeau.github.io/RECO/" target="Fenêtre définie" class="logo-link">
-      <img src="/RECO/public/Logo_RECO.png" alt="Logo de RECO+" class="logo-img" />
+      <img src="Logo_RECO.png" alt="Logo de RECO+" class="logo-img" />
     </a>
     <h1 class="header-title">RECO+</h1>
     <button @click="toggleDark()" class="dark-mode-toggle">
