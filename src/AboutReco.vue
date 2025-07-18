@@ -105,7 +105,7 @@ div.texte h3 {
   margin-bottom: 0.7em;
   text-decoration: underline;
   font-size: 1.5em;
-  color: #d5e6f6;
+  color: #174169;
 }
 
 div.texte p {
