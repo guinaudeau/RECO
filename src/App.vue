@@ -147,13 +147,13 @@ function toggleNav() {
   </head>  
   <header class="header-bar">
     <a href="https://guinaudeau.github.io/RECO/" target="Fenêtre définie" class="logo-link">
-      <img src="Logo_RECO.png" alt="Logo de RECO+" class="logo-img" />
+      <img src="Logo_RECO_name.png" alt="Logo de RECO+" width="1500" class="logo-img" />
     </a>
-    <h1 class="header-title">RECO+</h1>
+    <!--<h1 class="header-title">RECO+</h1>
     <button @click="toggleDark()" class="dark-mode-toggle">
       <span v-if="!isDark" aria-label="Activer le mode nuit" title="Activer le mode nuit">🌞</span>
       <span v-else aria-label="Activer le mode jour" title="Activer le mode jour">🌙</span>
-    </button>
+    </button>-->
   </header>
     <button class="menu" @click="toggleNav" aria-label="Menu" aria-expanded="navOpen" aria-controls="main-nav">
       <span></span>
