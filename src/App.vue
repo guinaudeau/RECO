@@ -142,7 +142,7 @@ function toggleNav() {
 
 <template>
   <head>
-    <link rel="icon" type="image/png" href="favicon.ico">
+    <link rel="icon" type="image/png" href="favicon.png">
     <title>TV Series Recommandation - RECO+</title>
   </head>  
   <header class="header-bar">
