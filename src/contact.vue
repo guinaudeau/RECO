@@ -209,7 +209,7 @@ html.dark .form-group textarea {
   padding: 8px 18px;
   border: none;
   border-radius: 4px;
-  background: #007bff;
+  background: #174169;
   color: #fff;
   font-size: 1em;
   font-weight: 500;
@@ -224,7 +224,7 @@ html.dark .form-group textarea {
 
 .form-actions button:disabled,
 .form-actions button.error-btn {
-  background: #e74c3c !important;
+  background: #174169 !important;
   color: #fff !important;
   cursor: not-allowed;
 }
