@@ -99,7 +99,7 @@ const currentView = computed(() => routes[currentPath.value.slice(1)] || Home)
 
 window.addEventListener('hashchange', () => {
   currentPath.value = window.location.hash || '#/'
-  changementVus() // Met à jour les états de navigation
+  //changementVus() // Met à jour les états de navigation
 })
 // fonction tres moche pour changer la navigation (code en commentaire pour selection, décommenter si besoin)
 let IsHome = true
@@ -131,7 +131,7 @@ function changementVus() {
 
   }
 }
-changementVus()
+//changementVus()
 
 // Menu pour mobile
 const navOpen = ref(false)
