@@ -132,13 +132,13 @@ input[type="email"] {
 
 input[type="text"]:focus,
 input[type="email"]:focus {
-  border: 1.5px solid #7dcfff;
+  border: 1.5px solid #1a4e7f;
   outline: none;
 }
 
 button,
 button[type="submit"] {
-  background: #7dcfff;
+  background: #1a4e7f;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -388,7 +388,7 @@ html.dark-mode .serie-image {
 
 html.dark h2,
 html.dark-mode h2 {
-  color: #7dcfff;
+  color: #1a4e7f;
 }
 
 html.dark input[type="text"],
@@ -404,7 +404,7 @@ html.dark input[type="text"]:focus,
 html.dark-mode input[type="text"]:focus,
 html.dark input[type="email"]:focus,
 html.dark-mode input[type="email"]:focus {
-  border: 1.5px solid #7dcfff;
+  border: 1.5px solid #1a4e7f;
 }
 
 html.dark button,
@@ -419,8 +419,8 @@ html.dark button:hover,
 html.dark-mode button:hover,
 html.dark button[type="submit"]:hover,
 html.dark-mode button[type="submit"]:hover {
-  background: #7dcfff;
-  color: #232834;
+  background: #1a4e7f;
+  color: #113455;
 }
 
 html.dark p,
