@@ -88,7 +88,7 @@ const textuelCriteres = [
 
 <style>
 div.texte {
-  background-color: rgb(255, 255, 191);
+  background-color: #d5e6f6;
   margin: 2em auto;
   padding: 2em 2.5em;
   max-width: 900px;
@@ -105,7 +105,7 @@ div.texte h3 {
   margin-bottom: 0.7em;
   text-decoration: underline;
   font-size: 1.5em;
-  color: #3a3a1a;
+  color: #d5e6f6;
 }
 
 div.texte p {
