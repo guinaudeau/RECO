@@ -23,7 +23,7 @@
         <div class="pair">
             <div class="description">
                 <h3>Le JFLI</h3>
-                <p>Le Japanese French Laboratory for Informatics (JFLI) est un laboratoire international de recherche (IRL 3527) regroupant deux institutions françaises (CNRS et Sorbonne Université) et trois institutions japonaises (NII, Université de Tokyo et Université Keio). Sur la base de la coopération scientifique existante entre le Japon et la France, quatre thèmes ont été sélectionnés pour leur potentiel de recherche collaborative fructueuse : Informatique quantique, Intelligence artificielle, Réseaux et cybersécurité, Fondements de l’informatique.</br> </p>
+                <p>Le Japanese French Laboratory for Informatics (JFLI) est un laboratoire international de recherche (IRL 3527) regroupant deux institutions françaises (CNRS et Sorbonne Université) et trois institutions japonaises (NII, Université de Tokyo et Université Keio). Sur la base de la coopération scientifique existante entre le Japon et la France, quatre thèmes ont été sélectionnés pour leur potentiel de recherche collaborative fructueuse : Informatique quantique, Intelligence artificielle, Réseaux et cybersécurité, Fondements de l’informatique.</p>
             </div>
             <a href="https://jfli.cnrs.fr/" target="Fenêtre définie"><img src="logo-jfli.png" alt="logo du JFLI" /></a>
         </div>
